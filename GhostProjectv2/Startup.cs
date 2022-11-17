@@ -53,7 +53,7 @@ namespace GhostProjectv2
             {
                 app.UseDeveloperExceptionPage();
                 loggerFactory.AddFile("Logs/KundeLog.txt");
-                DBinit.Initialize(app);
+                //DBinit.Initialize(app);
             }
             else
             {
