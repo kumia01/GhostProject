@@ -24,7 +24,6 @@
     "react-scripts": "^5.0.0",
     "typescript": "^3.9.10"
   },
-
   "scripts": {
     "start": "rimraf ./build && react-scripts start",
     "build": "react-scripts build",
