@@ -1,0 +1,5 @@
+.vs/
+GhostProjectv2/bin/Debug/
+GhostProjectv2/obj/
+GhostProjectv2/bin/Debug/netcoreapp3.1/
+GhostProjectv2/ClientApp/node_modules/
