@@ -36,6 +36,7 @@ namespace GhostProjectv2.Controllers
         {
             if (ModelState.IsValid)
             {
+                Console.WriteLine(innKunde);
                 bool returOK = await _db.Lagre(innBruker, innKunde);
                 if (!returOK)
                 {

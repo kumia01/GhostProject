@@ -37,10 +37,14 @@ namespace GhostProjectv2.DAL
                 var nyKundeRad = new Kunder();
                 nyKundeRad.Brukernavn = innKunde.Brukernavn;
                 string passord = innKunde.Passord;
+
+                _log.LogInformation(innKunde.Passord + passord);
                 byte[] salt = LagSalt();
                 byte[] hash = LagHash(passord, salt);
                 nyKundeRad.Passord = hash;
                 nyKundeRad.Salt = salt;
+
+                
 
                 var sjekkPostnr = await _db.Poststeder.FindAsync(innBruker.Postnr);
                 if (sjekkPostnr == null)

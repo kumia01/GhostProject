@@ -123,13 +123,63 @@ export class Registrer extends Component {
                 errors["poststed"] = "Bare bokstaver, må være mellom 2-20 tegn!";
             }
         }
-
+        this.setState({ errors: errors });
+        return formOK;
 
     }
 
     registrer() {
+        if (this.validering() == true) {
+            let errors = {};
 
+
+            const kunde = {
+                Brukernavn: this.state.input["brukernavn"],
+                Passord: this.state.input["passord"]
+            }
+            const bruker = {
+                Fornavn: this.state.input["fornavn"],
+                Etternavn: this.state.input["etternavn"],
+                Adresse: this.state.input["adresse"],
+                Postnr: this.state.input["postnr"],
+                Poststed: this.state.input["poststed"]
+            }
+            console.log(bruker);
+            console.log(kunde);
+
+            $.ajax({
+                type: "POST",
+                url: '../Bruker/Lagre',
+                data: { "bruker": JSON.stringify(bruker), "kunde": JSON.stringify(kunde) },
+                cache: false,
+                success: function (result) {
+                    console.log("FUCK YEAH!!");
+                    alert(result);
+                }
+            });
+
+
+           /* $.post("../Bruker/Lagre", bruker, kunde, function (OK) {
+                if (OK) {
+                    //Sender kunde til logginn side
+
+                    console.log("FUCK YEAH!!");
+                }
+                else {
+                    //Fikse error melding
+
+                    console.log("FEIL!!");
+                }
+            });*/
+        }
     }
+
+    handleChange(input, e) {
+        let inputs = this.state.input;
+        inputs[input] = e.target.value;
+        this.setState({ inputs });
+    }
+
 
 
 
@@ -139,14 +189,16 @@ export class Registrer extends Component {
                 <Form>
                     <Row className="justify-content-md-center">
                         <Col md="6" sm="12" lg="6">
-                            <h2>Kunde registrering</h2>
+                            <h2>Logg inn detaljer</h2>
                             <FormGroup>
                                 <Label for="¨brukernavn">Brukernavn:</Label>
                                 <Input
+                                    ref="brukernavn"
                                     type="text"
                                     placeholder="Brukernavn"
                                     className="form-control"
                                     id="brukernavn"
+                                    onChange={this.handleChange.bind(this, "brukernavn")}
                                     value={this.state.input["brukernavn"]}
                                     required="required"
                                 />
@@ -156,15 +208,19 @@ export class Registrer extends Component {
                             <FormGroup>
                                 <Label for="passord">Passord:</Label>
                                 <Input
+                                    ref="passord"
                                     type="password"
                                     placeholder="Password"
                                     className="form-control"
                                     id="passord"
+                                    onChange={this.handleChange.bind(this, "passord")}
                                     value={this.state.input["passord"]}
                                     required="required"
                                 />
                                 <span style={{ color: "red" }}>{this.state.errors["passord"]}</span>
                             </FormGroup>
+
+
 
                         </Col>
                         <Col md="6" sm="12" lg="6">
@@ -172,10 +228,12 @@ export class Registrer extends Component {
                             <FormGroup>
                                 <Label for="fornavn">Fornavn:</Label>
                                 <Input
+                                    ref="fornavn"
                                     type="text"
                                     placeholder="Fornavn"
                                     className="form-control"
                                     id="fornavn"
+                                    onChange={this.handleChange.bind(this, "fornavn")}
                                     value={this.state.input["fornavn"]}
                                     required="required"
                                 />
@@ -185,10 +243,12 @@ export class Registrer extends Component {
                             <FormGroup>
                                 <Label for="etternavn">Etternavn:</Label>
                                 <Input
+                                    ref="etternavn"
                                     type="text"
                                     placeholder="Etternavn"
                                     className="form-control"
                                     id="etternavn"
+                                    onChange={this.handleChange.bind(this, "etternavn")}
                                     value={this.state.input["etternavn"]}
                                     required="required"
                                 />
@@ -198,10 +258,12 @@ export class Registrer extends Component {
                             <FormGroup>
                                 <Label for="adresse">Adresse:</Label>
                                 <Input
+                                    ref="adresse"
                                     type="text"
                                     placeholder="Adresse"
                                     className="form-control"
                                     id="adresse"
+                                    onChange={this.handleChange.bind(this, "adresse")}
                                     value={this.state.input["adresse"]}
                                     required="required"
                                 />
@@ -211,10 +273,12 @@ export class Registrer extends Component {
                             <FormGroup>
                                 <Label for="postnr">Postnr:</Label>
                                 <Input
+                                    ref="postnr"
                                     type="text"
                                     placeholder="Postnr"
                                     className="form-control"
                                     id="postnr"
+                                    onChange={this.handleChange.bind(this, "postnr")}
                                     value={this.state.input["postnr"]}
                                     required="required"
                                 />
@@ -224,10 +288,12 @@ export class Registrer extends Component {
                             <FormGroup>
                                 <Label for="poststed">Poststed:</Label>
                                 <Input
+                                    ref="poststed"
                                     type="text"
                                     placeholder="Poststed"
                                     className="form-control"
                                     id="poststed"
+                                    onChange={this.handleChange.bind(this, "poststed")}
                                     value={this.state.input["poststed"]}
                                     required="required"
                                 />

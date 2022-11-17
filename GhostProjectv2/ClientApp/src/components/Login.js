@@ -68,7 +68,7 @@ export class Login extends Component {
             }
         }
         this.setState({ errors: errors });
-        return formOK
+        return formOK;
     }
 
     //login kall til serveren for å starte session
