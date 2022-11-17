@@ -1,5 +1,4 @@
 ﻿using GhostProjectv2.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +24,7 @@ namespace GhostProjectv2.DAL
 
         //Lager en ny rad i brukere tabellen med innbruker når en bruker registrerer en kunde,
         //lager også ny rad i poststeder tabellen om poststed ikke finnes fra før av
-        public async Task<bool> Lagre(Bruker innBruker, Kunde innKunde)
+        public async Task<bool> Lagre(Bruker innBruker)
         {
             try
             {
@@ -35,16 +34,13 @@ namespace GhostProjectv2.DAL
                 nyBrukerRad.Adresse = innBruker.Adresse;
 
                 var nyKundeRad = new Kunder();
-                nyKundeRad.Brukernavn = innKunde.Brukernavn;
-                string passord = innKunde.Passord;
-
-                _log.LogInformation(innKunde.Passord + passord);
+                nyKundeRad.Brukernavn = innBruker.Brukernavn;
+                string passord = innBruker.Passord;
                 byte[] salt = LagSalt();
                 byte[] hash = LagHash(passord, salt);
                 nyKundeRad.Passord = hash;
                 nyKundeRad.Salt = salt;
-
-                
+                passord = "";
 
                 var sjekkPostnr = await _db.Poststeder.FindAsync(innBruker.Postnr);
                 if (sjekkPostnr == null)
@@ -189,13 +185,13 @@ namespace GhostProjectv2.DAL
             return salt;
         }
 
-        public async Task<bool> LoggInn(Kunde kunde)
+        public async Task<bool> LoggInn(Bruker innBruker)
         {
             try
             {
-                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == kunde.Brukernavn);
+                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == innBruker.Brukernavn);
 
-                byte[] hash = LagHash(kunde.Passord, funnetKunde.Salt);
+                byte[] hash = LagHash(innBruker.Passord, funnetKunde.Salt);
                 bool ok = hash.SequenceEqual(funnetKunde.Passord);
 
                 if (ok)
@@ -211,12 +207,12 @@ namespace GhostProjectv2.DAL
             }
         }
 
-        public async Task<Kunde> HentKundeId(Kunde kunde)
+        public async Task<Bruker> HentKundeId(Bruker innBruker)
         {
             try
             {
-                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == kunde.Brukernavn);
-                var hentetKunde = new Kunde()
+                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == innBruker.Brukernavn);
+                var hentetKunde = new Bruker()
                 {
                     Id = funnetKunde.Id,
                 };

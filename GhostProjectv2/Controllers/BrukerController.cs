@@ -1,13 +1,8 @@
 ﻿
 using GhostProjectv2.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using GhostProjectv2.DAL;
 using Microsoft.AspNetCore.Http;
@@ -32,12 +27,11 @@ namespace GhostProjectv2.Controllers
 
         //Lager en ny rad i brukere tabellen med innbruker når en bruker registrerer en kunde,
         //lager også ny rad i poststeder tabellen om poststed ikke finnes fra før av
-        public async Task<ActionResult> Lagre(Bruker innBruker, Kunde innKunde)
+        public async Task<ActionResult> Lagre(Bruker innBruker)
         {
             if (ModelState.IsValid)
             {
-                Console.WriteLine(innKunde);
-                bool returOK = await _db.Lagre(innBruker, innKunde);
+                bool returOK = await _db.Lagre(innBruker);
                 if (!returOK)
                 {
                     _log.LogInformation("Brukeren ble ikke lagret!");
@@ -114,14 +108,14 @@ namespace GhostProjectv2.Controllers
             
         }
 
-        public async Task<ActionResult> LoggInn(Kunde kunde)
+        public async Task<ActionResult> LoggInn(Bruker innBruker)
         {
             if (ModelState.IsValid)
             {
-                bool returnOK = await _db.LoggInn(kunde);
+                bool returnOK = await _db.LoggInn(innBruker);
                 if (!returnOK)
                 {
-                    _log.LogInformation("Innlogging feilet for bruker " + kunde.Brukernavn + "!");
+                    _log.LogInformation("Innlogging feilet for bruker " + innBruker.Brukernavn + "!");
                     HttpContext.Session.SetString(_loggetInn, "");
                     return Ok(false);
                 }
@@ -132,13 +126,13 @@ namespace GhostProjectv2.Controllers
             return BadRequest("Feil i inputvalidering på server!");
         }
 
-        public async Task<ActionResult> HentKundeId(Kunde kunde)
+        public async Task<ActionResult> HentKundeId(Bruker innBruker)
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
                 return Unauthorized();
             }
-            Kunde funnetKunde = await _db.HentKundeId(kunde);
+            Bruker funnetKunde = await _db.HentKundeId(innBruker);
             if (funnetKunde == null)
             {
                 _log.LogInformation("Fant ikke kunden!");

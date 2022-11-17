@@ -1,12 +1,8 @@
-﻿using Castle.Core.Internal;
-using GhostProjectv2.Models;
+﻿using GhostProjectv2.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using GhostProjectv2.Controllers;
 using GhostProjectv2.DAL;
 using Microsoft.AspNetCore.Http;
 

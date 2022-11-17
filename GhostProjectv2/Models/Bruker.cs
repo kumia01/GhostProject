@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace GhostProjectv2.Models
@@ -16,5 +16,9 @@ namespace GhostProjectv2.Models
         public string Postnr { get; set; }
         [RegularExpression(@"[a-zA-ZæøåÆØÅ. \-]{1,20}$")]
         public string Poststed { get; set; }
+        [RegularExpression(@"^[0-9a-zA-ZæøåÆØÅ. \-]{2,20}$")]
+        public String Brukernavn { get; set; }
+        [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$")]
+        public String Passord { get; set; }
     }
 }

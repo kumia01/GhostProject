@@ -6,12 +6,12 @@ namespace GhostProjectv2.DAL
 {
     public interface IBrukerRepository
     {
-        Task<bool> Lagre(Bruker innBruker, Kunde innKunde);
+        Task<bool> Lagre(Bruker innBruker);
         Task<List<Bruker>> HentAlle();
         Task<bool> Slett(int id);
         Task<Bruker> HentEn(int id);
         Task<bool> Endre(Bruker endreBruker);
-        Task<bool> LoggInn(Kunde kunde);
-        Task<Kunde> HentKundeId(Kunde kunde);
+        Task<bool> LoggInn(Bruker innBruker);
+        Task<Bruker> HentKundeId(Bruker innBruker);
     }
 }

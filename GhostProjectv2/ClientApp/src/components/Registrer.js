@@ -132,34 +132,17 @@ export class Registrer extends Component {
         if (this.validering() == true) {
             let errors = {};
 
-
-            const kunde = {
-                Brukernavn: this.state.input["brukernavn"],
-                Passord: this.state.input["passord"]
-            }
             const bruker = {
-                Fornavn: this.state.input["fornavn"],
-                Etternavn: this.state.input["etternavn"],
-                Adresse: this.state.input["adresse"],
-                Postnr: this.state.input["postnr"],
-                Poststed: this.state.input["poststed"]
+                fornavn: this.state.input["fornavn"],
+                etternavn: this.state.input["etternavn"],
+                adresse: this.state.input["adresse"],
+                postnr: this.state.input["postnr"],
+                poststed: this.state.input["poststed"],
+                brukernavn: this.state.input["brukernavn"],
+                passord: this.state.input["passord"]
             }
-            console.log(bruker);
-            console.log(kunde);
-
-            $.ajax({
-                type: "POST",
-                url: '../Bruker/Lagre',
-                data: { "bruker": JSON.stringify(bruker), "kunde": JSON.stringify(kunde) },
-                cache: false,
-                success: function (result) {
-                    console.log("FUCK YEAH!!");
-                    alert(result);
-                }
-            });
-
-
-           /* $.post("../Bruker/Lagre", bruker, kunde, function (OK) {
+            
+            $.post("../Bruker/Lagre", bruker, function (OK) {
                 if (OK) {
                     //Sender kunde til logginn side
 
@@ -170,7 +153,7 @@ export class Registrer extends Component {
 
                     console.log("FEIL!!");
                 }
-            });*/
+            });
         }
     }
 

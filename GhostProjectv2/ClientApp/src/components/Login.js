@@ -5,9 +5,10 @@ import $ from 'jquery';
 
 
 //Funksjon som lagrer kunde id'en til kunden som logger på i localstorage
-function lagreKundeId(kunde) {
-    $.post("../Bruker/HentKundeId", kunde, function (kunde) {
-        localStorage.setItem('kundeId', kunde.id);
+function lagreKundeId(bruker) {
+    $.post("../Bruker/HentKundeId", bruker, function (bruker) {
+        localStorage.setItem('kundeId', bruker.id);
+        console.log(localStorage.getItem('kundeId'));
     })
         .fail(function (feil) {
             if (feil.status == 401) {
@@ -75,17 +76,18 @@ export class Login extends Component {
     login() {
         if (this.validering() == true) { //Sjekker at regex er godkjent
             let errors = {};
-            const kunde = {
+            const bruker = {
                 brukernavn: this.state.input["brukernavn"],
                 passord: this.state.input["passord"]
             }
-            $.post("../Bruker/LoggInn", kunde, function (OK) { //POST kall med kunde object
+            $.post("../Bruker/LoggInn", bruker, function (OK) { //POST kall med kunde object
                 if (OK) { 
-                    lagreKundeId(kunde); //Kaller på lagreKundeId funksjonen
+                    lagreKundeId(bruker); //Kaller på lagreKundeId funksjonen
 
                     //SENDE BRUKER TIL HJEMSIDEN HER
 
                     console.log("SIUUUUU!");
+                    
                     console.log(localStorage.getItem('kundeId'));
                 }
                 else {
