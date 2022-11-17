@@ -10,6 +10,7 @@ import './custom.css'
 import { Home } from './components/Home';
 import { Handel } from './components/Handel';
 import { Historikk } from './components/Historikk';
+import { Profil } from './components/Profil';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -24,6 +25,7 @@ export default class App extends Component {
             <Route path='/registrer' component={Registrer} />
             <Route path='/uttak' component={Uttak} />
             <Route path='/historikk' component={Historikk} />
+            <Route path='/profil' component={Profil} />
       </Layout>
     );
   }
