@@ -1,4 +1,4 @@
-﻿using WebEx2.Models;
+﻿using GhostProjectv2.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
@@ -6,7 +6,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace WebEx2.DAL
+namespace GhostProjectv2.DAL
 {
     public class AksjeRepository : IAksjeRepository
     {

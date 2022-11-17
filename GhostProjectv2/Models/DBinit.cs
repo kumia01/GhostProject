@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
-using WebEx2.DAL;
+using GhostProjectv2.DAL;
 
-namespace WebEx2.Models
+namespace GhostProjectv2.Models
 {
     public static class DBinit
     {

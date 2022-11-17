@@ -1,4 +1,4 @@
-﻿using WebEx2.Models;
+﻿using GhostProjectv2.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace WebEx2.DAL
+namespace GhostProjectv2.DAL
 {
     public class TransaksjonRepository : ITransaksjonRepository
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebEx2.Models
+namespace GhostProjectv2.Models
 {
 
     //Oppretter tabellen brukere, med forhold til Poststeder og Transaksjoner

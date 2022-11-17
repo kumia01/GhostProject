@@ -1,8 +1,8 @@
-﻿using WebEx2.Models;
+﻿using GhostProjectv2.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace WebEx2.DAL
+namespace GhostProjectv2.DAL
 {
     public interface ITransaksjonRepository
     {

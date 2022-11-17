@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebEx2.Models
+namespace GhostProjectv2.Models
 {
     public class Kunde
     {

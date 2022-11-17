@@ -1,4 +1,4 @@
-﻿using WebEx2.Models;
+﻿using GhostProjectv2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace WebEx2.DAL
+namespace GhostProjectv2.DAL
 {
     public class BrukerRepository : IBrukerRepository
     {
