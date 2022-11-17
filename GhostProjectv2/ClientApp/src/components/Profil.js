@@ -12,39 +12,23 @@ export class Profil extends Component {
 
     render() {
         return (
-            <Card className="profilkort" style={{
-                    width: '35rem',
-                    height: '35rem'
-                
-                }}
-            >
-            <CardBody>
-                <CardTitle tag="h5">Min Profil</CardTitle>
-                <CardText> Din profil er ikke synlig for andre brukere </CardText>
-                <CardText> Hvis du ønsker å oppdatere din profil, kan du kontakte kundeservice</CardText>
-                    <FormGroup>
-                        <Label for="Bruker">Bruker:</Label>
-                    </FormGroup>
+            <Container>
+                <Form>
+                    <Row className="justify-content-md-center">
+                        <Col md="6" sm="12" lg="6">
+                            <h2 className="text-center text-md-center"><strong>Hei, Bruker</strong></h2>
 
-
-                    <CardText> Slett eller endre BrukerKonto </CardText>
-                    <CardText> Du kan Slette din konto her, om du ikke lenger vil ha tilgang til tjenesten. Eller du kan endre din personlig informasj</CardText>
-                    
-                    <div>
-                        <Button color="danger">Slett Meg</Button>
-                    </div>
-                </CardBody>
-            </Card>
-            
-            )
-      
-
-
-
-
+                            <p>Din profil er ikke synlig for andre brukere. Hvis du ønsker å oppdatere din profil kan du kontakte kundeservice.</p>
+                            <p>Slett eller endre brukerkonte</p>
+                            <p>Du kan slette din konto her, om du ikke lenger vil ha tilgang til tjenesten. Du kan også endre informasjon her.</p>
+                            <FormGroup>
+                                <Label for="Bruker">Innlogget bruker: </Label>
+                            </FormGroup>
+                            <Button className="btn btn-md mb-2" color="danger">Slett Bruker</Button>{' '}
+                        </Col>
+                    </Row>
+                </Form>
+            </Container>
+        )
     }
-
-
-
-
 }

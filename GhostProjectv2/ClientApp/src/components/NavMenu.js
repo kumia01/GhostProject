@@ -49,9 +49,9 @@ render () {
                                 <DropdownToggle nav caret id="navTextHighlight">Min Side</DropdownToggle>
                                 <DropdownMenu>
                                     <DropdownItem tag={Link} to="/login">Logg Inn</DropdownItem>
-                                    <DropdownItem divider/>
-                                    <DropdownItem tag={Link} to="/registrer">Registrer bruker</DropdownItem>
                                     <DropdownItem divider />
+                                    {/* <DropdownItem tag={Link} to="/registrer">Registrer bruker</DropdownItem>*/}
+                                    {/* <DropdownItem divider />*/}
                                     <DropdownItem tag={Link} to="/profil">Profil</DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem tag={Link} to="/balanse">Balanse</DropdownItem>

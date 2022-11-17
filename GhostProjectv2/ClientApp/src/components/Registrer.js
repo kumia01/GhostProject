@@ -189,7 +189,8 @@ export class Registrer extends Component {
                 <Form>
                     <Row className="justify-content-md-center">
                         <Col md="6" sm="12" lg="6">
-                            <h2>Logg inn detaljer</h2>
+                            <h2>Fyll inn informasjon for å lage bruker</h2>
+
                             <FormGroup>
                                 <Label for="¨brukernavn">Brukernavn:</Label>
                                 <Input
@@ -220,11 +221,9 @@ export class Registrer extends Component {
                                 <span style={{ color: "red" }}>{this.state.errors["passord"]}</span>
                             </FormGroup>
 
+                            <br />
+                            <br />
 
-
-                        </Col>
-                        <Col md="6" sm="12" lg="6">
-                            <h2>Person info</h2>
                             <FormGroup>
                                 <Label for="fornavn">Fornavn:</Label>
                                 <Input
