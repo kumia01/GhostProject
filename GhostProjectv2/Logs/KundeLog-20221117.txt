@@ -14,3 +14,27 @@
 2022-11-17T12:33:59.3012035+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
 (node:33396) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
  (97392364)
+2022-11-17T14:00:48.8526173+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-17T14:00:48.8646854+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-17T14:00:48.8670391+01:00  [INF] Content root path: "C:\Users\Storm\Source\Repos\GhostProject\GhostProjectv2" (b5d60022)
+2022-11-17T14:00:57.0876124+01:00  [ERR] (node:19568) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (5412c6f3)
+2022-11-17T14:00:57.0922066+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:19568) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (8bb4c28f)
+2022-11-17T14:01:34.8519943+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-17T14:01:34.8695570+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-17T14:01:34.8725112+01:00  [INF] Content root path: "C:\Users\Storm\Source\Repos\GhostProject\GhostProjectv2" (b5d60022)
+2022-11-17T14:01:41.8153236+01:00  [ERR] (node:15940) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (246fbe22)
+2022-11-17T14:01:41.8203611+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:15940) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (e1437fac)
+2022-11-17T14:02:48.3964742+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-17T14:02:48.4142088+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-17T14:02:48.4273064+01:00  [INF] Content root path: "C:\Users\Storm\Source\Repos\GhostProject\GhostProjectv2" (b5d60022)
+2022-11-17T14:02:55.4044030+01:00  [ERR] (node:18200) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (7934322e)
+2022-11-17T14:02:55.4093290+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:18200) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (db498798)
