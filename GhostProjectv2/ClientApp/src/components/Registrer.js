@@ -19,6 +19,111 @@ export class Registrer extends Component {
     }
 
     validering() {
+        let input = this.state.input;
+        let errors = {};
+        let formOK = true;
+
+        //
+        console.log(input["brukernavn"]);
+        console.log(input["passord"]);
+        console.log(input["fornavn"]);
+        console.log(input["etternavn"]);
+        console.log(input["adresse"]);
+        console.log(input["postnr"]);
+        console.log(input["poststed"]);
+        //
+
+
+        //Brukernavn
+        if (!input["brukernavn"]) {
+            formOK = false;
+            errors["brukernavn"] = "Brukernavn kan ikke være tomt!";
+        }
+        if (typeof input["brukernavn"] != "undefined") {
+            if (!input["brukernavn"].match(/^[0-9a-zA-ZæøåÆØÅ. \-]{2,20}$/g)) {
+                formOK = false;
+                errors["brukernavn"] = "Bare bokstaver og tall, mellom 6-20 tegn!";
+            }
+        }
+
+
+        //Passord
+        if (!input["passord"]) {
+            formOK = false;
+            errors["passord"] = "Passord kan ikke være tomt!";
+        }
+        if (typeof input["passord"] != "undefined") {
+            if (!input["passord"].match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/g)) {
+                formOK = false;
+                errors["passord"] = "Passord må inneholde tall og bokstaver. Det skal være 6 eller fler tegn!";
+            }
+        }
+
+
+        //Fornavn
+        if (!input["fornavn"]) {
+            formOK = false;
+            errors["fornavn"] = "Fornavn kan ikke være tomt!";
+        }
+        if (typeof input["fornavn"] != "undefined") {
+            if (!input["fornavn"].match(/^[a-zA-ZæøåÆØÅ. \-]{2,20}$/g)) {
+                formOK = false;
+                errors["fornavn"] = "Bare bokstaver, mellom 2-20 tegn!";
+            }
+        }
+
+
+        //Etternavn
+        if (!input["etternavn"]) {
+            formOK = false;
+            errors["etternavn"] = "Etternavn kan ikke være tomt!";
+        }
+        if (typeof input["etternavn"] != "undefined") {
+            if (!input["etternavn"].match(/^[a-zA-ZæøåÆØÅ. \-]{1,35}$/g)) {
+                formOK = false;
+                errors["etternavn"] = "Bare bokstaver, mellom 1-35 tegn!";
+            }
+        }
+
+
+        //Adresse
+        if (!input["adresse"]) {
+            formOK = false;
+            errors["adresse"] = "Adresse kan ikke være tomt!";
+        }
+        if (typeof input["adresse"] != "undefined") {
+            if (!input["adresse"].match(/^[0-9a-zA-ZæøåÆØÅ. \-]{2,50}$/g)) {
+                formOK = false;
+                errors["adresse"] = "Bare bokstaver og tall, mellom 2-50 tegn!";
+            }
+        }
+
+
+        //Postnr
+        if (!input["postnr"]) {
+            formOK = false;
+            errors["postnr"] = "Postnr kan ikke være tomt!";
+        }
+        if (typeof input["postnr"] != "undefined") {
+            if (!input["postnr"].match(/^[0-9]{4}$/g)) {
+                formOK = false;
+                errors["postnr"] = "Bare tall, må være 4 tegn!";
+            }
+        }
+
+
+        //Poststed
+        if (!input["poststed"]) {
+            formOK = false;
+            errors["poststed"] = "Poststed kan ikke være tomt!";
+        }
+        if (typeof input["poststed"] != "undefined") {
+            if (!input["poststed"].match(/^[a-zA-ZæøåÆØÅ. \-]{2,20}$/g)) {
+                formOK = false;
+                errors["poststed"] = "Bare bokstaver, må være mellom 2-20 tegn!";
+            }
+        }
+
 
     }
 
@@ -26,7 +131,7 @@ export class Registrer extends Component {
 
     }
 
-    
+
 
     render() {
         return (
@@ -42,8 +147,10 @@ export class Registrer extends Component {
                                     placeholder="Brukernavn"
                                     className="form-control"
                                     id="brukernavn"
+                                    value={this.state.input["brukernavn"]}
                                     required="required"
                                 />
+                                <span style={{ color: "red" }}>{this.state.errors["brukernavn"]}</span>
                             </FormGroup>
 
                             <FormGroup>
@@ -53,8 +160,10 @@ export class Registrer extends Component {
                                     placeholder="Password"
                                     className="form-control"
                                     id="passord"
+                                    value={this.state.input["passord"]}
                                     required="required"
                                 />
+                                <span style={{ color: "red" }}>{this.state.errors["passord"]}</span>
                             </FormGroup>
 
                         </Col>
@@ -67,8 +176,10 @@ export class Registrer extends Component {
                                     placeholder="Fornavn"
                                     className="form-control"
                                     id="fornavn"
+                                    value={this.state.input["fornavn"]}
                                     required="required"
                                 />
+                                <span style={{ color: "red" }}>{this.state.errors["fornavn"]}</span>
                             </FormGroup>
 
                             <FormGroup>
@@ -78,8 +189,10 @@ export class Registrer extends Component {
                                     placeholder="Etternavn"
                                     className="form-control"
                                     id="etternavn"
+                                    value={this.state.input["etternavn"]}
                                     required="required"
                                 />
+                                <span style={{ color: "red" }}>{this.state.errors["etternavn"]}</span>
                             </FormGroup>
 
                             <FormGroup>
@@ -89,8 +202,10 @@ export class Registrer extends Component {
                                     placeholder="Adresse"
                                     className="form-control"
                                     id="adresse"
+                                    value={this.state.input["adresse"]}
                                     required="required"
                                 />
+                                <span style={{ color: "red" }}>{this.state.errors["adresse"]}</span>
                             </FormGroup>
 
                             <FormGroup>
@@ -100,8 +215,10 @@ export class Registrer extends Component {
                                     placeholder="Postnr"
                                     className="form-control"
                                     id="postnr"
+                                    value={this.state.input["postnr"]}
                                     required="required"
                                 />
+                                <span style={{ color: "red" }}>{this.state.errors["postnr"]}</span>
                             </FormGroup>
 
                             <FormGroup>
@@ -111,8 +228,10 @@ export class Registrer extends Component {
                                     placeholder="Poststed"
                                     className="form-control"
                                     id="poststed"
+                                    value={this.state.input["poststed"]}
                                     required="required"
                                 />
+                                <span style={{ color: "red" }}>{this.state.errors["poststed"]}</span>
                             </FormGroup>
 
 
@@ -120,7 +239,7 @@ export class Registrer extends Component {
                                 <Button className="btn btn-primary" onClick={this.registrer}>Lag Bruker</Button>
                             </FormGroup>
                         </Col>
-                        
+
                     </Row>
                 </Form>
             </Container>
