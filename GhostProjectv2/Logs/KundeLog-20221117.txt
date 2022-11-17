@@ -1,0 +1,16 @@
+2022-11-17T12:32:37.7534988+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-17T12:32:37.7767052+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-17T12:32:37.7781235+01:00  [INF] Content root path: "C:\Users\thien\Documents\GitHub\WebEx2\WebEx2" (b5d60022)
+2022-11-17T12:32:44.1004605+01:00  [ERR] (node:26524) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (df2eecde)
+2022-11-17T12:32:44.1010451+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:26524) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (b6ea9f22)
+2022-11-17T12:33:53.7397487+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-17T12:33:53.7495249+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-17T12:33:53.7502700+01:00  [INF] Content root path: "C:\Users\thien\Documents\GitHub\WebEx2\WebEx2" (b5d60022)
+2022-11-17T12:33:59.2997881+01:00  [ERR] (node:33396) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (f0d31c68)
+2022-11-17T12:33:59.3012035+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:33396) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (97392364)
