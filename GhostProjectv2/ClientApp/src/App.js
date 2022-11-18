@@ -12,6 +12,7 @@ import { Handel } from './components/Handel';
 import { Historikk } from './components/Historikk';
 import { Profil } from './components/Profil';
 import { Om } from './components/Om';
+import { Kundeservice } from './components/Kundeservice';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -28,6 +29,7 @@ export default class App extends Component {
             <Route path='/historikk' component={Historikk} />
             <Route path='/profil' component={Profil} />
             <Route path='/om' component={Om} />
+            <Route path='/kundeservice' component={Kundeservice} />
       </Layout>
     );
   }
