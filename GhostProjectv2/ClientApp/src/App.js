@@ -30,6 +30,7 @@ export default class App extends Component {
             <Route path='/profil' component={Profil} />
             <Route path='/om' component={Om} />
             <Route path='/kundeservice' component={Kundeservice} />
+            <Route path='/handel' component={Handel} />
       </Layout>
     );
   }
