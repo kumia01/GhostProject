@@ -114,14 +114,15 @@ namespace GhostProjectv2.DAL
             try
             {
                 Brukere enBruker = await _db.Brukere.FindAsync(id);
+                Kunder enKunde = await _db.Kunder.FindAsync(id);
                 var hentetBruker = new Bruker()
                 {
-                    Id = enBruker.Id,
                     Fornavn = enBruker.Fornavn,
                     Etternavn = enBruker.Etternavn,
                     Adresse = enBruker.Adresse,
                     Postnr = enBruker.Poststed.Postnr,
-                    Poststed = enBruker.Poststed.Poststed
+                    Poststed = enBruker.Poststed.Poststed,
+                    Brukernavn = enKunde.Brukernavn
                 };
                 return hentetBruker;
             }
