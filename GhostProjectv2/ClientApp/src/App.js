@@ -21,7 +21,7 @@ export default class App extends Component {
 
   render () {
     return (
-      <Layout>
+        <Layout>
             <Route exact path='/' component={Home} />
             <Route path='/balanse' component={Balanse} />
             <Route path='/fetch-data' component={FetchData} />
@@ -34,7 +34,6 @@ export default class App extends Component {
             <Route path='/kundeservice' component={Kundeservice} />
             <Route path='/handel' component={Handel} />
             <Route path='/liveNyheter' component={LiveNyheter} />
-
       </Layout>
     );
   }
