@@ -61,6 +61,35 @@ export class Profil extends Component {
             });
     }
 
+    endreBruker() {
+        const bruker = {
+            id: localStorage.getItem('kundeId'),
+            fornavn: $("#fornavn").val(),
+            etternavn: $("#etternavn").val(),
+            adresse: $("#adresse").val(),
+            postnr: $("#postnr").val(),
+            poststed: $("#poststed").val()
+        }
+
+        $.post("../Bruker/Endre", bruker, function () {
+            console.log("Bruker endret!");
+            document.getElementById("brukerendret").textContent = "Brukeren ble endret!";
+            //Last inn siden på nytt med ny informasjon
+        })
+            .fail(function (feil) {
+                if (feil.status == 401) {
+                    //relocate bruker til logginn
+                    console.log("Ikke logget inn!");
+                    return false;
+                }
+                else {
+                    console.log("Feil på server!");
+                    //Feil melding til siden, feil med server - prøv igjen senere
+                    return false;
+                }
+            });
+    }
+
     //Kode for Cards og Kode for dropdown og Labels er hentet fra https://reactstrap.github.io/
 
     render() {
@@ -140,6 +169,7 @@ export class Profil extends Component {
                             <Row>
                             <Button className="btn btn-md mb-2" color="danger" onClick={this.slettBruker}>Slett Bruker</Button>{' '}
                             <Button className="btn btn-md mb-2" color="success" onClick={this.endreBruker}>Bekreft endinger</Button>{' '}
+                            <span id="brukerendret" style={{ color: "black" }}></span>
                         </Row>
                         </Col>
                     </Row>
