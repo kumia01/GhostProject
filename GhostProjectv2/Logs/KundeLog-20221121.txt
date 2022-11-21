@@ -6,3 +6,59 @@
 2022-11-21T12:16:31.6507605+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
 (node:11484) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
  (90968416)
+2022-11-21T15:47:53.2996719+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-21T15:47:53.3580866+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-21T15:47:53.3607296+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\GhostProject\GhostProjectv2" (b5d60022)
+2022-11-21T15:48:04.5604444+01:00  [ERR] (node:23992) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (05b414ea)
+2022-11-21T15:48:04.5615447+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:23992) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (cf5adcf3)
+2022-11-21T16:34:44.3523468+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-21T16:34:44.3769855+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-21T16:34:44.3815347+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\GhostProject\GhostProjectv2" (b5d60022)
+2022-11-21T16:34:53.7171249+01:00  [ERR] (node:15460) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (71e3c11b)
+2022-11-21T16:34:53.7239617+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:15460) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (578b72d7)
+2022-11-21T16:35:40.2551479+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-21T16:35:40.2708972+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-21T16:35:40.2714267+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\GhostProject\GhostProjectv2" (b5d60022)
+2022-11-21T16:35:46.0573654+01:00  [ERR] (node:14916) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (882b8aaa)
+2022-11-21T16:35:46.0583481+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14916) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (fa9966aa)
+2022-11-21T16:37:46.8602640+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-21T16:37:46.8809082+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-21T16:37:46.8868151+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\GhostProject\GhostProjectv2" (b5d60022)
+2022-11-21T16:37:52.5575340+01:00  [ERR] (node:20356) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (10002e49)
+2022-11-21T16:37:52.5619653+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:20356) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (84061507)
+2022-11-21T16:40:41.2627377+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-21T16:40:41.2804973+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-21T16:40:41.2835619+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\GhostProject\GhostProjectv2" (b5d60022)
+2022-11-21T16:40:48.7785866+01:00  [ERR] (node:21020) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (7f32bfc7)
+2022-11-21T16:40:48.7840447+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:21020) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (ef2de337)
+2022-11-21T16:44:20.8021640+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-21T16:44:20.8221425+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-21T16:44:20.8223251+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\GhostProject\GhostProjectv2" (b5d60022)
+2022-11-21T16:44:26.0334270+01:00  [ERR] (node:2836) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (64cfcc6f)
+2022-11-21T16:44:26.0345436+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2836) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (8984c396)
+2022-11-21T18:12:24.2749584+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-21T18:12:24.2920802+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-21T18:12:24.2923417+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\GhostProject\GhostProjectv2" (b5d60022)
+2022-11-21T18:12:30.0611903+01:00  [ERR] (node:26088) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (32628dd4)
+2022-11-21T18:12:30.0628474+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:26088) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (efbd2770)

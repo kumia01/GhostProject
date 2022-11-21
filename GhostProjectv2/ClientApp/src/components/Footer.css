@@ -1,0 +1,11 @@
+﻿#footContainer{
+    color: white;
+    background-color: #023e73;
+    padding-top: 3em;
+    position: relative;
+    font-size: 12px;
+}
+
+.col-sm {
+    text-align: center;
+}
