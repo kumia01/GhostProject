@@ -83,7 +83,8 @@ export class Balanse extends Component {
                         </Col>
 
                         <Col md="3">
-                            <Button className="btn btn-outline" id="innskudd">+ Inskudd</Button>
+                            <Button className="btn btn-outline" id="innskudd">+ Inskudd</Button>{" "}
+
                             <Button className="btn btn-primary" id="overføring">Overføring</Button>
                         </Col>
 
