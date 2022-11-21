@@ -11,32 +11,34 @@ export class Profil extends Component {
         super(props);
 
         this.state = {
-            input: {
-                brukernavn: '',
-                fornavn: '',
-                etternavn: '',
-                adresse: '',
-                postnr: '',
-                poststed: ''
+            input: {},
+            brukernavn: {},
+            fornavn: {},
+            etternavn: {},
+            adresse: {},
+            postnr: {},
+            poststed: {}
             }
-        }
+        
+    
+
+        this.hentBruker = this.hentBruker.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+
     }
 
-    hentBruker() {
-        let ut;
+    hentBruker = () => {
         const kundeid = "id=" + localStorage.getItem('kundeId');
-
+        let input = this.state.input;
+        let brukernavn, fornavn, etternavn, adresse, postnr, poststed;
         console.log(kundeid);
         $.get("../Bruker/HentEn?" + kundeid, function (bruker) {
-            /*this.setState({
-                input: 
-                    brukernavn: bruker.brukernavn,
-                    fornavn: bruker.fornavn,
-                    etternavn: bruker.etternavn,
-                    adresse: bruker.adresse,
-                    postnr: bruker.postnr,
-                    poststed: bruker.poststed
-                })*/
+            brukernavn = bruker.Brukernavn;
+            fornavn = bruker.Fornavn;
+            etternavn = bruker.Etternavn;
+            adresse = bruker.Adresse;
+            postnr = bruker.Postnr;
+            poststed = bruker.Poststed;
 
             console.log(bruker);
             
@@ -53,15 +55,23 @@ export class Profil extends Component {
                     return false;
                 }
             });
-        return true;
+        this.setState({
+            brukernavn: brukernavn
+        })
     }
+
+    handleChange(input, e) {
+        let inputs = this.state.input;
+        inputs[input] = e.target.value;
+        this.setState({ inputs });
+    }
+
     //Kode for Cards og Kode for dropdown og Labels er hentet fra https://reactstrap.github.io/
 
     render() {
         
         return (
             <Container>
-                <Form>
                     <Row className="justify-content-md-center">
                         <Col md="6" sm="12" lg="6">
                             <h2 className="text-center text-md-center"><strong>Hei, Bruker</strong></h2>
@@ -70,81 +80,86 @@ export class Profil extends Component {
                             <p>Slett eller endre brukerkonto</p>
                             <p>Du kan slette din konto her, om du ikke lenger vil ha tilgang til tjenesten. Du kan også endre informasjon her.</p>
 
-                            <FormGroup>
-                                <Label for="brukernavn">Innlogget bruker: </Label>
-                                <input
-                                    ref="brukernavn"
-                                    type="text"
-                                    className="form-control"
-                                    value={this.state.input.brukernavn}
-                                    readOnly
-                                />
-                            </FormGroup>
+                            <Row>
+                            <Label for="brukernavn">Innlogget bruker: </Label>
+                            <input
+                                ref="brukernavn"
+                                type="text"
+                                className="form-control"
+                                onChange={this.handleChange.bind(this, "brukernavn")}
+                                value={this.state.input["brukernavn"]}
+                                readOnly
+                            />
+                            </Row>
 
-                            <FormGroup>
+                            <Row>
                                 <Label for="fornavn">Fornavn: </Label>
                                 <input
                                     ref="fornavn"
                                     type="text"
                                     className="form-control"
-                                    value={this.state.input.fornavn}
+                                    onChange={this.handleChange.bind(this, "fornavn")}
+                                    value={this.state.input["fornavn"]}
                                     readOnly
                                 />
-                            </FormGroup>
+                            </Row>
 
-                            <FormGroup>
+                            <Row>
                                 <Label for="etternavn">Etternavn: </Label>
                                 <input
                                     ref="etternavn"
                                     type="text"
                                     className="form-control"
-                                    value={this.state.input.etternavn}
+                                    onChange={this.handleChange.bind(this, "etternavn")}
+                                    value={this.state.input["etternavn"]}
                                     readOnly
                                 />
-                            </FormGroup>
+                            </Row>
 
-                            <FormGroup>
+                            <Row>
                                 <Label for="adresse">Adresse: </Label>
                                 <input
                                     ref="adresse"
                                     type="text"
                                     className="form-control"
-                                    value={this.state.input.adresse}
+                                    onChange={this.handleChange.bind(this, "adresse")}
+                                    value={this.state.input["adresse"]}
                                     readOnly
                                 />
-                            </FormGroup>
+                            </Row>
 
-                            <FormGroup>
+                            <Row>
                                 <Label for="postnr">Postnr: </Label>
                                 <input
                                     ref="postnr"
                                     type="text"
                                     className="form-control"
-                                    value={this.state.input.postnr}
+                                    onChange={this.handleChange.bind(this, "postnr")}
+                                    value={this.state.input["postnr"]}
                                     readOnly
                                 />
-                            </FormGroup>
+                            </Row>
 
-                            <FormGroup>
+                            <Row>
                                 <Label for="poststed">Poststed: </Label>
                                 <input
                                     ref="poststed"
                                     type="text"
                                     className="form-control"
-                                    value={this.state.input.poststed}
+                                    onChange={this.handleChange.bind(this, "poststed")}
+                                    value={this.state.input["poststed"]}
                                     readOnly
                                 />
-                            </FormGroup>
+                            </Row>
 
-                            <FormGroup>
+                            <Row>
                                 <Button className="btn btn-md mb-2" color="danger" onClick={this.slett}>Slett Bruker</Button>{' '}
-                            </FormGroup>
-                            {this.hentBruker()}
-
+                        </Row>
                         </Col>
                     </Row>
-                </Form>
             </Container>
+           
         )
+        
     }
 }
