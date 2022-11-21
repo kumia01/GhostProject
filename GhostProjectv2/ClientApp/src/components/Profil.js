@@ -4,44 +4,25 @@ import { Link } from 'react-router-dom';
 import $ from 'jquery';
 
 
+function formaterBruker(bruker) {
+    document.getElementById("brukernavn").value = bruker.brukernavn;
+    document.getElementById("fornavn").value = bruker.fornavn;
+    document.getElementById("etternavn").value = bruker.etternavn;
+    document.getElementById("adresse").value = bruker.adresse;
+    document.getElementById("postnr").value = bruker.postnr;
+    document.getElementById("poststed").value = bruker.poststed;
+
+}
+
 export class Profil extends Component {
     static displayName = Profil.name;
 
-    constructor(props) {
-        super(props);
 
-        this.state = {
-            input: {},
-            brukernavn: {},
-            fornavn: {},
-            etternavn: {},
-            adresse: {},
-            postnr: {},
-            poststed: {}
-            }
-        
-    
-
-        this.hentBruker = this.hentBruker.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-
-    }
-
-    hentBruker = () => {
+    hentBruker() {
         const kundeid = "id=" + localStorage.getItem('kundeId');
-        let input = this.state.input;
-        let brukernavn, fornavn, etternavn, adresse, postnr, poststed;
-        console.log(kundeid);
         $.get("../Bruker/HentEn?" + kundeid, function (bruker) {
-            brukernavn = bruker.Brukernavn;
-            fornavn = bruker.Fornavn;
-            etternavn = bruker.Etternavn;
-            adresse = bruker.Adresse;
-            postnr = bruker.Postnr;
-            poststed = bruker.Poststed;
+            formaterBruker(bruker);
 
-            console.log(bruker);
-            
         })
             .fail(function (feil) {
                 if (feil.status == 401) {
@@ -55,15 +36,58 @@ export class Profil extends Component {
                     return false;
                 }
             });
-        this.setState({
-            brukernavn: brukernavn
-        })
     }
 
-    handleChange(input, e) {
-        let inputs = this.state.input;
-        inputs[input] = e.target.value;
-        this.setState({ inputs });
+    slettBruker() {
+        const kundeid = "id=" + localStorage.getItem('kundeId');
+        $.get("../Bruker/Slett?" + kundeid, function () {
+            
+            console.log("Bruker slettet!")
+            localStorage.removeItem('kundeId');
+            //Sende bruker til loginn
+           
+        })
+            .fail(function (feil) {
+                if (feil.status == 401) {
+                    //relocate bruker til logginn
+                    console.log("Ikke logget inn!");
+                    return false;
+                }
+                else {
+                    //Feil melding til siden, feil med server - prøv igjen senere
+                    console.log("Feil med DB!");
+                    return false;
+                }
+            });
+    }
+
+    endreBruker() {
+        const bruker = {
+            id: localStorage.getItem('kundeId'),
+            fornavn: $("#fornavn").val(),
+            etternavn: $("#etternavn").val(),
+            adresse: $("#adresse").val(),
+            postnr: $("#postnr").val(),
+            poststed: $("#poststed").val()
+        }
+
+        $.post("../Bruker/Endre", bruker, function () {
+            console.log("Bruker endret!");
+            document.getElementById("brukerendret").textContent = "Brukeren ble endret!";
+            //Last inn siden på nytt med ny informasjon
+        })
+            .fail(function (feil) {
+                if (feil.status == 401) {
+                    //relocate bruker til logginn
+                    console.log("Ikke logget inn!");
+                    return false;
+                }
+                else {
+                    console.log("Feil på server!");
+                    //Feil melding til siden, feil med server - prøv igjen senere
+                    return false;
+                }
+            });
     }
 
     //Kode for Cards og Kode for dropdown og Labels er hentet fra https://reactstrap.github.io/
@@ -86,8 +110,7 @@ export class Profil extends Component {
                                 ref="brukernavn"
                                 type="text"
                                 className="form-control"
-                                onChange={this.handleChange.bind(this, "brukernavn")}
-                                value={this.state.input["brukernavn"]}
+                                id="brukernavn"
                                 readOnly
                             />
                             </Row>
@@ -98,9 +121,7 @@ export class Profil extends Component {
                                     ref="fornavn"
                                     type="text"
                                     className="form-control"
-                                    onChange={this.handleChange.bind(this, "fornavn")}
-                                    value={this.state.input["fornavn"]}
-                                    readOnly
+                                    id="fornavn"
                                 />
                             </Row>
 
@@ -110,9 +131,7 @@ export class Profil extends Component {
                                     ref="etternavn"
                                     type="text"
                                     className="form-control"
-                                    onChange={this.handleChange.bind(this, "etternavn")}
-                                    value={this.state.input["etternavn"]}
-                                    readOnly
+                                    id="etternavn"
                                 />
                             </Row>
 
@@ -122,9 +141,7 @@ export class Profil extends Component {
                                     ref="adresse"
                                     type="text"
                                     className="form-control"
-                                    onChange={this.handleChange.bind(this, "adresse")}
-                                    value={this.state.input["adresse"]}
-                                    readOnly
+                                    id="adresse"
                                 />
                             </Row>
 
@@ -134,9 +151,7 @@ export class Profil extends Component {
                                     ref="postnr"
                                     type="text"
                                     className="form-control"
-                                    onChange={this.handleChange.bind(this, "postnr")}
-                                    value={this.state.input["postnr"]}
-                                    readOnly
+                                    id="postnr"
                                 />
                             </Row>
 
@@ -146,14 +161,15 @@ export class Profil extends Component {
                                     ref="poststed"
                                     type="text"
                                     className="form-control"
-                                    onChange={this.handleChange.bind(this, "poststed")}
-                                    value={this.state.input["poststed"]}
-                                    readOnly
+                                    id="poststed"
                                 />
-                            </Row>
+                        </Row>
+                        {this.hentBruker()}
 
                             <Row>
-                                <Button className="btn btn-md mb-2" color="danger" onClick={this.slett}>Slett Bruker</Button>{' '}
+                            <Button className="btn btn-md mb-2" color="danger" onClick={this.slettBruker}>Slett Bruker</Button>{' '}
+                            <Button className="btn btn-md mb-2" color="success" onClick={this.endreBruker}>Bekreft endinger</Button>{' '}
+                            <span id="brukerendret" style={{ color: "black" }}></span>
                         </Row>
                         </Col>
                     </Row>
