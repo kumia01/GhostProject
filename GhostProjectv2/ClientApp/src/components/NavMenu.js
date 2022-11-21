@@ -3,7 +3,7 @@ import {Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink, NavbarToggle
 
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
-import logo from '../img/ghost_graph.png'
+import logo from '../img/textlogo.png'
 
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
