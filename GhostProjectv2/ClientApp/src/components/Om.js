@@ -39,7 +39,11 @@ export class Om extends Component {
                         </p>
                     </Col>
                     <Col fluid="true" md="6">
-                        <img src={oslomet} width="450" />
+                        <img src={oslomet} width="450"/>
+                        <p>
+                            Adresse: Pilestredet 35, 0166 Oslo <br />
+                            Telefon: +47 46 53 47 44
+                        </p>
                     </Col>
                 </Row>
                 <Row fluid="true" className="align-items-center justify-content-center">
