@@ -1,7 +1,8 @@
 ﻿import React, { Component } from 'react';
-import { Button, Form, Container, Col, FormGroup, Label, Input, Row, CardBody, CardTitle, CardSubtitle, CardText, Card} from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Button, Form, Container, Col, FormGroup, Label, Input, Row, CardBody, CardTitle, CardSubtitle, CardText, Card } from 'reactstrap';
+import { Link, Route, Redirect } from 'react-router-dom';
 import $ from 'jquery';
+
 
 
 function formaterBruker(bruker) {
@@ -14,24 +15,89 @@ function formaterBruker(bruker) {
 
 }
 
+function validering() {
+    let formOK = true;
+    const bruker = {
+        fornavn: $("#fornavn").val(),
+        etternavn: $("#etternavn").val(),
+        adresse: $("#adresse").val(),
+        postnr: $("#postnr").val(),
+        poststed: $("#poststed").val()
+    }
+
+    //Validerer fornavn
+    if (!bruker.fornavn.match(/^[a-zA-ZæøåÆØÅ. \-]{2,20}$/g)) {
+        document.getElementById("feilfornavn").textContent = "Bare bokstaver, mellom 2-20 tegn!";
+        formOK = false;
+    }
+    if (!bruker.fornavn) {
+        document.getElementById("feilfornavn").textContent = "Denne kan ikke være tom!";
+        formOK = false;
+    }
+
+
+    //Validerer etternavn
+    if (!bruker.etternavn.match(/^[a-zA-ZæøåÆØÅ. \-]{1,35}$/g)) {
+        document.getElementById("feiletternavn").textContent = "Bare bokstaver, mellom 1-35 tegn!";
+        formOK = false;
+    }
+    if (!bruker.etternavn) {
+        document.getElementById("feiletternavn").textContent = "Denne kan ikke være tom!";
+        formOK = false;
+    }
+
+
+    //Validerer adresse
+    if (!bruker.adresse.match(/^[0-9a-zA-ZæøåÆØÅ. \-]{2,50}$/g)) {
+        document.getElementById("feiladresse").textContent = "Bare bokstaver og tall, mellom 2-50 tegn!";
+        formOK = false;
+    }
+    if (!bruker.adresse) {
+        document.getElementById("feiladresse").textContent = "Denne kan ikke være tom!";
+        formOK = false;
+    }
+
+
+    //Validerer postnr
+    if (!bruker.postnr.match(/^[0-9]{4}$/g)) {
+        document.getElementById("feilpostnr").textContent = "Bare tall, må være 4 tegn!";
+        formOK = false;
+    }
+    if (!bruker.postnr) {
+        document.getElementById("feilpostnr").textContent = "Denne kan ikke være tom!";
+        formOK = false;
+    }
+
+
+    //Validerer poststed
+    if (!bruker.poststed.match(/^[a-zA-ZæøåÆØÅ. \-]{2,20}$/g)) {
+        document.getElementById("feilpoststed").textContent = "Bare bokstaver, må være mellom 2-20 tegn!";
+        formOK = false;
+    }
+    if (!bruker.poststed) {
+        document.getElementById("feilpoststed").textContent = "Denne kan ikke være tom!";
+        formOK = false;
+    }
+
+    return formOK;
+}
+
 export class Profil extends Component {
     static displayName = Profil.name;
 
-
     hentBruker() {
-        const kundeid = "id=" + localStorage.getItem('kundeId');
+        const kundeid = "id=" + sessionStorage.getItem('kundeId');
         $.get("../Bruker/HentEn?" + kundeid, function (bruker) {
             formaterBruker(bruker);
 
         })
             .fail(function (feil) {
                 if (feil.status == 401) {
-                    //relocate bruker til logginn
                     console.log("Ikke logget inn!");
                     return false;
                 }
                 else {
-                    //Feil melding til siden, feil med server - prøv igjen senere
+                    document.getElementById("feil").textContent = "Feil med server - prøv igjen senere!";
                     console.log("Feil med DB!");
                     return false;
                 }
@@ -39,22 +105,20 @@ export class Profil extends Component {
     }
 
     slettBruker() {
-        const kundeid = "id=" + localStorage.getItem('kundeId');
+        const kundeid = "id=" + sessionStorage.getItem('kundeId');
         $.get("../Bruker/Slett?" + kundeid, function () {
             
             console.log("Bruker slettet!")
-            localStorage.removeItem('kundeId');
-            //Sende bruker til loginn
+            sessionStorage.removeItem('kundeId');
            
         })
             .fail(function (feil) {
                 if (feil.status == 401) {
-                    //relocate bruker til logginn
                     console.log("Ikke logget inn!");
                     return false;
                 }
                 else {
-                    //Feil melding til siden, feil med server - prøv igjen senere
+                    document.getElementById("feil").textContent = "Feil med server - prøv igjen senere!";
                     console.log("Feil med DB!");
                     return false;
                 }
@@ -62,38 +126,43 @@ export class Profil extends Component {
     }
 
     endreBruker() {
-        const bruker = {
-            id: localStorage.getItem('kundeId'),
-            fornavn: $("#fornavn").val(),
-            etternavn: $("#etternavn").val(),
-            adresse: $("#adresse").val(),
-            postnr: $("#postnr").val(),
-            poststed: $("#poststed").val()
-        }
+        if (validering() == true) {
+            const bruker = {
+                id: sessionStorage.getItem('kundeId'),
+                fornavn: $("#fornavn").val(),
+                etternavn: $("#etternavn").val(),
+                adresse: $("#adresse").val(),
+                postnr: $("#postnr").val(),
+                poststed: $("#poststed").val()
+            }
 
-        $.post("../Bruker/Endre", bruker, function () {
-            console.log("Bruker endret!");
-            document.getElementById("brukerendret").textContent = "Brukeren ble endret!";
-            //Last inn siden på nytt med ny informasjon
-        })
-            .fail(function (feil) {
-                if (feil.status == 401) {
-                    //relocate bruker til logginn
-                    console.log("Ikke logget inn!");
-                    return false;
-                }
-                else {
-                    console.log("Feil på server!");
-                    //Feil melding til siden, feil med server - prøv igjen senere
-                    return false;
-                }
-            });
+            $.post("../Bruker/Endre", bruker, function () {
+                console.log("Bruker endret!");
+                document.getElementById("brukerendret").textContent = "Brukeren ble endret!";
+            })
+                .fail(function (feil) {
+                    if (feil.status == 401) {
+                        //relocate bruker til logginn
+                        console.log("Ikke logget inn!");
+                        return false;
+                    }
+                    else {
+                        console.log("Feil på server!");
+                        document.getElementById("feil").textContent = "Feil med server - prøv igjen senere!";
+                        return false;
+                    }
+                });
+        }
+        
     }
 
     //Kode for Cards og Kode for dropdown og Labels er hentet fra https://reactstrap.github.io/
 
     render() {
-        
+        if (!sessionStorage.getItem('kundeId')) {
+            return <Redirect to="/login"/>
+        }
+
         return (
             <Container>
                     <Row className="justify-content-md-center">
@@ -122,7 +191,8 @@ export class Profil extends Component {
                                     type="text"
                                     className="form-control"
                                     id="fornavn"
-                                />
+                            />
+                            <span id="feilfornavn" style={{ color: "red" }}></span>
                             </Row>
 
                             <Row>
@@ -132,7 +202,8 @@ export class Profil extends Component {
                                     type="text"
                                     className="form-control"
                                     id="etternavn"
-                                />
+                            />
+                            <span id="feiletternavn" style={{ color: "red" }}></span>
                             </Row>
 
                             <Row>
@@ -142,7 +213,8 @@ export class Profil extends Component {
                                     type="text"
                                     className="form-control"
                                     id="adresse"
-                                />
+                            />
+                            <span id="feiladresse" style={{ color: "red" }}></span>
                             </Row>
 
                             <Row>
@@ -152,7 +224,8 @@ export class Profil extends Component {
                                     type="text"
                                     className="form-control"
                                     id="postnr"
-                                />
+                            />
+                            <span id="feilpostnr" style={{ color: "red" }}></span>
                             </Row>
 
                             <Row>
@@ -162,7 +235,8 @@ export class Profil extends Component {
                                     type="text"
                                     className="form-control"
                                     id="poststed"
-                                />
+                            />
+                            <span id="feilpoststed" style={{ color: "red" }}></span>
                         </Row>
                         {this.hentBruker()}
 
@@ -170,6 +244,7 @@ export class Profil extends Component {
                             <Button className="btn btn-md mb-2" color="danger" onClick={this.slettBruker}>Slett Bruker</Button>{' '}
                             <Button className="btn btn-md mb-2" color="success" onClick={this.endreBruker}>Bekreft endinger</Button>{' '}
                             <span id="brukerendret" style={{ color: "black" }}></span>
+                            <span id="feil" style={{ color: "red" }}></span>
                         </Row>
                         </Col>
                     </Row>

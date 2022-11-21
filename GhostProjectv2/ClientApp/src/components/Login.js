@@ -7,8 +7,8 @@ import $ from 'jquery';
 //Funksjon som lagrer kunde id'en til kunden som logger på i localstorage
 function lagreKundeId(bruker) {
     $.post("../Bruker/HentKundeId", bruker, function (bruker) {
-        localStorage.setItem('kundeId', bruker.id);
-        console.log(localStorage.getItem('kundeId'));
+        sessionStorage.setItem('kundeId', bruker.id);
+        console.log(sessionStorage.getItem('kundeId'));
     })
         .fail(function (feil) {
             if (feil.status == 401) {
@@ -88,7 +88,7 @@ export class Login extends Component {
 
                     console.log("SIUUUUU!");
                     
-                    console.log(localStorage.getItem('kundeId'));
+                    console.log(sessionStorage.getItem('kundeId'));
                 }
                 else {
                     //Fikse error melding

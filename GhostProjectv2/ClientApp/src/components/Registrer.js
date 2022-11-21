@@ -130,7 +130,6 @@ export class Registrer extends Component {
 
     registrer() {
         if (this.validering() == true) {
-            let errors = {};
 
             const bruker = {
                 fornavn: this.state.input["fornavn"],
@@ -150,7 +149,7 @@ export class Registrer extends Component {
                 }
                 else {
                     //Fikse error melding
-
+                    document.getElementById("feil").textContent = "Feil i db - prøv igjen senere!";
                     console.log("FEIL!!");
                 }
             });
@@ -285,6 +284,7 @@ export class Registrer extends Component {
 
                             <FormGroup>
                                 <Button className="btn btn-primary" onClick={this.registrer}>Lag Bruker</Button>
+                                <span style={{ color: "red" }} id="feil"></span>
                             </FormGroup>
                         </Col>
 
