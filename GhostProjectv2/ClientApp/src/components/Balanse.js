@@ -11,7 +11,6 @@ import {
     Legend
   } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { StockTabell } from "./StockTabell";
 
 ChartJS.register(
     CategoryScale,
@@ -113,7 +112,6 @@ export class Balanse extends Component {
                     </Row>
 
                 </Container>
-                <StockTabell />
             </div>
         );
     }

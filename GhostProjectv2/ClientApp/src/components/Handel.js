@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Button, ButtonGroup, Form, Container, Col, Row, Table } from 'reactstrap';
-
+import { StockTabell } from "./StockTabell";
 
 export class Handel extends Component {
     static displayName = Handel.name;
@@ -28,36 +28,7 @@ export class Handel extends Component {
                 <Row>
                     <Col md="12">
                         <h5 className="text-center">Værsåsnill kjøp</h5>
-                        <Table>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Ticker</th>
-                                    <th>Aksje</th>
-                                    <th>Pris</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>TST</td>
-                                    <td>Test-aksje1</td>
-                                    <td>69kr</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>TXT</td>
-                                    <td>Test-aksje2</td>
-                                    <td>12kr</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>AAA</td>
-                                    <td>Aaaaaa</td>
-                                    <td>100kr</td>
-                                </tr>
-                            </tbody>
-                        </Table>
+                        <StockTabell />
                     </Col>
                 </Row>
             </Container>
