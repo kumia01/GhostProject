@@ -9,16 +9,16 @@ export class Home extends Component {
     render() {
         return (
             <Container>
-                <Row fluid="true" className="align-items-center justify-content-center">
+                <Row fluid="true" className="align-items-center justify-content-center" id="home-row">
                     <Col fluid="true">
-                        <h3><strong>Hjelper unge voksne <br />vinne økonomisk.</strong></h3>
+                        <h3><strong>Hjelper unge voksne vinne økonomisk.</strong></h3>
                         <p>
-                            GhostCoin er en brukervennlig aksjehandel- og investeringsplattform for unge investorer som deg.
+                            Ghost Finance er en brukervennlig aksjehandel- og investeringsplattform for unge investorer som deg.
                             <br />Jevnlig investering kan hjelpe deg bygge kapital og oppnå dine økonomiske mål.
                         </p>
                     </Col>
                     <Col fluid="true">
-                        <img src={blåstolpe} width="450" />
+                        <img src={blåstolpe} width="450"/>
                     </Col>
                 </Row>
 
