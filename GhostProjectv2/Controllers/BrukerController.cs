@@ -62,6 +62,7 @@ namespace GhostProjectv2.Controllers
                 return Unauthorized();
             }
             bool returOK = await _db.Slett(id);
+            HttpContext.Session.SetString(_loggetInn, "");
             if (!returOK)
             {
                 _log.LogInformation("Brukeren ble ikke slettet!");
