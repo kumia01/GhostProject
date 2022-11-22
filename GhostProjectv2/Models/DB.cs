@@ -10,10 +10,10 @@ namespace GhostProjectv2.Models
     public class Brukere
     {
         public int Id { get; set; }
-        //public int Personnr { get; set; }
         public string Fornavn { get; set; }
         public string Etternavn { get; set; }
         public string Adresse { get; set; }
+        public int Saldo { get; set; }
         virtual public Poststeder Poststed { get; set; }
         virtual public List<Transaksjoner> Transaksjoner { get; set; }
     }

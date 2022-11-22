@@ -32,6 +32,7 @@ namespace GhostProjectv2.DAL
                 nyBrukerRad.Fornavn = innBruker.Fornavn;
                 nyBrukerRad.Etternavn = innBruker.Etternavn;
                 nyBrukerRad.Adresse = innBruker.Adresse;
+                nyBrukerRad.Saldo = 0;
 
                 var nyKundeRad = new Kunder();
                 nyKundeRad.Brukernavn = innBruker.Brukernavn;
@@ -224,6 +225,23 @@ namespace GhostProjectv2.DAL
                 _log.LogInformation(e.Message);
                 return null;
             }
+        }
+
+        public async Task<bool> EndreSaldo(Bruker innBruker)
+        {
+            try
+            {
+                var endreObjekt = await _db.Brukere.FindAsync(innBruker.Id);
+
+                endreObjekt.Saldo = endreObjekt.Saldo + innBruker.Saldo;
+                await _db.SaveChangesAsync();
+            }
+            catch(Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return false;
+            }
+            return true;
         }
     }
 }
