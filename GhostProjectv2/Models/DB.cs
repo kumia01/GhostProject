@@ -61,6 +61,14 @@ namespace GhostProjectv2.Models
         virtual public FlereAksjer FlereAksjer { get; set; }
     }
 
+    public class Meldinger
+    {
+        public int Id { get; set; }
+        public string Navn { get; set; }
+        public string Epost { get; set; }
+        public string Melding { get; set; }
+    }
+
     public class DB : DbContext
     {
         public DB(DbContextOptions<DB> options) : base(options)
@@ -73,6 +81,7 @@ namespace GhostProjectv2.Models
         virtual public DbSet<Poststeder> Poststeder { get; set; }
         virtual public DbSet<Transaksjoner> Transaksjoner { get; set; }
         virtual public DbSet<Kunder> Kunder { get; set; }
+        virtual public DbSet<Meldinger> Meldinger { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

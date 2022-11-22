@@ -29,9 +29,12 @@ namespace GhostProjectv2
             services.AddControllers();
             services.AddDbContext<DB>(options =>
                             options.UseSqlite("Data Source=Kunde.db"));
+
             services.AddScoped<IBrukerRepository, BrukerRepository>();
             services.AddScoped<IAksjeRepository, AksjeRepository>();
             services.AddScoped<ITransaksjonRepository, TransaksjonRepository>();
+            services.AddScoped<IKundeserviceRepository, KundeserviceRepository>();
+
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".AdventureWorks.Session";

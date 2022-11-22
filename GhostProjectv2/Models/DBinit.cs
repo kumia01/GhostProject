@@ -22,9 +22,10 @@ namespace GhostProjectv2.Models
                 //var poststed2 = new Poststeder { Postnr = "1900", Poststed = "Oslo" };
                 var aksje1 = new FlereAksjer { Ticker = "NOK", Selskap = "Norske Kroner", Pris = 20, gammelPris = 1 };
                 
-                var bruker1 = new Brukere { Fornavn = "Ole", Etternavn = "Hansen", Adresse = "Olsloveien 82", Poststed = poststed1 };
-                var bruker2 = new Brukere { Fornavn = "Jens", Etternavn = "Jenseberg", Adresse = "Svingen 2", Poststed = poststed1 };
-                var bruker3 = new Brukere { Fornavn = "Per", Etternavn = "Persson", Adresse = "Grensen 22", Poststed = poststed1 };
+                var bruker1 = new Brukere { Fornavn = "Ole", Etternavn = "Hansen", Adresse = "Olsloveien 82", Poststed = poststed1, Saldo = 0 };
+                var bruker2 = new Brukere { Fornavn = "Jens", Etternavn = "Jenseberg", Adresse = "Svingen 2", Poststed = poststed1, Saldo = 0 };
+                var bruker3 = new Brukere { Fornavn = "Per", Etternavn = "Persson", Adresse = "Grensen 22", Poststed = poststed1, Saldo = 0 };
+                var bruker4 = new Brukere { Fornavn = "Rasmus", Etternavn = "Helgen", Adresse = "Kaia 1", Poststed = poststed1, Saldo = 0 };
 
                 var transaksjon1 = new Transaksjoner { Pris = aksje1.Pris, Volum = 200 };
                 var transaksjon2 = new Transaksjoner { Pris = aksje1.Pris, Volum = 20052 };
@@ -64,9 +65,19 @@ namespace GhostProjectv2.Models
                 kunde3.Salt = salt3;
                 context.Kunder.Add(kunde3);
 
+                var kunde4 = new Kunder();
+                kunde4.Brukernavn = "Sperminator";
+                string passord4 = "hei123";
+                byte[] salt4 = BrukerRepository.LagSalt();
+                byte[] hash4 = BrukerRepository.LagHash(passord4, salt4);
+                kunde4.Passord = hash4;
+                kunde4.Salt = salt4;
+                context.Kunder.Add(kunde4);
+
                 context.Brukere.Add(bruker1);
                 context.Brukere.Add(bruker2);
                 context.Brukere.Add(bruker3);
+                context.Brukere.Add(bruker4);
                 context.FlereAksjer.Add(aksje1);
 
                 context.SaveChanges();
