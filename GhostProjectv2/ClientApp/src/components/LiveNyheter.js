@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { } from 'reactstrap';
+import { Button, Form, Container, Col, Row, Card, CardHeader, CardTitle, CardBody, CardText, CardFooter } from 'reactstrap';
 import Axios from 'axios'
 
 
@@ -18,20 +18,53 @@ const options = {
 	}
 };
 
-axios.request(options).then(function (response) {
-	console.log(response.data);
-}).catch(function (error) {
-	console.error(error);
-});
-
 
 
 export class LiveNyheter extends Component {
-    static displayName = LiveNyheter.name;
+	static displayName = LiveNyheter.name;
+	constructor(props) {
+		super(props)
+		this.state = {
+			list: []
+		}
+		this.liveAPI = this.liveAPI.bind(this)
+		this.liveAPI();
+	}
+
+	liveAPI() {
+		Axios.request(options)
+			.then((response) => {
+				console.log(response.data)
+				this.setState({ list: response.data })
+			})
+			.catch(function (error) {
+				console.error(error);
+			});
+	}
 
 	render() {
-		<div></div>
 
+		let data = this.state.list.slice(0,3).map((i, key) => {
+			return (
+				<Col fluid="true">
+                        <Card>
+						<CardHeader>{i.source }</CardHeader>
+                            <CardBody>
+							<CardTitle>{i.title}</CardTitle>
+                            </CardBody>
+                            <CardFooter>link</CardFooter>
+                        </Card>
+				</Col>
+
+			)
+		}) 
+		
+
+		return (
+			<div>
+				{data}
+			</div>
+		)
 
     }
 }

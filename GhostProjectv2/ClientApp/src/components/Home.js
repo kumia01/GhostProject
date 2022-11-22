@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import blåstolpe from '../img/blåstolper.png';
-import { Button, Form, Container, Col, Row, Card, CardHeader, CardTitle, CardBody, CardText, CardFooter} from 'reactstrap';
+import { Button, Form, Container, Col, Row, Card, CardHeader, CardTitle, CardBody, CardText, CardFooter } from 'reactstrap';
+import { LiveNyheter } from './LiveNyheter';
 
 
 export class Home extends Component {
@@ -33,37 +34,7 @@ export class Home extends Component {
                 </Row>
 
                 <Row>
-                    <Col fluid="true">
-                        <Card>
-                            <CardHeader>Nyhet 1</CardHeader>
-                            <CardBody>
-                                <CardTitle>Special Title Treatment</CardTitle>
-                                <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                            </CardBody>
-                            <CardFooter>Footer</CardFooter>
-                        </Card>
-                    </Col>
-                    <Col fluid="true">
-                        <Card>
-                            <CardHeader>Nyhet 2</CardHeader>
-                            <CardBody>
-                                <CardTitle>Special Title Treatment</CardTitle>
-                                <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                            </CardBody>
-                            <CardFooter>Footer</CardFooter>
-                        </Card>
-                    </Col>
-                    <Col fluid="true">
-                        <Card>
-                            <CardHeader>Nyhet 3</CardHeader>
-                            <CardBody>
-                                <CardTitle>Special Title Treatment</CardTitle>
-                                <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                            </CardBody>
-                            <CardFooter>Footer</CardFooter>
-                        </Card>
-                    </Col>
-                    
+                    <LiveNyheter/>
                 </Row>
             </Container>
         );
