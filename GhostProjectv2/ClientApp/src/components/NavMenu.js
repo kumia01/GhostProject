@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink, NavbarToggler, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText } from 'reactstrap';
+import $ from 'jquery';
 
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
@@ -13,7 +14,7 @@ export class NavMenu extends Component {
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.state = {
-          collapsed: true
+            collapsed: true
         };
     }
 
@@ -22,6 +23,27 @@ export class NavMenu extends Component {
         collapsed: !this.state.collapsed
         });
     }
+
+    // Funksjonen under trenger bare å hente session for å fungere?
+
+    /*
+
+    showDropdown() {
+        this.showDropdown = this.showDropdown.bind(this.showDropdown);
+        const loggInn = document.getElementsByClassName("loggInn");
+        const loggInn = document.getElementsByClassName("minSide");
+
+        if () {
+            loggInn.style.display = "none";
+            minSide.style.display = "show";
+        }
+        else {
+            minSide.style.display = "none";
+            loggInn.style.display = "show";
+        }
+    }
+    
+    */
 
 render () {
     return (
@@ -45,13 +67,13 @@ render () {
                                          </DropdownMenu>
                             </UncontrolledDropdown>
 
+                            <NavItem>
+                                <NavLink className="loggInn" tag={Link} id="navTextHighlight" to="/login">Log Inn</NavLink>
+                            </NavItem>
+
                             <UncontrolledDropdown nav>
-                                <DropdownToggle nav caret id="navTextHighlight">Min Side</DropdownToggle>
+                                <DropdownToggle className="minSide" nav caret id="navTextHighlight">Min Side</DropdownToggle>
                                 <DropdownMenu>
-                                    <DropdownItem tag={Link} to="/login">Logg Inn</DropdownItem>
-                                    <DropdownItem divider />
-                                    {/* <DropdownItem tag={Link} to="/registrer">Registrer bruker</DropdownItem>*/}
-                                    {/* <DropdownItem divider />*/}
                                     <DropdownItem tag={Link} to="/profil">Profil</DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem tag={Link} to="/balanse">Balanse</DropdownItem>
