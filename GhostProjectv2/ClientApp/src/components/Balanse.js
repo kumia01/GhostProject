@@ -1,5 +1,10 @@
-﻿import React, { Component } from 'react';
-import { Button, Container, Col, Row} from 'reactstrap';
+﻿{/* Imports */}
+import React, { Component } from 'react';
+
+{/* Henter nødvendig funksjonalitet fra reactstrap */}
+import { Button, Container, Col, Row } from 'reactstrap';
+
+{/* Henter nødvending funksjonalitet for å kunne graflegge bevegelser på konto*/ }
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -12,6 +17,7 @@ import {
   } from "chart.js";
 import { Line } from "react-chartjs-2";
 
+{/* Registrerer de importerte funksjonene */ }
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -22,8 +28,10 @@ ChartJS.register(
     Legend
 );
 
-
+{/* Oppretter verdiene som skal lagres utover x-akse */ }
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
+
+{/*  */ }
 export const option = {
     maintainAspectRation: false,
     responsive: true,
@@ -53,6 +61,7 @@ export const option = {
       }
     }
 };
+
 export const data = {
   labels: labels,
   datasets: [
@@ -66,53 +75,72 @@ export const data = {
 };
 
 
+// Js klassen Balanse arver fra superklassen Component
 export class Balanse extends Component {
+
+    // Setter displayName til Balanse for eventuelle debugging meldinger
     static displayName = Balanse.name;
 
+    // Funksjon som kontrollerer container noden du står i
     render() {
+
+        // Returnerer html elementene slik at de skrives ut
         return (
-            
-            <div>
-                <Container fluid="true">
 
-                    <Row fluid="true" className=" d-flex justify-content-between">
+            // Container som inneholder html elementene til siden
+            <Container fluid="true">
 
-                        <Col md="8">
-                            <p>Din bokførte saldo er: <br /><b>3, 000 NOK</b></p>
-                        </Col>
+                {/* Oppretter et grid system som bruker rader og kolonner for å plassere html objektene */}
+                <Row fluid="true" className=" d-flex justify-content-between">
 
-                        <Col md="3">
-                            <Button className="btn btn-outline" id="innskudd">+ Inskudd</Button>{" "}
+                    {/* Kolonner har en gitt størrelse for skalering henholdsvis til skjermoppløsning */}
+                    <Col md="8">
 
-                            <Button className="btn btn-primary" id="overføring">Overføring</Button>
-                        </Col>
+                        {/* Info-tekst for saldo */}
+                        <p>Din bokførte saldo er: <br /><b>3, 000 NOK</b></p>
 
-                    </Row>
-                    <Row fluid="true">
+                    </Col>
 
-                        <Col fluid="true">
-                            <Line options={option} data={data} height={"100"}/>
-                        </Col>
+                    {/* Kolonne for knapper */}
+                    <Col md="3">
 
-                    </Row>
+                        {/* Knapper */}
+                        <Button className="btn btn-outline" id="innskudd">+ Inskudd</Button>{" "}
+                        <Button className="btn btn-primary" id="overføring">Overføring</Button>
+                    </Col>
+                </Row>
 
-                    <Row fluid="true" className="justify-content-between">
+                {/* Rad for graf */}
+                <Row fluid="true">
 
-                        <Col fluid="true" md='6'>
+                    {/* Kolonne for grafen */}
+                    <Col fluid="true">
 
-                            <p className="bi bi-clock-history"> Nylig aktvitet</p>
-                            <p>Logget inn 27.10.2022 23.30</p>
-                        </Col>
-        
-                        <Col fluid="true" md='6'>
-                            <p className="bi bi-arrow-repeat"> Cash Flow</p>
-                            <p>Innskudd: Overføring NOK 3, 000.00 via Vipps</p>
-                        </Col>
+                        {/* Graf */}
+                        <Line options={option} data={data} height={"100"}/>
+                    </Col>
+                </Row>
 
-                    </Row>
+                {/* Rad for info under graf */}
+                <Row fluid="true" className="justify-content-between">
 
-                </Container>
-            </div>
+                    {/* Kolonne for dato og logg info */}
+                    <Col fluid="true" md='6'>
+
+                        {/* Tekst elementer */}
+                        <p className="bi bi-clock-history"> Nylig aktvitet</p>
+                        <p>Logget inn 27.10.2022 23.30</p>
+                    </Col>
+
+                    {/* Kolonne for innskudd info */}
+                    <Col fluid="true" md='6'>
+
+                        {/* Tekst elementer */}
+                        <p className="bi bi-arrow-repeat"> Cash Flow</p>
+                        <p>Innskudd: Overføring NOK 3, 000.00 via Vipps</p>
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }
