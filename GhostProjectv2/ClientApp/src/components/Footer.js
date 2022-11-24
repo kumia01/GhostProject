@@ -8,11 +8,11 @@ export class Footer extends Component {
     render() {
         return (
             <footer>
-                <Container fluid id="footContainer" className="align-items-md-center">
+                <Container fluid="true" id="footContainer" className="align-items-md-center">
                     <Container>
-                    <Row fluid className="d-flex mx-auto">
+                    <Row fluid="true" className="d-flex mx-auto">
                         { /*Kolonne1*/}
-                        <Col fluid>
+                        <Col fluid="true">
                             <h5><strong>Kontakt</strong></h5>
                             <ul className="list-unstyled">
                                 <li>Pilestredet 35, Oslo</li>
@@ -22,7 +22,7 @@ export class Footer extends Component {
                         </Col>
                        
                     { /*Kolonne2*/}
-                    <Col fluid>
+                    <Col fluid="true">
                     <h5><strong>Utforsk</strong></h5>
                             <ul className="list-unstyled">
                         <li>Hjem</li>
@@ -31,7 +31,7 @@ export class Footer extends Component {
                     </ul>
                         </Col>    
                         { /*Kolonne3*/}
-                            <Col fluid>
+                            <Col fluid="true">
                                 
                             <h5><strong>Ressurser & Lenker</strong></h5>
                             <ul className="list-unstyled">
