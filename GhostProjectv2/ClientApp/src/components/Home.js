@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import blåstolpe from '../img/blåstolper.png';
 import { Button, Form, Container, Col, Row, Card, CardHeader, CardTitle, CardBody, CardText, CardFooter } from 'reactstrap';
-import { LiveNyheter } from './LiveNyheter';
+import { StockTabell } from './StockTabell';
 
 
 export class Home extends Component {
@@ -29,12 +29,13 @@ export class Home extends Component {
 
                 <Row>
                     <Col></Col>
-                    <Col fluid ="true"><h3 className="text-center"><strong>Nyheter</strong></h3></Col>
+                    <Col fluid="true"><h3 className="text-center"><strong>Dagsaktuelle aksjer</strong></h3></Col>
+
                     <Col></Col>
                 </Row>
 
                 <Row>
-                    <LiveNyheter/>
+                    <StockTabell/>
                 </Row>
             </Container>
         );
