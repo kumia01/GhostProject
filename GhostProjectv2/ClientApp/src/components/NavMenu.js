@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink, NavbarToggler, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText } from 'reactstrap';
 import $ from 'jquery';
 
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import './NavMenu.css';
 import logo from '../img/textlogo.png'
 
@@ -22,6 +22,21 @@ export class NavMenu extends Component {
         this.setState({
         collapsed: !this.state.collapsed
         });
+    }
+
+    loggUt() {
+        if (sessionStorage.getItem('kundeId') != null) {
+            $.get("../Bruker/LoggUt", function () {
+                sessionStorage.removeItem('kundeId');
+                console.log("Logget ut!");
+            })
+                .fail(function () {
+                    console.log("Feil med DB!");
+                    return false;
+                });
+        }
+        
+        return true;
     }
 
     // Funksjonen under trenger bare å hente session for å fungere?
@@ -83,6 +98,10 @@ render () {
                                     <DropdownItem tag={Link} to="/historikk">Historikk</DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
+
+                            <NavItem>
+                                <button id="navTextHighlight" onClick={this.loggUt}>Logg ut</button>
+                            </NavItem>
 
                 </ul>
                 </Collapse>

@@ -1,6 +1,6 @@
 ﻿import React, { Component} from 'react';
 import { Button, Form, Container, Col, FormGroup, Label, Input, Row } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import $ from 'jquery';
 
 
@@ -112,6 +112,10 @@ export class Login extends Component {
 
 
     render() {
+        if (sessionStorage.getItem('kundeId') != null) {
+            return <Redirect to="/profil"/>
+        }
+
 
         return (
             <Container>

@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Button, Form, Container, Col, FormGroup, Label, Input, Row } from 'reactstrap';
+import { Redirect } from 'react-router-dom';
 import $ from 'jquery';
 
 
@@ -166,6 +167,11 @@ export class Registrer extends Component {
 
 
     render() {
+        if (sessionStorage.getItem('kundeId') != null) {
+            return <Redirect to="/profil"/>
+        }
+
+
         return (
             <Container>
                 <Form>
