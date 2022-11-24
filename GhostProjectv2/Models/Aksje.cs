@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GhostProjectv2.Models
 {
-    [Serializable]
     public class Aksje
     {
         public int Id { get; set; }
