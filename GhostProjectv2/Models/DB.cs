@@ -56,7 +56,7 @@ namespace GhostProjectv2.Models
         public int Volum { get; set; }
         public int Pris { get; set; }
         public int BrukereId { get; set; }
-        public int FlereAksjerId { get; set; }
+        public string Ticker { get; set; }
         virtual public Brukere Brukere { get; set; }
         virtual public FlereAksjer FlereAksjer { get; set; }
     }
