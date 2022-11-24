@@ -29,6 +29,10 @@ namespace GhostProjectv2.Controllers
         //lager også ny rad i poststeder tabellen om poststed ikke finnes fra før av
         public async Task<ActionResult> Lagre(Bruker innBruker)
         {
+            if (HttpContext.Session.GetString(_loggetInn) == "LoggetInn")
+            {
+                return Unauthorized();
+            }
             if (ModelState.IsValid)
             {
                 bool returOK = await _db.Lagre(innBruker);
@@ -109,14 +113,19 @@ namespace GhostProjectv2.Controllers
             
         }
 
-        public async Task<ActionResult> LoggInn(Kunde innKunde)
+        public async Task<ActionResult> LoggInn(Bruker innBruker)
         {
+            if (HttpContext.Session.GetString(_loggetInn) == "LoggetInn")
+            {
+                return Unauthorized();
+            }
+
             if (ModelState.IsValid)
             {
-                bool returnOK = await _db.LoggInn(innKunde);
+                bool returnOK = await _db.LoggInn(innBruker);
                 if (!returnOK)
                 {
-                    _log.LogInformation("Innlogging feilet for bruker " + innKunde.Brukernavn + "!");
+                    _log.LogInformation("Innlogging feilet for bruker " + innBruker.Brukernavn + "!");
                     HttpContext.Session.SetString(_loggetInn, "");
                     return Ok(false);
                 }
@@ -127,13 +136,13 @@ namespace GhostProjectv2.Controllers
             return BadRequest("Feil i inputvalidering på server!");
         }
 
-        public async Task<ActionResult> HentKundeId(Kunde innKunde)
+        public async Task<ActionResult> HentKundeId(Bruker innBruker)
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
                 return Unauthorized();
             }
-            Bruker funnetKunde = await _db.HentKundeId(innKunde);
+            Bruker funnetKunde = await _db.HentKundeId(innBruker);
             if (funnetKunde == null)
             {
                 _log.LogInformation("Fant ikke kunden!");
