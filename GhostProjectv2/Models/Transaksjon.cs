@@ -11,7 +11,7 @@ namespace GhostProjectv2.Models
         public int Pris { get; set; }
         [RegularExpression(@"[0,9]{1,20}$")]
         public int BrukereId { get; set; }
-        [RegularExpression(@"[0-9]{1,20}$")]
-        public int FlereAksjerId { get; set; }
+        [RegularExpression(@"^[a-zA-Z. \-]{3,4}$")]
+        public string Ticker { get; set; }
     }
 }

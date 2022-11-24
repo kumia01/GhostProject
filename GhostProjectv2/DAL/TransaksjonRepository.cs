@@ -29,7 +29,7 @@ namespace GhostProjectv2.DAL
                 nyTransaksjonsRad.Volum = innTransaksjon.Volum;
                 nyTransaksjonsRad.Pris = innTransaksjon.Pris;
                 nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
-                nyTransaksjonsRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
+                nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
 
 
                 _db.Transaksjoner.Add(nyTransaksjonsRad);
@@ -54,7 +54,7 @@ namespace GhostProjectv2.DAL
                     Volum = t.Volum,
                     Pris = t.Pris,
                     BrukereId = t.BrukereId,
-                    FlereAksjerId = t.FlereAksjerId
+                    Ticker = t.Ticker
 
                 }).ToListAsync();
                 return alleTransaksjoner;
@@ -78,7 +78,7 @@ namespace GhostProjectv2.DAL
                     Volum = t.Volum,
                     Pris = t.Pris,
                     BrukereId = t.BrukereId,
-                    FlereAksjerId = t.FlereAksjerId
+                    Ticker = t.Ticker
                 }).Where(t => t.BrukereId == brukerId).ToListAsync();
                 return alleTransaksjoner;
 
@@ -92,7 +92,7 @@ namespace GhostProjectv2.DAL
         }
 
         //Henter alle transaksjoner til en aksje ved hjelp av aksjeId
-        public async Task<List<Transaksjon>> HentAksjeTransaksjoner(int aksjeId)
+        public async Task<List<Transaksjon>> HentAksjeTransaksjoner(string ticker)
         {
             try
             {
@@ -102,8 +102,8 @@ namespace GhostProjectv2.DAL
                     Volum = t.Volum,
                     Pris = t.Pris,
                     BrukereId = t.BrukereId,
-                    FlereAksjerId = t.FlereAksjerId
-                }).Where(t => t.FlereAksjerId == aksjeId).ToListAsync();
+                    Ticker = t.Ticker
+                }).Where(t => t.Ticker == ticker).ToListAsync();
                 return alleTransaksjoner;
 
             }
