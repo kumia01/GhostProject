@@ -1,5 +1,10 @@
-﻿import React, { Component } from 'react';
+﻿{/* Imports */ }
+import React, { Component } from 'react';
+
+{/* Henter nødvendig funksjonalitet fra reactstrap */ }
 import { Button, ButtonGroup, Form, Container, Col, Row, Table } from 'reactstrap';
+
+{/* Henter klassen StockTabell for å printe ut informasjon fra api */}
 import { StockTabell } from "./StockTabell";
 
 export class Handel extends Component {
