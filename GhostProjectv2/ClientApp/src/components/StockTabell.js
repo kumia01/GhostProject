@@ -47,26 +47,30 @@ export class StockTabell extends Component {
 			})
 			const innAksjer = this.state.list
 			console.log(innAksjer)
-			$.post("../Aksje/Lagre", JSON.stringify(innAksjer), function (OK) {
-				if (OK) {
-					//Sender Aksjer til 
-	
-					console.log("FUCK YEAH!!");
+			$.ajax({
+				url: "../Aksje/Lagre",
+				type: "POST",
+				data: JSON.stringify(innAksjer),
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function (OK) {
+					if (OK) {
+						//Sender Aksjer til 
+
+						console.log("FUCK YEAH!!");
+					}
+					else {
+						//Fikse error melding
+						document.getElementById("feil").textContent = "Feil i db - prøv igjen senere!";
+						console.log("FEIL!!");
+					}
 				}
-				else {
-					//Fikse error melding
-					document.getElementById("feil").textContent = "Feil i db - prøv igjen senere!";
-					console.log("FEIL!!");
-				}
-			});
+			})
 		})
 		.catch(function (error) {
 			console.error(error);
 		});
-		
-		
-		
-	
+
 	}
 	
 	buy(ticker){

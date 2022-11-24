@@ -12,7 +12,7 @@ using GhostProjectv2.DAL;
 
 namespace GhostProjectv2.Controllers
 {
-
+    
     [Route("[controller]/[action]")]
     public class AksjeController : ControllerBase
     {
@@ -46,9 +46,9 @@ namespace GhostProjectv2.Controllers
         }
 
         //Endrer prisen på alle aksjer i DB, setter den eldre prisen til gammelPris
-        public async Task<ActionResult> endrePris(List<customJsonAksje> innAksjer)
+        public async Task<ActionResult> endrePris(string json)
         {
-            bool returOK = await _dbAksje.endrePris(innAksjer);
+            bool returOK = await _dbAksje.endrePris(json);
             if(!returOK)
             {
                 _log.LogInformation("Prisen på aksjene ble ikke endret!");
@@ -56,9 +56,10 @@ namespace GhostProjectv2.Controllers
             }
             return Ok("Prisen på aksjen ble endret");
         }
-        public async Task<ActionResult> Lagre(List<customJsonAksje> innAksjer)
+        
+        public async Task<ActionResult> Lagre(string json)
         {
-            bool returOK = await _dbAksje.Lagre(innAksjer);
+            bool returOK = await _dbAksje.Lagre(json);
             if(!returOK)
             {
                 _log.LogInformation("akjser ikke lagret!");

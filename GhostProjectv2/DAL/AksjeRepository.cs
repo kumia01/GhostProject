@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace GhostProjectv2.DAL
 {
@@ -71,9 +72,10 @@ namespace GhostProjectv2.DAL
         }
 
         //Endrer prisen på alle aksjer i DB, setter den eldre prisen til gammelPris
-        public async Task<bool> endrePris(String liste)
+        public async Task<bool> endrePris(string json)
         {
-            JsonConvert.DeserializeObject<List<customJsonAksje>>(liste);
+            var liste = JsonConvert.DeserializeObject<List<Aksje>>(json);
+            
             try
             {
                 List<Aksje> alleAksjer = await _dbAksje.FlereAksjer.Select(b => new Aksje
@@ -83,10 +85,10 @@ namespace GhostProjectv2.DAL
                 foreach (Aksje i in liste)
                 {
                     
-                    var endreobjekt = await _dbAksje.FlereAksjer.FindAsync(i.Id);
+                    var endreobjekt = await _dbAksje.FlereAksjer.FindAsync(i.Ticker);
                     if (endreobjekt == null)
                     {
-                        foreach (Aksje j in aksjeListe)
+                        foreach (Aksje j in alleAksjer)
                         {
                             if (i.Ticker == j.Ticker)
                             {
@@ -106,12 +108,16 @@ namespace GhostProjectv2.DAL
                 return false;
             }
         }
-        public async Task<bool> Lagre(List<customJsonAksje> innAksjer)
+        
+        public async Task<bool> Lagre(string json)
         {
-            Debug.WriteLine(innAksjer);
+            Debug.WriteLine(json);
+            var liste = JsonConvert.DeserializeObject<List<Aksje>>(json);
+
+            Debug.WriteLine(liste);
             try
             {
-                foreach (Aksje i in innAksjer)
+                foreach (Aksje i in liste)
                 {
                     
                     var sjekkAksje = await _dbAksje.FlereAksjer.FindAsync(i.Ticker);

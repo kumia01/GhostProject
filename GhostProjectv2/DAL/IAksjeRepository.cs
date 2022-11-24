@@ -9,8 +9,8 @@ namespace GhostProjectv2.DAL
     {
         Task<List<Aksje>> HentAlle();
         Task<Aksje> HentEn(int id);
-        Task<bool> endrePris(List<customJsonAksje>innAksjer);
-        Task<bool> Lagre(List<customJsonAksje> innAksjer);
+        Task<bool> endrePris(string json);
+        Task<bool> Lagre(string json);
 
     }
 }

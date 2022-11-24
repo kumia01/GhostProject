@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace GhostProjectv2.Models
 {
+    [Serializable]
     public class Aksje
     {
         public int Id { get; set; }
@@ -15,10 +17,5 @@ namespace GhostProjectv2.Models
         [RegularExpression(@"[0-9]{1,20}$")]
         public int gammelPris { get; set; }
 
-    }
-    public class customJsonAksje
-    {
-        [JsonProperty("Askje")]
-        public Aksje Aksje { get; set;}
     }
 }
