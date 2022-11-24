@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GhostProjectv2.DAL
 {
@@ -25,11 +26,35 @@ namespace GhostProjectv2.DAL
         {
             try
             {
+                var bruker = await _db.Brukere.FindAsync(innTransaksjon.BrukereId);
+                var totalPris = innTransaksjon.Volum * innTransaksjon.Pris;
                 var nyTransaksjonsRad = new Transaksjoner();
-                nyTransaksjonsRad.Volum = innTransaksjon.Volum;
-                nyTransaksjonsRad.Pris = innTransaksjon.Pris;
-                nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
-                nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
+
+                if (innTransaksjon.Volum > 0) //Hvis volum er positivt altså bruker kjøper en aksje
+                {
+                    if (bruker.Saldo - totalPris >= 0) //Hvis bruker sin saldo - total kostnad er 0 eller større har bruker nok penger til kjøp
+                    {
+                        nyTransaksjonsRad.Volum = innTransaksjon.Volum;
+                        nyTransaksjonsRad.Pris = innTransaksjon.Pris;
+                        nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
+                        nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
+                        bruker.Saldo = bruker.Saldo - totalPris; //Setter ny brukersaldo til saldo - kjøpspris
+
+                    }
+                    else if (bruker.Saldo - totalPris < 0) //Hvis bruker sin saldo ikke har tilstrekkelig beløp
+                    {
+                        _log.LogInformation("Ikke tilstrekkelig beløp på konto!");
+                        return false;
+                    }
+                }
+                else if (innTransaksjon.Volum < 0) //Hvis volum er et negativt tall vil det si at bruker selger en aksje og derfor skal få beløpet de selger for på saldoen sin
+                {
+                    nyTransaksjonsRad.Volum = innTransaksjon.Volum;
+                    nyTransaksjonsRad.Pris = innTransaksjon.Pris;
+                    nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
+                    nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
+                    bruker.Saldo = bruker.Saldo + (-1 * totalPris); //Setter ny brukersaldo til bruker saldo + salgspris
+                }
 
 
                 _db.Transaksjoner.Add(nyTransaksjonsRad);
