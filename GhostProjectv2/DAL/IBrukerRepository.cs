@@ -11,8 +11,8 @@ namespace GhostProjectv2.DAL
         Task<bool> Slett(int id);
         Task<Bruker> HentEn(int id);
         Task<bool> Endre(Bruker endreBruker);
-        Task<bool> LoggInn(Kunde innKunde);
-        Task<Bruker> HentKundeId(Kunde innKunde);
+        Task<bool> LoggInn(Bruker innBruker);
+        Task<Bruker> HentKundeId(Bruker innBruker);
         Task<bool> EndreSaldo(Bruker innBruker);
     }
 }

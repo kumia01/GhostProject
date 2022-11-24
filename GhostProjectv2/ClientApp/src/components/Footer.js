@@ -17,10 +17,7 @@ export class Footer extends Component {
         // Returnerer html elementene slik at de skrives ut
         return (
 
-            {/* Bruker elementer footer, footer sitter nederst på en side og skal brukes på tvers av alle sidene */ }
             < footer >
-
-            {/* Container som inneholder html elementene som skal være med i footer */}
                 <Container fluid="true" id="footContainer" className="align-items-md-center">
                     <Container>
                     <Row fluid="true" className="d-flex mx-auto">
@@ -63,7 +60,8 @@ export class Footer extends Component {
                     </Container>
                 </Container>
             </footer>
-            );
+    
+        );
 
     }
 }
