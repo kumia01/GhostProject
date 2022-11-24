@@ -5,6 +5,8 @@ using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace GhostProjectv2.DAL
 {
@@ -69,21 +71,29 @@ namespace GhostProjectv2.DAL
         }
 
         //Endrer prisen på alle aksjer i DB, setter den eldre prisen til gammelPris
-        public async Task<bool> endrePris()
+        public async Task<bool> endrePris(String liste)
         {
+            JsonConvert.DeserializeObject<List<customJsonAksje>>(liste);
             try
             {
                 List<Aksje> alleAksjer = await _dbAksje.FlereAksjer.Select(b => new Aksje
                 {
                     Id = b.Id
                 }).ToListAsync();
-                foreach (Aksje i in alleAksjer)
+                foreach (Aksje i in liste)
                 {
-                    Random rand = new Random();
+                    
                     var endreobjekt = await _dbAksje.FlereAksjer.FindAsync(i.Id);
-                    endreobjekt.gammelPris = endreobjekt.Pris;
-                    int nyPris = Convert.ToInt32(endreobjekt.Pris * NextDouble(rand, 1.2, 0.8, 2)); //ny pris blir satt ved å bruke en tilfeldig vekstfaktor på mellom 0.8-1.2, max/min vekst på 20%
-                    endreobjekt.Pris = nyPris;
+                    if (endreobjekt == null)
+                    {
+                        foreach (Aksje j in aksjeListe)
+                        {
+                            if (i.Ticker == j.Ticker)
+                            {
+                                endreobjekt.Pris = j.Pris;
+                            }
+                        }
+                    }
 
 
                 }
@@ -96,12 +106,33 @@ namespace GhostProjectv2.DAL
                 return false;
             }
         }
-
-
-        private double NextDouble(Random rand, double minVerdi, double maxVerdi, int runde)
+        public async Task<bool> Lagre(List<customJsonAksje> innAksjer)
         {
-            double randNummber = rand.NextDouble() * (maxVerdi - minVerdi) + minVerdi;
-            return Convert.ToDouble(randNummber.ToString("f" + runde));
-        }
+            Debug.WriteLine(innAksjer);
+            try
+            {
+                foreach (Aksje i in innAksjer)
+                {
+                    
+                    var sjekkAksje = await _dbAksje.FlereAksjer.FindAsync(i.Ticker);
+                    if(sjekkAksje == null)
+                    {
+                        var nyAksje = new FlereAksjer();
+                        nyAksje.Ticker = i.Ticker;
+                        nyAksje.Selskap= i.Selskap;
+                        nyAksje.Pris = i.Pris;
+                        _dbAksje.FlereAksjer.Add(nyAksje);
+                        Debug.WriteLine(nyAksje);
+                    }
+
+                }
+                await _dbAksje.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+    }
     }
 }

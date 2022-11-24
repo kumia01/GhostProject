@@ -141,7 +141,7 @@ export class Registrer extends Component {
                 brukernavn: this.state.input["brukernavn"],
                 passord: this.state.input["passord"]
             }
-            
+            console.log(bruker)
             $.post("../Bruker/Lagre", bruker, function (OK) {
                 if (OK) {
                     //Sender kunde til logginn side

@@ -2,11 +2,14 @@
 import{ Redirect } from 'react-router-dom';
 import { Table, Button } from 'reactstrap';
 import axios from "axios";
-
+import $ from  'jquery';
 const options = {
 	method: 'GET',
-	url: 'https://query1.finance.yahoo.com/v10/finance/quoteSummary/{symbol}?modules=recommendationTrend',
-	
+	url: 'https://latest-stock-price.p.rapidapi.com/any',
+	headers: {
+	  'X-RapidAPI-Key': 'fd945d0c24msh3ed33568bd9280fp10086djsn4f53ccc85b53',
+	  'X-RapidAPI-Host': 'latest-stock-price.p.rapidapi.com'
+	}
   };
 
 
@@ -16,7 +19,13 @@ export class StockTabell extends Component {
 		super(props)
 		this.state = {
 			list: [],
-			redirect: false
+			redirect: false,
+			Aksje: {
+				Ticker: "",
+				Selskap: "",
+				Pris: "",
+				gammelPris: "" 
+			}
 		}
 		this.callAPI = this.callAPI.bind(this);
 		this.renderRedirect = this.renderRedirect.bind(this)
@@ -27,11 +36,37 @@ export class StockTabell extends Component {
 		axios.request(options)
 		.then((response) => {
 			console.log(response.data)
-			//this.setState({list: response.data.finance.result[0].quotes})
+			response.data.map((i,key) =>{
+				const Aksje ={
+						ticker: i.symbol,
+						selskap: i.identifier,
+						pris: i.open,
+						gammelpris: i.lastPrice
+				}
+				this.state.list[key] = Aksje;
+			})
+			const innAksjer = this.state.list
+			console.log(innAksjer)
+			$.post("../Aksje/Lagre", JSON.stringify(innAksjer), function (OK) {
+				if (OK) {
+					//Sender Aksjer til 
+	
+					console.log("FUCK YEAH!!");
+				}
+				else {
+					//Fikse error melding
+					document.getElementById("feil").textContent = "Feil i db - prøv igjen senere!";
+					console.log("FEIL!!");
+				}
+			});
 		})
 		.catch(function (error) {
 			console.error(error);
 		});
+		
+		
+		
+	
 	}
 	
 	buy(ticker){
