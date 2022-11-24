@@ -1,7 +1,7 @@
 ﻿import React, { Component, useState, useEffect } from 'react';
-import { Container, Table } from 'reactstrap';
+import{ Redirect } from 'react-router-dom';
+import { Table, Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from "axios";
-import { data } from 'jquery';
 
 const options = {
 	method: 'GET',
@@ -14,15 +14,16 @@ const options = {
   };
 
 
-
 export class StockTabell extends Component {
     static displayName = StockTabell.name;
 	constructor(props){
 		super(props)
 		this.state = {
-			list: []
+			list: [],
+			redirect: false
 		}
-		this.callAPI = this.callAPI.bind(this)
+		this.callAPI = this.callAPI.bind(this);
+		this.renderRedirect = this.renderRedirect.bind(this)
 		this.callAPI();
 	}
 
@@ -36,6 +37,19 @@ export class StockTabell extends Component {
 			console.error(error);
 		});
 	}
+	
+	buy(ticket){
+		sessionStorage.setItem('ticket', ticket)
+		this.setState({
+			redirect: true
+		})
+	}
+
+	renderRedirect(){
+		if(this.state.redirect){
+			return <Redirect to='/tickerbuy' />
+		}
+	}
 
     render() {
 		let data = this.state.list.slice(0,10).map((i,key) =>{
@@ -43,18 +57,26 @@ export class StockTabell extends Component {
 				<tr key={key}>
 					<th>{key+1}</th>
 					<td>{i.shortName}</td>
+					<td>{i.symbol}</td>
 					<td>{i.regularMarketPrice}</td>
 					<td>{i.regularMarketChange}</td>
+					<td><Button color="success" onClick={this.buy.bind(this, i.symbol)} >kjøp</Button></td>
+					<td><Button color="danger">selg</Button></td>
 				</tr>
-			)
-		})
+			);
+		});
+	
 		return (
-			<Table>
-				<thead><tr><th>#</th><th>aksje</th><th>pris</th><th>endring</th></tr></thead>
-				<tbody>
-					{data}
-				</tbody>
-			</Table>
+			<div>
+				{this.renderRedirect()}
+				<Table responsive>
+					<thead><tr><th>#</th><th>aksje</th><th>ticker</th><th>pris</th><th>endring</th></tr></thead>
+					<tbody>
+						{data}
+					</tbody>
+				</Table>
+			</div>
+			
 		);
 	}
 
