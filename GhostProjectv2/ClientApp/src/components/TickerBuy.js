@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {  Redirect } from 'react-router-dom';
-import {Row, Col, Form, FormGroup, Label} from 'reactstrap';
+import {Container, Row, Col, Form, FormGroup, Input, Label} from 'reactstrap';
 
 
 
@@ -10,26 +10,24 @@ import {Row, Col, Form, FormGroup, Label} from 'reactstrap';
 
 export class TickerBuy extends Component {
   static displayName = TickerBuy.name;
-  constructor(props){
-    super(props)
-  }
 
   render () {
+    if (!sessionStorage.getItem('ticket')) {
+        return <Redirect to="/handel"/>
+    }
     return (
-        <div>
-            <Row>
-                <Col>
+        <Container>
+            <p>hi</p>
                     <Form>
                         <FormGroup>
                             <Label for='ticker'>
-                                Aksje kjøp
+                                Input without validation
                             </Label>
                             <Input for='ticker' />
                         </FormGroup>
                     </Form>
-                </Col>
-            </Row>
-        </div>
+        
+        </Container>
     );
   }
 }
