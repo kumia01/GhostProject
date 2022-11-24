@@ -46,7 +46,7 @@ namespace GhostProjectv2.Controllers
         }
 
         //Endrer prisen på alle aksjer i DB, setter den eldre prisen til gammelPris
-        public async Task<ActionResult> endrePris(List<Aksje> innAksjer)
+        public async Task<ActionResult> endrePris(List<customJsonAksje> innAksjer)
         {
             bool returOK = await _dbAksje.endrePris(innAksjer);
             if(!returOK)
@@ -56,7 +56,7 @@ namespace GhostProjectv2.Controllers
             }
             return Ok("Prisen på aksjen ble endret");
         }
-        public async Task<ActionResult> Lagre(List<Aksje> innAksjer)
+        public async Task<ActionResult> Lagre(List<customJsonAksje> innAksjer)
         {
             bool returOK = await _dbAksje.Lagre(innAksjer);
             if(!returOK)
