@@ -7,6 +7,7 @@ import { Login } from './components/Login';
 import { Registrer } from './components/Registrer';
 import { Uttak } from './components/Uttak';
 import './custom.css'
+import { TicketBuy } from './components/TicketBuy';
 import { Home } from './components/Home';
 import { Handel } from './components/Handel';
 import { Historikk } from './components/Historikk';
@@ -26,6 +27,7 @@ export default class App extends Component {
             <Route path='/balanse' component={Balanse} />
             <Route path='/fetch-data' component={FetchData} />
             <Route path='/login' component={Login} />
+            <Route path='/ticketBuy' component={TicketBuy} />
             <Route path='/registrer' component={Registrer} />
             <Route path='/uttak' component={Uttak} />
             <Route path='/historikk' component={Historikk} />
