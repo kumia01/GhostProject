@@ -187,13 +187,13 @@ namespace GhostProjectv2.DAL
             return salt;
         }
 
-        public async Task<bool> LoggInn(Bruker innBruker)
+        public async Task<bool> LoggInn(Kunde innKunde)
         {
             try
             {
-                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == innBruker.Brukernavn);
+                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == innKunde.Brukernavn);
 
-                byte[] hash = LagHash(innBruker.Passord, funnetKunde.Salt);
+                byte[] hash = LagHash(innKunde.Passord, funnetKunde.Salt);
                 bool ok = hash.SequenceEqual(funnetKunde.Passord);
 
                 if (ok)
@@ -209,11 +209,11 @@ namespace GhostProjectv2.DAL
             }
         }
 
-        public async Task<Bruker> HentKundeId(Bruker innBruker)
+        public async Task<Bruker> HentKundeId(Kunde innKunde)
         {
             try
             {
-                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == innBruker.Brukernavn);
+                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == innKunde.Brukernavn);
                 var hentetKunde = new Bruker()
                 {
                     Id = funnetKunde.Id,

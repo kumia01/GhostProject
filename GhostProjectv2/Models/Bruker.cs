@@ -19,9 +19,9 @@ namespace GhostProjectv2.Models
         [RegularExpression(@"^[1-9]\d{1,10}$")]
         public int Saldo { get; set; }
         [RegularExpression(@"^[0-9a-zA-ZæøåÆØÅ. \-]{2,20}$")]
-        public String Brukernavn { get; set; }
+        public string Brukernavn { get; set; }
         [RegularExpression(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$")]
-        public String Passord { get; set; }
+        public string Passord { get; set; }
     }
 }
 

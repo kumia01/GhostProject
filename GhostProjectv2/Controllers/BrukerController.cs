@@ -109,14 +109,14 @@ namespace GhostProjectv2.Controllers
             
         }
 
-        public async Task<ActionResult> LoggInn(Bruker innBruker)
+        public async Task<ActionResult> LoggInn(Kunde innKunde)
         {
             if (ModelState.IsValid)
             {
-                bool returnOK = await _db.LoggInn(innBruker);
+                bool returnOK = await _db.LoggInn(innKunde);
                 if (!returnOK)
                 {
-                    _log.LogInformation("Innlogging feilet for bruker " + innBruker.Brukernavn + "!");
+                    _log.LogInformation("Innlogging feilet for bruker " + innKunde.Brukernavn + "!");
                     HttpContext.Session.SetString(_loggetInn, "");
                     return Ok(false);
                 }
@@ -127,13 +127,13 @@ namespace GhostProjectv2.Controllers
             return BadRequest("Feil i inputvalidering på server!");
         }
 
-        public async Task<ActionResult> HentKundeId(Bruker innBruker)
+        public async Task<ActionResult> HentKundeId(Kunde innKunde)
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
                 return Unauthorized();
             }
-            Bruker funnetKunde = await _db.HentKundeId(innBruker);
+            Bruker funnetKunde = await _db.HentKundeId(innKunde);
             if (funnetKunde == null)
             {
                 _log.LogInformation("Fant ikke kunden!");
