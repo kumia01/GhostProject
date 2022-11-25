@@ -2,10 +2,12 @@
 import { Button, Form, Container, Col, FormGroup, Label, Input, Row } from 'reactstrap';
 import { Link, Redirect } from 'react-router-dom';
 import $ from 'jquery';
+import { validerBrukernavn, validerPassord } from './Validering';
 
 
 //Funksjon som lagrer kunde id'en til kunden som logger på i localstorage
 function lagreKundeId(bruker) {
+    
     $.post("../Bruker/HentKundeId", bruker, function (bruker) {
         sessionStorage.setItem('kundeId', bruker.id);
         console.log(sessionStorage.getItem('kundeId'));
@@ -23,97 +25,62 @@ function lagreKundeId(bruker) {
     return true;
 }
 
+function login() {
+    let formOK = false;
+    const bruker = {
+        brukernavn: $("#brukernavn").val(),
+        passord: $("#passord").val()
+    }
+    const brukernavnOK = validerBrukernavn(bruker.brukernavn);
+    const passordOK = validerPassord(bruker.passord);
+
+    if (brukernavnOK && passordOK) { //Sjekker at regex er godkjent
+        $.post("../Bruker/LoggInn", bruker, function (OK) { //POST kall med kunde object
+            if (OK) {
+                lagreKundeId(bruker);
+                //Kaller på lagreKundeId funksjonen
+                console.log(sessionStorage.getItem('kundeId'));
+            }
+            else {
+                return false;
+            }
+        })
+            .fail(function (feil) {
+                document.getElementById("feil").textContent = "Feil på server - prøv igjen senere: " + feil.responseText + " : " + feil.status + " : " + feil.statusText;
+                return false;
+            });
+        return true;
+        
+    }
+
+}
+
+
 export class Login extends Component {
     static displayName = Login.name;
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            input: {},
-            errors: {},
-        };
-        this.validering = this.validering.bind(this);
-        this.login = this.login.bind(this);
-    }
-    //validering
-    validering() {
-        let input = this.state.input;
-        let errors = {};
-        let formOK = true;
-        //brukernavn validering
-        console.log(input["brukernavn"]);
-        console.log(input["passord"]);
-        if (!input["brukernavn"]) {
-            formOK = false;
-            errors["brukernavn"] = "Denne kan ikke være tom!";
-        }
-
-        if (typeof input["brukernavn"] != "undefined") {
-            if (!input["brukernavn"].match(/^[0-9a-zA-ZæøåÆØÅ. \-]{2,20}$/g)){
-                formOK = false;
-                errors["brukernavn"] = "Bare bokstaver og tall, mellom 6-20 tegn!";
-            }
-        }
-
-        //passord
-        if (!input["passord"]) {
-            formOK = false;
-            errors["passord"] = "Denne kan ikke være tom!";
-        }
-
-        if (typeof input["passord"] != "undefined") {
-            if (!input["passord"].match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/g)){
-                formOK = false;
-                errors["passord"] = "Passord må inneholde tall og bokstaver. Det skal være 6 eller fler tegn!";
-            }
-        }
-        this.setState({ errors: errors });
-        return formOK;
+    state = {
+        redirect: false
     }
 
     //login kall til serveren for å starte session
-    login() {
-        if (this.validering() == true) { //Sjekker at regex er godkjent
-            let errors = {};
-            const bruker = {
-                brukernavn: this.state.input["brukernavn"],
-                passord: this.state.input["passord"]
-            }
-            $.post("../Bruker/LoggInn", bruker, function (OK) { //POST kall med kunde object
-                if (OK) { 
-                    lagreKundeId(bruker); //Kaller på lagreKundeId funksjonen
-
-                    //SENDE BRUKER TIL HJEMSIDEN HER
-
-                    console.log("SIUUUUU!");
-                    
-                    console.log(sessionStorage.getItem('kundeId'));
-                }
-                else {
-                    //Fikse error melding
-                    //errors["passord"] = "Feil brukernavn eller passord!";
-                    //this.setState({ errors : errors });
-                    console.log("FEIL BRUKERNAVN ELLER PASSORD!")
-                }
-            });
-                //Fikse fail function
-                /*.fail(function (feil) {
-                    this.state.input["brukernavn"] = "Feil på server - prøv igjen senere: " + feil.responseText + " : " + feil.status + " : " + feil.statusText;
-                });*/
+    onSubmit = () => {
+        const loginOK = login();
+        console.log(loginOK);
+        if (loginOK) {
+            console.log("11");
+            this.setState({ redirect: true });
         }
-    }
-
-    handleChange(input, e) {
-        let inputs = this.state.input;
-        inputs[input] = e.target.value;
-        this.setState({ inputs });
     }
 
 
     render() {
         if (sessionStorage.getItem('kundeId') != null) {
             return <Redirect to="/profil"/>
+        }
+        if (this.state.redirect) {
+            console.log("222");
+            return <Redirect to="/profile"/>
         }
 
 
@@ -131,11 +98,10 @@ export class Login extends Component {
                                     type="text"
                                     placeholder="Brukernavn"
                                     className="form-control"
-                                    onChange={this.handleChange.bind(this, "brukernavn") }
-                                    value={this.state.input["brukernavn"]}
+                                    id="brukernavn"
                                     required="required"
                                 />
-                                <span style={{ color: "red" }}>{this.state.errors["brukernavn"]}</span>
+                                <span style={{ color: "red" }} id="feilbrukernavn"></span>
                             </FormGroup>
 
                             <FormGroup>
@@ -145,15 +111,15 @@ export class Login extends Component {
                                     type="password"
                                     placeholder="Passord"
                                     className="form-control"
-                                    onChange={this.handleChange.bind(this, "passord")}
-                                    value={this.state.input["passord"]}
+                                    id="passord"
                                     required="required"
                                 />
-                                <span style={{ color: "red" }}>{this.state.errors["passord"]}</span>
+                                <span style={{ color: "red" }} id="feilpassord"></span>
                             </FormGroup>
 
                             <FormGroup>
-                                <Button className="btn btn-primary" onClick={this.login}>Logg Inn</Button>
+                                <Button className="btn btn-primary" onClick={this.onSubmit}>Logg Inn</Button>
+                                <span style={{ color: "red" }} id="feil"></span>
                             </FormGroup>
 
                             <FormGroup>

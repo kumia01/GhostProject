@@ -1,56 +1,76 @@
 ﻿import React, { Component } from 'react';
 import { Button, Form, Container, Col, FormGroup, Label, Input, Row } from 'reactstrap';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import $ from 'jquery';
 import { validerFornavn, validerPoststed, validerPostnr, validerPassord, validerAdresse, validerBrukernavn, validerEtternavn } from './Validering';
 
 
-export class Registrer extends Component {
-    static displayName = Registrer.name;
+function registrer() {
 
-
-    registrer() {
-
-        const bruker = {
-            fornavn: $("#fornavn").val(),
-            etternavn: $("#etternavn").val(),
-            adresse: $("#adresse").val(),
-            postnr: $("#postnr").val(),
-            poststed: $("#poststed").val(),
-            brukernavn: $("#brukernavn").val(),
-            passord: $("#passord").val()
-        }
-
-        const fornavnOK = validerFornavn(bruker.fornavn);
-        const etternavnOK = validerEtternavn(bruker.etternavn);
-        const adresseOK = validerAdresse(bruker.adresse);
-        const postnrOK = validerPostnr(bruker.postnr);
-        const poststedOK = validerPoststed(bruker.poststed);
-        const brukernavnOK = validerBrukernavn(bruker.brukernavn);
-        const passordOK = validerPassord(bruker.passord);
-
-        if (fornavnOK && etternavnOK && adresseOK && postnrOK && poststedOK && brukernavnOK && passordOK) {
-            
-            $.post("../Bruker/Lagre", bruker, function (OK) {
-                if (OK) {
-                    //Sender kunde til logginn side
-                    console.log("FUCK YEAH!!");
-                }
-                else {
-                    //Fikse error melding
-                    document.getElementById("feil").textContent = "Feil i db - prøv igjen senere!";
-                    console.log("FEIL!!");
-                }
-            });
-        }
+    const bruker = {
+        fornavn: $("#fornavn").val(),
+        etternavn: $("#etternavn").val(),
+        adresse: $("#adresse").val(),
+        postnr: $("#postnr").val(),
+        poststed: $("#poststed").val(),
+        brukernavn: $("#brukernavn").val(),
+        passord: $("#passord").val()
     }
 
+    const fornavnOK = validerFornavn(bruker.fornavn);
+    const etternavnOK = validerEtternavn(bruker.etternavn);
+    const adresseOK = validerAdresse(bruker.adresse);
+    const postnrOK = validerPostnr(bruker.postnr);
+    const poststedOK = validerPoststed(bruker.poststed);
+    const brukernavnOK = validerBrukernavn(bruker.brukernavn);
+    const passordOK = validerPassord(bruker.passord);
+
+    if (fornavnOK && etternavnOK && adresseOK && postnrOK && poststedOK && brukernavnOK && passordOK) {
+
+        $.post("../Bruker/Lagre", bruker, function (OK) {
+            if (OK) {
+                //Sender kunde til logginn side
+                console.log("FUCK YEAH!!");
+                return true;
+            }
+            else {
+                //Fikse error melding
+                document.getElementById("feil").textContent = "Feil i db - prøv igjen senere!";
+                console.log("FEIL!!");
+                return false;
+            }
+        });
+        return true;
+    }
+}
+
+
+export class Registrer extends Component {
+    static displayName = Registrer.name;
+    
+    
+        state = {
+            redirect: false
+        }
+        
+    
+    
+
+    onSubmit = () => {
+        if (registrer() == true) {
+            this.setState({ redirect: true });
+        }
+    }
 
 
     render() {
 
         if (sessionStorage.getItem('kundeId') != null) {
             return <Redirect to="/profil"/>
+        }
+        
+        if (this.state.redirect) {
+            return <Redirect to="/login"/>;
         }
 
          
@@ -157,7 +177,7 @@ export class Registrer extends Component {
 
 
                             <FormGroup>
-                                <Button className="btn btn-primary" onClick={this.registrer}>Lag Bruker</Button>
+                                <Button className="btn btn-primary" onClick={this.onSubmit}>Lag Bruker</Button>
                                 <span style={{ color: "red" }} id="feil"></span>
                             </FormGroup>
                         </Col>
