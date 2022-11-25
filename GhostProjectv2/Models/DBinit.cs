@@ -27,8 +27,8 @@ namespace GhostProjectv2.Models
                 var bruker3 = new Brukere { Fornavn = "Per", Etternavn = "Persson", Adresse = "Grensen 22", Poststed = poststed1, Saldo = 0 };
                 var bruker4 = new Brukere { Fornavn = "Rasmus", Etternavn = "Helgen", Adresse = "Kaia 1", Poststed = poststed1, Saldo = 0 };
 
-                var transaksjon1 = new Transaksjoner { Pris = aksje1.Pris, Volum = 200 };
-                var transaksjon2 = new Transaksjoner { Pris = aksje1.Pris, Volum = 20052 };
+                var transaksjon1 = new Transaksjoner { Pris = (int)aksje1.Pris, Volum = 200 };
+                var transaksjon2 = new Transaksjoner { Pris = (int)aksje1.Pris, Volum = 20052 };
 
 
 

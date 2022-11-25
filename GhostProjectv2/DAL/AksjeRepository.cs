@@ -85,14 +85,14 @@ namespace GhostProjectv2.DAL
                 foreach (Aksje i in innAksje)
                 {
                     
-                    var endreobjekt = await _dbAksje.FlereAksjer.FindAsync(i.Ticker);
+                    var endreobjekt = await _dbAksje.FlereAksjer.Where(m => m.Ticker == i.Ticker).ToListAsync();
                     if (endreobjekt == null)
                     {
                         foreach (Aksje j in alleAksjer)
                         {
                             if (i.Ticker == j.Ticker)
                             {
-                                endreobjekt.Pris = j.Pris;
+                                
                             }
                         }
                     }
@@ -109,7 +109,7 @@ namespace GhostProjectv2.DAL
             }
         }
         
-        public async Task<bool> Lagre([FromBody]List<Aksje> innAskje)
+        public async Task<bool> Lagre(List<Aksje> innAskje)
         {
             Debug.WriteLine(innAskje);
             
@@ -120,13 +120,15 @@ namespace GhostProjectv2.DAL
                 foreach (Aksje i in innAskje)
                 {
                     
-                    var sjekkAksje = await _dbAksje.FlereAksjer.FindAsync(i.Ticker);
-                    if(sjekkAksje == null)
+                    var sjekkAksje = await _dbAksje.FlereAksjer.Where(m => m.Ticker == i.Ticker).ToListAsync();
+                    Debug.WriteLine(sjekkAksje);
+                    if (sjekkAksje.Count == 0)
                     {
                         var nyAksje = new FlereAksjer();
                         nyAksje.Ticker = i.Ticker;
                         nyAksje.Selskap= i.Selskap;
                         nyAksje.Pris = i.Pris;
+                        nyAksje.gammelPris = i.gammelPris;
                         _dbAksje.FlereAksjer.Add(nyAksje);
                         Debug.WriteLine(nyAksje);
                     }

@@ -9,6 +9,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using GhostProjectv2.DAL;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace GhostProjectv2.Controllers
 {
@@ -57,9 +59,9 @@ namespace GhostProjectv2.Controllers
             return Ok("Prisen på aksjen ble endret");
         }
         
-        public async Task<ActionResult> Lagre(List<Aksje> innAskje)
-        {
-            bool returOK = await _dbAksje.Lagre(innAskje);
+        public async Task<ActionResult> Lagre([FromBody] List<Aksje> innAksje)
+        { 
+            bool returOK = await _dbAksje.Lagre(innAksje);
             if(!returOK)
             {
                 _log.LogInformation("akjser ikke lagret!");

@@ -43,8 +43,8 @@ namespace GhostProjectv2.Models
         public int Id { get; set; }
         public string Ticker { get; set; }
         public string Selskap { get; set; }
-        public int Pris { get; set; }
-        public int gammelPris { get; set; }
+        public float Pris { get; set; }
+        public float gammelPris { get; set; }
         virtual public List<Transaksjoner> Transaksjoner { get; set; }
 
     }
