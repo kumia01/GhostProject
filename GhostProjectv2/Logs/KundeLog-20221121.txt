@@ -62,3 +62,38 @@
 2022-11-21T18:12:30.0628474+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
 (node:26088) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
  (efbd2770)
+2022-11-21T21:33:26.0526814+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-21T21:33:26.0656729+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-21T21:33:26.0677816+01:00  [INF] Content root path: "D:\Skole\Webapp\Ghost2\GhostProjectv2" (b5d60022)
+2022-11-21T21:34:40.9649636+01:00  [ERR] (node:17172) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (1aad8a64)
+2022-11-21T21:34:40.9679117+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:17172) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (084dd3cc)
+2022-11-21T21:37:42.2891854+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-21T21:37:42.3024396+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-21T21:37:42.3027902+01:00  [INF] Content root path: "D:\Skole\Webapp\Ghost2\GhostProjectv2" (b5d60022)
+2022-11-21T21:37:51.1600158+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-21T21:37:51.2043121+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-21T21:37:51.2075936+01:00  [INF] Content root path: "D:\Skole\Webapp\Ghost2\GhostProjectv2" (b5d60022)
+2022-11-21T21:37:57.6714234+01:00  [ERR] (node:17748) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (3d1a0148)
+2022-11-21T21:37:57.6739497+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:17748) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (f9b0b908)
+2022-11-21T21:38:50.1715621+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-21T21:38:50.1821854+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-21T21:38:50.1851119+01:00  [INF] Content root path: "D:\Skole\Webapp\Ghost2\GhostProjectv2" (b5d60022)
+2022-11-21T21:38:56.0637389+01:00  [ERR] (node:1524) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (e644ada5)
+2022-11-21T21:38:56.0672430+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:1524) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (47f34a12)
+2022-11-21T21:44:02.0649456+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-21T21:44:02.0730825+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-21T21:44:02.0749688+01:00  [INF] Content root path: "D:\Skole\Webapp\Ghost2\GhostProjectv2" (b5d60022)
+2022-11-21T21:44:07.1308487+01:00  [ERR] (node:13680) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (8aa411c9)
+2022-11-21T21:44:07.1337187+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:13680) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (5895edcf)

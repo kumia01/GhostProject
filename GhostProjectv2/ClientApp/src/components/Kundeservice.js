@@ -1,5 +1,10 @@
-﻿import React, { Component } from 'react';
+﻿{/* Imports */ }
+import React, { Component } from 'react';
+
+{/* Henter nødvendig funksjonalitet fra reactstrap */ }
 import { Button, Form, FormGroup, Container, Col, Row, Label, Input, } from 'reactstrap';
+
+{/* Importerer jquery biblioteket for inputvalidering */}
 import $ from 'jquery';
 
 
@@ -41,8 +46,12 @@ function validering(melding) {
     return formOK;
 }
 
+{/* Js klassen Kundeservice arver fra superklassen Component */ }
 export class Kundeservice extends Component {
+
+    // Setter displayName til Kundeservice for eventuelle debugging meldinger
     static displayName = Kundeservice.name;
+
 
     sendMelding() {
         const melding = {
@@ -65,16 +74,34 @@ export class Kundeservice extends Component {
     }
 
 
-
+    // Funksjon som kontrollerer container noden du står i
     render() {
+
+        // Returnerer html elementene slik at de skrives ut
         return (
+
+            // Container som inneholder html elementene til siden
             <Container>
+
+                {/* Rad som skalerer på enhet */}
                 <Row fluid="true" className="align-items-center justify-content-center">
+
+                    {/* En av to kolonner i raden, for mobil vil den andre bli til en ny rad */}
                     <Col sm="12" md="6" lg="6">
+
+                        {/* Undertittel som markerer hvilken side bruker er på */}
                         <h2 className="text-center"><strong>Kundeservice</strong></h2>
+
+                        {/* Bruker Form fra reactstrap for å strukturere input-feltene */}
                         <Form>
+
+                            {/* Label fungerer som en indikasjon på hva som skal stå i input-felt */}
                             <Label>Name</Label>
+
+                            {/* Input-felt for å ta inn en verdi som inputvalideres */}
                             <Input type="text" id="inpName" />
+
+                            {/* Span brukes for å sende ut en eventuell feilmelding hvis inputvalidering feiler */}
                             <span style={{ color: "Red" }} id="feilNavn"></span>
 
                             <Label>Email</Label>
@@ -85,7 +112,10 @@ export class Kundeservice extends Component {
                             <Input id="message" type="textarea" name="message" />
                             <span style={{ color: "Red" }} id="feilMelding"></span>
 
+                            {/* Knapp for å sende informasjon fra Form, kaller på funksjonen sendMelding */}
                             <Button className="btn btn-primary" id="btnSend" onClick={this.sendMelding}>Send</Button>
+
+                            {/* Span for eventuelle feilmeldinger */}
                             <span style={{ color: "Black" }} id="meldingSendt"></span>
                             <span style={{ color: "Red" }} id="feil"></span>
                         </Form>

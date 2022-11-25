@@ -1,9 +1,17 @@
-﻿import React, { Component} from 'react';
-import { Button, Form, Container, Col, FormGroup, Label, Input, Row } from 'reactstrap';
-import { Link, Redirect } from 'react-router-dom';
-import $ from 'jquery';
-import { validerBrukernavn, validerPassord } from './Validering';
+﻿{/* Imports */ }
+import React, { Component } from 'react';
 
+{/* Henter nødvendig funksjonalitet fra reactstrap */ }
+import { Button, Form, Container, Col, FormGroup, Label, Input, Row } from 'reactstrap';
+
+{/* Importerer funksjoner fra react-router-dom, disse brukes til å bytte til en annen js komponent */}
+import { Link, Redirect } from 'react-router-dom';
+
+{/* Importerer jquery biblioteket */}
+import $ from 'jquery';
+
+{/* Henter funksjoner fra js komponenten Validering */}
+import { validerBrukernavn, validerPassord } from './Validering';
 
 //Funksjon som lagrer kunde id'en til kunden som logger på i localstorage
 function lagreKundeId(bruker) {
@@ -55,8 +63,10 @@ function login() {
 
 }
 
-
+{/* Js klassen Login arver fra superklassen Component */ }
 export class Login extends Component {
+
+    // Setter displayName til Login for eventuelle debugging meldinger
     static displayName = Login.name;
 
     state = {
@@ -73,7 +83,7 @@ export class Login extends Component {
         }
     }
 
-
+    // Funksjon som kontrollerer noden du står i
     render() {
         if (sessionStorage.getItem('kundeId') != null) {
             return <Redirect to="/profil"/>
@@ -83,16 +93,31 @@ export class Login extends Component {
             return <Redirect to="/profile"/>
         }
 
-
+        // Returnerer html elementene slik at de skrives ut
         return (
+
+            // Container som inneholder html elementene til siden
             <Container>
+
+                {/* Bruker Form for å strukturere input-feltene */}
                 <Form>
-                    <Row className="justify-content-md-center">
+
+                    {/* Rad som skalerer på enhet */}
+                    <Row fluid="true" className="justify-content-md-center">
+
+                        {/* Kolonne for alle elementene */}
                         <Col sm="6">
+
+                            {/* Undertittel */}
                             <h2>Logg inn</h2>
 
+                            {/* Bruker FormGroup for å gruppere input-feltene som ønsket */}
                             <FormGroup>
+
+                                {/* Label for å markere hva som skal stå i input-felt */}
                                 <Label for="brukernavn">Brukernavn</Label>
+
+                                {/* Input-felt for brukernavn */}
                                 <Input
                                     ref="brukernavn"
                                     type="text"
@@ -101,11 +126,18 @@ export class Login extends Component {
                                     id="brukernavn"
                                     required="required"
                                 />
+
+                                {/* Span for å skrive ut eventuell feilmelding */}
                                 <span style={{ color: "red" }} id="feilbrukernavn"></span>
                             </FormGroup>
 
+                            {/* FormGroup for passord feltet */}
                             <FormGroup>
+
+                                {/* Label for input-felt */}
                                 <Label for="passord">Passord</Label>
+
+                                {/* Input-felt for passord */}
                                 <Input
                                     ref="passord"
                                     type="password"
@@ -114,21 +146,28 @@ export class Login extends Component {
                                     id="passord"
                                     required="required"
                                 />
+
+                                {/* Span for eventuell feilmelding */}
                                 <span style={{ color: "red" }} id="feilpassord"></span>
                             </FormGroup>
 
+                            {/* FormGroup for logg inn knapp */}
                             <FormGroup>
+
+                                {/* Knapp for å sende informasjonen i input-feltene */}
                                 <Button className="btn btn-primary" onClick={this.onSubmit}>Logg Inn</Button>
+
+                                {/* Span for eventuell feilmelding */}
                                 <span style={{ color: "red" }} id="feil"></span>
                             </FormGroup>
 
+                            {/* FormGroup for linken til registreringsside */}
                             <FormGroup>
+                                {/* Bruker Link fra react-router-dom til å sende bruker til registrering */}
                                 <Link className="link-primary" to="/registrer">Opprett Bruker</Link>
                             </FormGroup>
-
                         </Col>
                     </Row>
-                    
                 </Form>
             </Container>
         );
