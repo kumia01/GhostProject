@@ -2,6 +2,7 @@
 import { Button, Form, Container, Col, FormGroup, Label, Input, Row, CardBody, CardTitle, CardSubtitle, CardText, Card } from 'reactstrap';
 import { Link, Route, Redirect } from 'react-router-dom';
 import $ from 'jquery';
+import { validerFornavn, validerAdresse, validerEtternavn, validerPostnr, validerPoststed } from './Validering';
 
 
 
@@ -13,73 +14,6 @@ function formaterBruker(bruker) {
     document.getElementById("postnr").value = bruker.postnr;
     document.getElementById("poststed").value = bruker.poststed;
 
-}
-
-function validering() {
-    let formOK = true;
-    const bruker = {
-        fornavn: $("#fornavn").val(),
-        etternavn: $("#etternavn").val(),
-        adresse: $("#adresse").val(),
-        postnr: $("#postnr").val(),
-        poststed: $("#poststed").val()
-    }
-
-    //Validerer fornavn
-    if (!bruker.fornavn.match(/^[a-zA-ZæøåÆØÅ. \-]{2,20}$/g)) {
-        document.getElementById("feilfornavn").textContent = "Bare bokstaver, mellom 2-20 tegn!";
-        formOK = false;
-    }
-    if (!bruker.fornavn) {
-        document.getElementById("feilfornavn").textContent = "Denne kan ikke være tom!";
-        formOK = false;
-    }
-
-
-    //Validerer etternavn
-    if (!bruker.etternavn.match(/^[a-zA-ZæøåÆØÅ. \-]{1,35}$/g)) {
-        document.getElementById("feiletternavn").textContent = "Bare bokstaver, mellom 1-35 tegn!";
-        formOK = false;
-    }
-    if (!bruker.etternavn) {
-        document.getElementById("feiletternavn").textContent = "Denne kan ikke være tom!";
-        formOK = false;
-    }
-
-
-    //Validerer adresse
-    if (!bruker.adresse.match(/^[0-9a-zA-ZæøåÆØÅ. \-]{2,50}$/g)) {
-        document.getElementById("feiladresse").textContent = "Bare bokstaver og tall, mellom 2-50 tegn!";
-        formOK = false;
-    }
-    if (!bruker.adresse) {
-        document.getElementById("feiladresse").textContent = "Denne kan ikke være tom!";
-        formOK = false;
-    }
-
-
-    //Validerer postnr
-    if (!bruker.postnr.match(/^[0-9]{4}$/g)) {
-        document.getElementById("feilpostnr").textContent = "Bare tall, må være 4 tegn!";
-        formOK = false;
-    }
-    if (!bruker.postnr) {
-        document.getElementById("feilpostnr").textContent = "Denne kan ikke være tom!";
-        formOK = false;
-    }
-
-
-    //Validerer poststed
-    if (!bruker.poststed.match(/^[a-zA-ZæøåÆØÅ. \-]{2,20}$/g)) {
-        document.getElementById("feilpoststed").textContent = "Bare bokstaver, må være mellom 2-20 tegn!";
-        formOK = false;
-    }
-    if (!bruker.poststed) {
-        document.getElementById("feilpoststed").textContent = "Denne kan ikke være tom!";
-        formOK = false;
-    }
-
-    return formOK;
 }
 
 export class Profil extends Component {
@@ -126,15 +60,23 @@ export class Profil extends Component {
     }
 
     endreBruker() {
-        if (validering() == true) {
-            const bruker = {
-                id: sessionStorage.getItem('kundeId'),
-                fornavn: $("#fornavn").val(),
-                etternavn: $("#etternavn").val(),
-                adresse: $("#adresse").val(),
-                postnr: $("#postnr").val(),
-                poststed: $("#poststed").val()
-            }
+
+        const bruker = {
+            id: sessionStorage.getItem('kundeId'),
+            fornavn: $("#fornavn").val(),
+            etternavn: $("#etternavn").val(),
+            adresse: $("#adresse").val(),
+            postnr: $("#postnr").val(),
+            poststed: $("#poststed").val()
+        }
+
+        const fornavnOK = validerFornavn(bruker.fornavn);
+        const etternavnOK = validerEtternavn(bruker.etternavn);
+        const adresseOK = validerAdresse(bruker.adresse);
+        const postnrOK = validerPostnr(bruker.postnr);
+        const poststedOK = validerPoststed(bruker.poststed);
+
+        if (fornavnOK && etternavnOK && adresseOK && postnrOK && poststedOK) {
 
             $.post("../Bruker/Endre", bruker, function () {
                 console.log("Bruker endret!");

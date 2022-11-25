@@ -1,93 +1,102 @@
 ﻿import $ from 'jquery';
 
-function validerFornavn(fornavn) {
-    const regexp = /^[a-zA-ZæøåÆØÅ\.\ \-]{2,20}$/;
-    const ok = regexp.test(fornavn);
-    if (!ok) {
-        $("#feilFornavn").html("Fornavnet må bestå av 2 til 20 bokstaver");
+export function validerFornavn(fornavn) {
+   
+    //Validerer fornavn
+    console.log(fornavn);
+    if (!fornavn.match(/^[a-zA-ZæøåÆØÅ. \-]{2,20}$/g)) {
+        document.getElementById("feilfornavn").textContent = "Bare bokstaver, mellom 2-20 tegn!";
         return false;
     }
-    else {
-        $("#feilFornavn").html("");
-        return true;
+    if (!fornavn) {
+        document.getElementById("feilfornavn").textContent = "Denne kan ikke være tom!";
+        return false;
     }
+    document.getElementById("feilfornavn").textContent = "";
+    return true;
 }
 
-function validerEtternavn(etternavn) {
-    const regexp = /^[a-zA-ZæøåÆØÅ\.\ \-]{2,20}$/;
-    const ok = regexp.test(etternavn);
-    if (!ok) {
-        $("#feilEtternavn").html("Etternavnet må bestå av 2 til 20 bokstaver");
+export function validerEtternavn(etternavn) {
+    //Validerer etternavn
+    if (!etternavn.match(/^[a-zA-ZæøåÆØÅ. \-]{1,35}$/g)) {
+        document.getElementById("feiletternavn").textContent = "Bare bokstaver, mellom 1-35 tegn!";
         return false;
     }
-    else {
-        $("#feilEtternavn").html("");
-        return true;
+    if (!etternavn) {
+        document.getElementById("feiletternavn").textContent = "Denne kan ikke være tom!";
+        return false;
     }
+    document.getElementById("feiletternavn").textContent = "";
+    return true;
 }
 
-function validerAdresse(adresse) {
-    var regexp = /^[0-9a-zA-ZæøåÆØÅ\ \.\-]{2,50}$/;
-    var ok = regexp.test(adresse);
-    if (!ok) {
-        $("#feilAdresse").html("Adressen må bestå av 2 til 50 bokstaver og tall");
+export function validerAdresse(adresse) {
+    //Validerer adresse
+    if (!adresse.match(/^[0-9a-zA-ZæøåÆØÅ. \-]{2,50}$/g)) {
+        document.getElementById("feiladresse").textContent = "Bare bokstaver og tall, mellom 2-50 tegn!";
         return false;
     }
-    else {
-        $("#feilAdresse").html("");
-        return true;
+    if (!adresse) {
+        document.getElementById("feiladresse").textContent = "Denne kan ikke være tom!";
+        return false;
     }
+    document.getElementById("feiladresse").textContent = "";
+    return true;
 }
 
-function validerPostnr(postnr) {
-    var regexp = /^[0-9]{4}$/;
-    var ok = regexp.test(postnr);
-    if (!ok) {
-        $("#feilPostnr").html("Postnr må bestå av 4 tall");
+export function validerPostnr(postnr) {
+    //Validerer postnr
+    if (!postnr.match(/^[0-9]{4}$/g)) {
+        document.getElementById("feilpostnr").textContent = "Bare tall, må være 4 tegn!";
         return false;
     }
-    else {
-        $("#feilPostnr").html("");
-        return true;
+    if (!postnr) {
+        document.getElementById("feilpostnr").textContent = "Denne kan ikke være tom!";
+        return false;
     }
+    document.getElementById("feilpostnr").textContent = "";
+    return true;
 }
 
-function validerPoststed(poststed) {
-    var regexp = /^[a-zA-ZæøåÆØÅ\ \.\-]{2,20}/;
-    var ok = regexp.test(poststed);
-    if (!ok) {
-        $("#feilPoststed").html("Poststed må bestå av 2 til 20 bokstaver");
+export function validerPoststed(poststed) {
+    //Validerer poststed
+    if (!poststed.match(/^[a-zA-ZæøåÆØÅ. \-]{2,20}$/g)) {
+        document.getElementById("feilpoststed").textContent = "Bare bokstaver, må være mellom 2-20 tegn!";
         return false;
     }
-    else {
-        $("#feilPoststed").html("");
-        return true;
+    if (!poststed) {
+        document.getElementById("feilpoststed").textContent = "Denne kan ikke være tom!";
+        return false;
     }
+    document.getElementById("feilpoststed").textContent = "";
+    return true;
 }
 
-function validerBrukernavn(brukernavn) {
-    const regexp = /^[a-zA-ZæøåÆØÅ\.\ \-]{2,20}$/;
-    const ok = regexp.test(brukernavn);
-    if (!ok) {
-        $("#feilBrukernavn").html("Brukernavnet må bestå av 2 til 20 bokstaver");
+export function validerBrukernavn(brukernavn) {
+    //Validerer poststed
+    if (!brukernavn.match(/^[0-9a-zA-ZæøåÆØÅ. \-]{2,20}$/g)) {
+        document.getElementById("feilbrukernavn").textContent = "Bare bokstaver og tall, mellom 6-20 tegn!";
         return false;
     }
-    else {
-        $("#feilBrukernavn").html("");
-        return true;
+    if (!brukernavn) {
+        document.getElementById("feilbrukernavn").textContent = "Denne kan ikke være tom!";
+        return false;
     }
+    document.getElementById("feilbrukernavn").textContent = "";
+    return true;
 }
 
-function validerPassord(passord) {
-    const regexp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-    const ok = regexp.test(passord);
-    if (!ok) {
-        $("#feilPassord").html("Passordet må bestå minimum 6 tegn, minst en bokstav og et tall");
+export function validerPassord(passord) {
+    //Validerer poststed
+    if (!passord.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/g)) {
+        document.getElementById("feilpassord").textContent = "Passord må inneholde tall og bokstaver. Det skal være 6 eller fler tegn!";
         return false;
     }
-    else {
-        $("#feilPassord").html("");
-        return true;
+    if (!passord) {
+        document.getElementById("feilpassord").textContent = "Denne kan ikke være tom!";
+        return false;
     }
+    document.getElementById("feilpassord").textContent = "";
+    return true;
 }
 
