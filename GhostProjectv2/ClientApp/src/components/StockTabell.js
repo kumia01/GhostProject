@@ -27,13 +27,25 @@ export class StockTabell extends Component {
 				gammelPris: "" 
 			}
 		}
-		this.callAPI = this.callAPI.bind(this);
+		//this.callAPI = this.callAPI.bind(this);
 		this.renderRedirect = this.renderRedirect.bind(this)
-		this.callAPI();
+		this.callAskjeListe = this.callAskjeListe.bind(this)
+		this.callAskjeListe();
+		//this.callAPI();
 	}
 
 	callAskjeListe(){
-		
+		axios.get('../Aksje/HentAlle')
+		.then((response) => {
+			console.log(response.data)
+			this.setState({
+				list: response.data
+			})
+		})
+		.catch(function (error) {
+			console.error(error);
+		});
+		console.log(this.state.list)
 	}
 
 	/*callAPI(){
@@ -98,10 +110,10 @@ export class StockTabell extends Component {
 			return(
 				<tr key={key}>
 					<th>{key+1}</th>
-					<td>{i.shortName}</td>
-					<td>{i.symbol}</td>
-					<td>{i.regularMarketPrice}</td>
-					<td>{i.regularMarketChange}</td>
+					<td>{i.ticker}</td>
+					<td>{i.selskap}</td>
+					<td>{i.pris}</td>
+					<td>{i.gammelPris}</td>
 					<td><Button color="success" onClick={this.buy.bind(this, i.symbol)} >kjøp</Button></td>
 				</tr>
 			);
