@@ -9,10 +9,12 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using GhostProjectv2.DAL;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace GhostProjectv2.Controllers
 {
-
+    
     [Route("[controller]/[action]")]
     public class AksjeController : ControllerBase
     {
@@ -46,15 +48,26 @@ namespace GhostProjectv2.Controllers
         }
 
         //Endrer prisen på alle aksjer i DB, setter den eldre prisen til gammelPris
-        public async Task<ActionResult> endrePris()
+        public async Task<ActionResult> endrePris(List<Aksje> innAskje)
         {
-            bool returOK = await _dbAksje.endrePris();
+            bool returOK = await _dbAksje.endrePris(innAskje);
             if(!returOK)
             {
                 _log.LogInformation("Prisen på aksjene ble ikke endret!");
                 return BadRequest("Prisen på aksjene ble ikke endret!");
             }
             return Ok("Prisen på aksjen ble endret");
+        }
+        
+        public async Task<ActionResult> Lagre([FromBody] List<Aksje> innAksje)
+        { 
+            bool returOK = await _dbAksje.Lagre(innAksje);
+            if(!returOK)
+            {
+                _log.LogInformation("akjser ikke lagret!");
+                return BadRequest("akjser ikke lagret!");
+            }
+            return Ok("Aksjer lagret inn i databasen");
         }
     }
 }

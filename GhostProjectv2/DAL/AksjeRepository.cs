@@ -5,6 +5,10 @@ using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
+using Newtonsoft.Json;
+using System.IO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GhostProjectv2.DAL
 {
@@ -69,21 +73,29 @@ namespace GhostProjectv2.DAL
         }
 
         //Endrer prisen på alle aksjer i DB, setter den eldre prisen til gammelPris
-        public async Task<bool> endrePris()
+        public async Task<bool> endrePris(List<Aksje> innAksje)
         {
+            
             try
             {
                 List<Aksje> alleAksjer = await _dbAksje.FlereAksjer.Select(b => new Aksje
                 {
                     Id = b.Id
                 }).ToListAsync();
-                foreach (Aksje i in alleAksjer)
+                foreach (Aksje i in innAksje)
                 {
-                    Random rand = new Random();
-                    var endreobjekt = await _dbAksje.FlereAksjer.FindAsync(i.Id);
-                    endreobjekt.gammelPris = endreobjekt.Pris;
-                    int nyPris = Convert.ToInt32(endreobjekt.Pris * NextDouble(rand, 1.2, 0.8, 2)); //ny pris blir satt ved å bruke en tilfeldig vekstfaktor på mellom 0.8-1.2, max/min vekst på 20%
-                    endreobjekt.Pris = nyPris;
+                    
+                    var endreobjekt = await _dbAksje.FlereAksjer.Where(m => m.Ticker == i.Ticker).ToListAsync();
+                    if (endreobjekt == null)
+                    {
+                        foreach (Aksje j in alleAksjer)
+                        {
+                            if (i.Ticker == j.Ticker)
+                            {
+                                
+                            }
+                        }
+                    }
 
 
                 }
@@ -96,12 +108,39 @@ namespace GhostProjectv2.DAL
                 return false;
             }
         }
-
-
-        private double NextDouble(Random rand, double minVerdi, double maxVerdi, int runde)
+        
+        public async Task<bool> Lagre(List<Aksje> innAskje)
         {
-            double randNummber = rand.NextDouble() * (maxVerdi - minVerdi) + minVerdi;
-            return Convert.ToDouble(randNummber.ToString("f" + runde));
-        }
+            Debug.WriteLine(innAskje);
+            
+
+            Debug.WriteLine(innAskje);
+            try
+            {
+                foreach (Aksje i in innAskje)
+                {
+                    
+                    var sjekkAksje = await _dbAksje.FlereAksjer.Where(m => m.Ticker == i.Ticker).ToListAsync();
+                    Debug.WriteLine(sjekkAksje);
+                    if (sjekkAksje.Count == 0)
+                    {
+                        var nyAksje = new FlereAksjer();
+                        nyAksje.Ticker = i.Ticker;
+                        nyAksje.Selskap= i.Selskap;
+                        nyAksje.Pris = i.Pris;
+                        nyAksje.gammelPris = i.gammelPris;
+                        _dbAksje.FlereAksjer.Add(nyAksje);
+                        Debug.WriteLine(nyAksje);
+                    }
+
+                }
+                await _dbAksje.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+    }
     }
 }
