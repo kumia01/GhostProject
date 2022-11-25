@@ -32,7 +32,11 @@ export class StockTabell extends Component {
 		this.callAPI();
 	}
 
-	callAPI(){
+	callAskjeListe(){
+		
+	}
+
+	/*callAPI(){
 		axios.request(options)
 		.then((response) => {
 			console.log(response.data)
@@ -71,7 +75,7 @@ export class StockTabell extends Component {
 			console.error(error);
 		});
 
-	}
+	}*/
 	
 	buy(ticker){
 
