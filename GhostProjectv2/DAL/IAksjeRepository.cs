@@ -8,7 +8,7 @@ namespace GhostProjectv2.DAL
     public interface IAksjeRepository
     {
         Task<List<Aksje>> HentAlle();
-        Task<Aksje> HentEn(int id);
+        Task<Aksje> HentEn(string ticker);
         Task<bool> endrePris(List<Aksje> innAskje);
         Task<bool> Lagre(List<Aksje> innAskje);
 

@@ -36,15 +36,15 @@ namespace GhostProjectv2.Controllers
         }
 
         //Henter en aksje fra DB ved hjelp av aksje id
-        public async Task<ActionResult> HentEn(int id)
+        public async Task<ActionResult> HentEn(string data)
         {
-            Aksje enAksje = await _dbAksje.HentEn(id);
+            Aksje enAksje = await _dbAksje.HentEn(data);
             if (enAksje == null)
             {
                 _log.LogInformation("Finner ikke aksjen!");
                 return NotFound("Finner ikke aksjen!");
             }
-            return Ok("Fant aksjen");
+            return Ok(enAksje);
         }
 
         //Endrer prisen på alle aksjer i DB, setter den eldre prisen til gammelPris

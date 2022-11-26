@@ -9,6 +9,7 @@ using System.Diagnostics;
 using Newtonsoft.Json;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
 
 namespace GhostProjectv2.DAL
 {
@@ -49,11 +50,12 @@ namespace GhostProjectv2.DAL
         }
 
         //Henter en aksje fra DB ved hjelp av aksje id
-        public async Task<Aksje> HentEn(int id)
+        public async Task<Aksje> HentEn(string ticker)
         {
             try
             {
-                FlereAksjer enAksje = await _dbAksje.FlereAksjer.FindAsync(id);
+                List<FlereAksjer> AksjeListe = await _dbAksje.FlereAksjer.Where(m => m.Ticker == ticker).ToListAsync();
+                var enAksje = AksjeListe[0];
                 var hentetAskje = new Aksje()
                 {
                     Id = enAksje.Id,

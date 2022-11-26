@@ -15,14 +15,14 @@ const options = {
 
 
 
-axios.request(options)
+/*axios.request(options)
 	.then((response) => {
 		console.log(response.data)
 	})
 	.catch(function (error) {
 		console.error(error);
 	});
-
+*/
 
 
 export class StockTabell extends Component {
@@ -61,12 +61,8 @@ export class StockTabell extends Component {
 	
 	
 	buy(ticker){
-
 		sessionStorage.setItem('ticker', ticker)
-
-		this.setState({
-			redirect: true
-		})
+		this.setState({redirect: true})
 	}
 
 	renderRedirect(){
@@ -85,7 +81,7 @@ export class StockTabell extends Component {
 					<td>{i.selskap}</td>
 					<td>{i.pris}</td>
 					<td>{i.gammelPris}</td>
-					<td><Button color="success" onClick={this.buy.bind(this, i.symbol)} >kjøp</Button></td>
+					<td><Button color="success" onClick={this.buy.bind(this, i.ticker)} >kjøp</Button></td>
 				</tr>
 			);
 		});
