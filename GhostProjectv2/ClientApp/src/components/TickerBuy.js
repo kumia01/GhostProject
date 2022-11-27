@@ -1,7 +1,7 @@
 import { uniqueSort } from 'jquery';
 import React, { Component } from 'react';
 import {  Redirect } from 'react-router-dom';
-import {Container, Row, Col, Form, FormGroup, Input, Label, Button} from 'reactstrap';
+import {Container, Row, Col, Form, FormGroup, Input, Label, Button, InputGroup} from 'reactstrap';
 import $ from 'jquery';
 
 
@@ -15,10 +15,13 @@ export class TickerBuy extends Component {
         super(props)
         this.state = {
             data: sessionStorage.getItem('ticker'),
-            ticker: {}
+            ticker: {},
+            value: ''
         }
         this.hentEn = this.hentEn.bind(this)
         this.renderRedirect = this.renderRedirect.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.kjøpAksje = this.kjøpAksje.bind(this)
         this.hentEn()
         this.renderRedirect()
     }
@@ -37,33 +40,45 @@ export class TickerBuy extends Component {
                 gammelPris: response.gammelPris
 
             }})
-            console.log(this.state.ticker)
+
         })
     }
 
+    kjøpAksje(){
 
-  render () {
+    }
+
+    handleChange(event){
+        this.setState({ value: event.target.value })
+    }
+
+
+    render () {
     
-    return (
-        
-        <Container>
-            <Row fluid="true" className="justify-content-md-center">
-                <Col md='6'>
-                    <Form>
-                        <h1>Aksje kjøp av {this.state.ticker.ticker}</h1>
-                        <FormGroup>
-                            <Label htmlFor='Volum'>
-                                Volum 
-                            </Label>
-                            <Input htmlFor='Volum' />
-                        </FormGroup>
-                        <FormGroup>
-                            <Button color="success" >kjøp</Button>
-                        </FormGroup>
-                    </Form>
-                </Col>
-            </Row>
-        </Container>
-    );
-  }
+        return (
+            
+            <Container>
+                <Row fluid="true" className="justify-content-md-center">
+                    <Col md='6'>
+                        <Form>
+                            <h1>Aksje kjøp av {this.state.ticker.ticker}</h1>
+                            <p>Pris per Aksje: {this.state.ticker.pris + "$"}</p>
+                            <p>Sum: {parseInt(this.state.ticker.pris * this.state.value) + "$"}</p>
+                            <FormGroup row>
+                                <Label htmlFor='Volum'>
+                                    Volum
+                                </Label>
+                                <Col>
+                                <InputGroup>
+                                    <Input htmlFor='Volum' value={this.state.value} onChange={this.handleChange}/>
+                                    <Button color="success">kjøp</Button>
+                                </InputGroup>
+                                </Col>
+                            </FormGroup>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
+        );
+    }
 }
