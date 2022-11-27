@@ -187,7 +187,35 @@ namespace GhostProjectv2.DAL
             return salt;
         }
 
-        public async Task<bool> LoggInn(Bruker innBruker)
+        public async Task<Bruker> LoggInn(Bruker innBruker)
+        {
+            try
+            {
+                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == innBruker.Brukernavn);
+
+                if (funnetKunde == null)
+                {
+                    return null;
+                }
+                byte[] hash = LagHash(innBruker.Passord, funnetKunde.Salt);
+                bool ok = hash.SequenceEqual(funnetKunde.Passord);
+
+                if (ok)
+                {
+                    var returBruker = new Bruker();
+                    returBruker.Id = funnetKunde.Id;
+                    return returBruker;
+                }
+                return null;
+            }
+            catch(Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return null;
+            }
+        }
+
+        public async Task<Bruker> HentKundeId(Bruker innBruker)
         {
             try
             {
@@ -198,27 +226,13 @@ namespace GhostProjectv2.DAL
 
                 if (ok)
                 {
-                    return true;
+                    var hentetKunde = new Bruker()
+                    {
+                        Id = funnetKunde.Id,
+                    };
+                    return hentetKunde;
                 }
-                return false;
-            }
-            catch(Exception e)
-            {
-                _log.LogInformation(e.Message);
-                return false;
-            }
-        }
-
-        public async Task<Bruker> HentKundeId(Bruker innBruker)
-        {
-            try
-            {
-                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == innBruker.Brukernavn);
-                var hentetKunde = new Bruker()
-                {
-                    Id = funnetKunde.Id,
-                };
-                return hentetKunde;
+                return null;
             }
             catch (Exception e)
             {

@@ -122,15 +122,15 @@ namespace GhostProjectv2.Controllers
 
             if (ModelState.IsValid)
             {
-                bool returnOK = await _db.LoggInn(innBruker);
-                if (!returnOK)
+                Bruker funnetBruker = await _db.LoggInn(innBruker);
+                if (funnetBruker == null)
                 {
                     _log.LogInformation("Innlogging feilet for bruker " + innBruker.Brukernavn + "!");
                     HttpContext.Session.SetString(_loggetInn, "");
-                    return Ok(false);
+                    return NotFound();
                 }
                 HttpContext.Session.SetString(_loggetInn, "LoggetInn");
-                return Ok(true);
+                return Ok(funnetBruker);
             }
             _log.LogInformation("Feil i inputvalidering!");
             return BadRequest("Feil i inputvalidering på server!");
@@ -138,10 +138,6 @@ namespace GhostProjectv2.Controllers
 
         public async Task<ActionResult> HentKundeId(Bruker innBruker)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
-            {
-                return Unauthorized();
-            }
             Bruker funnetKunde = await _db.HentKundeId(innBruker);
             if (funnetKunde == null)
             {
