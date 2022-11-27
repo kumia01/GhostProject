@@ -13,8 +13,12 @@ export class NavMenu extends Component {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);
+        this.redirectBruker = this.redirectBruker.bind(this);
+        this.loggUt = this.loggUt.bind(this);
+
         this.state = {
-            collapsed: true
+            collapsed: true,
+            redirect: false 
         };
     }
 
@@ -24,19 +28,19 @@ export class NavMenu extends Component {
         });
     }
 
+    redirectBruker() {
+        this.setState({ redirect: true });
+        this.setState({ redirect: false });
+    }
+
     loggUt() {
         if (sessionStorage.getItem('kundeId') != null) {
             $.get("../Bruker/LoggUt", function () {
                 sessionStorage.removeItem('kundeId');
                 console.log("Logget ut!");
-            })
-                .fail(function () {
-                    console.log("Feil med DB!");
-                    return false;
-                });
+            });
+            setTimeout(this.redirectBruker, 1200);
         }
-        
-        return true;
     }
 
     // Funksjonen under trenger bare å hente session for å fungere?
@@ -60,7 +64,11 @@ export class NavMenu extends Component {
     
     */
 
-render () {
+    render() {
+        if (this.state.redirect) { 
+            return <Redirect to="/login"/>
+        }
+        
     return (
         <header>
             <Navbar className="navbar-expand-sm navbar-toggleable-sm navbar-light bg-* border-bottom box-shadow mb-3" light>
@@ -98,11 +106,11 @@ render () {
                                     <DropdownItem tag={Link} to="/historikk">Historikk</DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
-
-                            <NavItem>
-                                <button id="navTextHighlight" onClick={this.loggUt}>Logg ut</button>
-                            </NavItem>
-
+                            
+                               <NavItem>
+                                    <button id="navTextHighlight" onClick={this.loggUt}>Logg ut</button>
+                                </NavItem>
+                               
                 </ul>
                 </Collapse>
             </Container>
