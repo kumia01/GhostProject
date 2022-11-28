@@ -14,6 +14,12 @@ import { Kundeservice } from './components/Kundeservice';
 import { Images } from './components/Images';
 
 
+export function check(){
+  if(sessionStorage.getItem('kundeId') != null){
+    return true
+  }
+  return false
+}
 
 
 export default class App extends Component {
@@ -21,12 +27,7 @@ export default class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      user:  () => {
-        if(sessionStorage.getItem('kundeId') != null){
-          return true
-        }
-        return false
-      }
+      user: check()
     }
     this.userAuthenication = this.userAuthenication.bind(this)
   }
@@ -37,6 +38,7 @@ export default class App extends Component {
   }
 
   render () {
+
     return (
         <Layout data={{ user: this.state.user, userAuthenication: this.userAuthenication.bind(this)}} >
             <Route exact path='/' component={Home} />

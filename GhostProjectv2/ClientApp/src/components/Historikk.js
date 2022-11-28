@@ -114,6 +114,7 @@ export class Historikk extends Component {
                        <td>{i.ticker}</td>
                        <td>{i.pris}</td>
                        <td>{i.volum}</td>
+                       <td><Button color='danger'>Selg</Button></td>
                      </tr>
                 );
             });
