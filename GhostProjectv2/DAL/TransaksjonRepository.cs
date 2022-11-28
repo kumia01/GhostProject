@@ -42,7 +42,7 @@ namespace GhostProjectv2.DAL
                         nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
                         nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
                         nyTransaksjonsRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
-                        bruker.Saldo = bruker.Saldo - totalPris; //Setter ny brukersaldo til saldo - kjøpspris
+                        bruker.Saldo += totalPris; //Setter ny brukersaldo til saldo - kjøpspris
 
                     }
                     else if (bruker.Saldo - totalPris < 0) //Hvis bruker sin saldo ikke har tilstrekkelig beløp
@@ -58,7 +58,7 @@ namespace GhostProjectv2.DAL
                     nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
                     nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
                     nyTransaksjonsRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
-                    bruker.Saldo = bruker.Saldo + (-1 * totalPris); //Setter ny brukersaldo til bruker saldo + salgspris
+                    bruker.Saldo += -1 * totalPris; //Setter ny brukersaldo til bruker saldo + salgspris
                 }
 
 
