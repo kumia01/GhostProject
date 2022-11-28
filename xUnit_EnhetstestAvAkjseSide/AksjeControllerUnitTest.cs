@@ -24,5 +24,37 @@ namespace xUnit_EnhetstestAvAkjseSide
 
         private readonly Mock<HttpContext> mockHttpContext = new Mock<HttpContext>();
         private readonly MockHttpSession mockSession = new MockHttpSession();
+
+
+
+        [Fact]
+        public async Task HentAlleOK()
+        {
+            //Arrange
+            var aksje1 = new Aksje { Id = 1, Ticker = "TRAB", Selskap = "Trabanzospor", Pris = 10, gammelPris = 20 };
+            var aksje2 = new Aksje { Id = 2, Ticker = "LSK", Selskap = "Lillestrøm Sportsklubb", Pris = 6900, gammelPris = 68 };
+            var aksje3 = new Aksje { Id = 3, Ticker = "GOBA", Selskap = "GoBastards", Pris = 1, gammelPris = 2 };
+
+            var aksjeList = new List<Aksje>();
+            aksjeList.Add(aksje1);
+            aksjeList.Add(aksje2);
+            aksjeList.Add(aksje3);
+
+            mockRep.Setup(k => k.HentAlle()).ReturnsAsync(aksjeList);
+
+            var aksjeController = new AksjeController(mockRep.Object, mockLog.Object);
+
+            //Act
+            var resultat = await aksjeController.HentAlle() as OkObjectResult;
+
+            //Assert
+            Assert.Equal<List<Aksje>>((List<Aksje>)resultat.Value, aksjeList);
+        }
+
+        [Fact]
+        public async Task HentEnOK()
+        {
+
+        }
     }
 }
