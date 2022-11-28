@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink, NavbarToggler, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText, Button } from 'reactstrap';
 import $ from 'jquery';
 
@@ -29,6 +29,7 @@ export class NavMenu extends Component {
     }
 
     redirectBruker() {
+        this.props.data.userAuthenication();
         this.setState({ redirect: true });
         this.setState({ redirect: false });
     }
@@ -47,7 +48,6 @@ export class NavMenu extends Component {
         if (this.state.redirect) { 
             return <Redirect to="/login"/>
         }
-        
     return (
         <header>
             <Navbar className="navbar-expand-sm navbar-toggleable-sm navbar-light bg-* border-bottom box-shadow mb-3" light>
@@ -65,23 +65,29 @@ export class NavMenu extends Component {
                             <NavLink tag={Link} id="navText" to="/Handel">Handel</NavLink>
                         </NavItem>
 
-                        <NavItem>
-                            <NavLink className="loggInn" tag={Link} id="navTextHighlight" to="/login">Logg inn</NavLink>
-                        </NavItem>
-
-                        <UncontrolledDropdown nav>
-                            <DropdownToggle className="minSide" nav caret id="navTextHighlight">Min Side</DropdownToggle>
-                                <DropdownMenu>
-                                    <DropdownItem tag={Link} to="/profil">Profil</DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem tag={Link} to="/historikk">Historikk</DropdownItem>
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
-                            
-                        <NavItem>
-                        <Button color="primary" onClick={this.loggUt}>Logg ut</Button>
-                        </NavItem>
-                               
+                        {!this.props.data.user ?
+                         (
+                        <Fragment>
+                            <NavItem>
+                                <NavLink className="loggInn" tag={Link} id="navTextHighlight" to="/login">Logg inn</NavLink>
+                            </NavItem>
+                        </Fragment>    
+                        ) : 
+                        (
+                        <Fragment>
+                            <UncontrolledDropdown nav>
+                                <DropdownToggle className="minSide" nav caret id="navTextHighlight">Min Side</DropdownToggle>
+                                    <DropdownMenu>
+                                        <DropdownItem tag={Link} to="/profil">Profil</DropdownItem>
+                                        <DropdownItem divider />
+                                        <DropdownItem tag={Link} to="/historikk">Historikk</DropdownItem>
+                                </DropdownMenu>
+                            </UncontrolledDropdown>
+                            <NavItem>
+                                <Button color="primary" onClick={this.loggUt}>Logg ut</Button>
+                            </NavItem>
+                        </Fragment>
+                            )}      
                     </ul>
                     </Collapse>
                 </Container>
