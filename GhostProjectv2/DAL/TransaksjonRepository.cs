@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using System;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using System.Security.Cryptography.X509Certificates;
 
 namespace GhostProjectv2.DAL
 {
@@ -99,13 +102,14 @@ namespace GhostProjectv2.DAL
         {
             try
             {
-                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon
+                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon()
                 {
                     Id = t.Id,
                     Volum = t.Volum,
                     Pris = t.Pris,
                     BrukereId = t.BrukereId,
-                    Ticker = t.Ticker
+                    Ticker = t.Ticker,
+                    FlereAksjerId = t.FlereAksjerId
                 }).Where(t => t.BrukereId == brukerId && t.Ticker != "NOK").ToListAsync();
                 return alleTransaksjoner;
 
