@@ -32,20 +32,20 @@ namespace GhostProjectv2.DAL
                 var bruker = await _db.Brukere.FindAsync(innTransaksjon.BrukereId);
                 double totalPris = innTransaksjon.Volum * innTransaksjon.Pris;
                 var nyTransaksjonsRad = new Transaksjoner();
-
+                var sum = bruker.Saldo - totalPris;
                 if (innTransaksjon.Volum > 0) //Hvis volum er positivt altså bruker kjøper en aksje
                 {
-                    if (bruker.Saldo - totalPris >= 0) //Hvis bruker sin saldo - total kostnad er 0 eller større har bruker nok penger til kjøp
+                    if (sum >= 0) //Hvis bruker sin saldo - total kostnad er 0 eller større har bruker nok penger til kjøp
                     {
                         nyTransaksjonsRad.Volum = innTransaksjon.Volum;
                         nyTransaksjonsRad.Pris = innTransaksjon.Pris;
                         nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
                         nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
                         nyTransaksjonsRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
-                        bruker.Saldo += totalPris; //Setter ny brukersaldo til saldo - kjøpspris
+                        bruker.Saldo -= totalPris; //Setter ny brukersaldo til saldo - kjøpspris
 
                     }
-                    else if (bruker.Saldo - totalPris < 0) //Hvis bruker sin saldo ikke har tilstrekkelig beløp
+                    else if (sum < 0) //Hvis bruker sin saldo ikke har tilstrekkelig beløp
                     {
                         _log.LogInformation("Ikke tilstrekkelig beløp på konto!");
                         return false;

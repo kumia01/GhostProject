@@ -79,8 +79,8 @@ export class StockTabell extends Component {
 					<th>{key+1}</th>
 					<td>{i.ticker}</td>
 					<td>{i.selskap}</td>
-					<td>{i.pris + "$"}</td>
-					<td>{i.gammelPris + "$"}</td>
+					<td>{i.pris + " NOK"}</td>
+					<td>{i.gammelPris + " NOK"}</td>
 					<td><Button color="success" onClick={this.buy.bind(this, i.ticker)} >kjøp</Button></td>
 				</tr>
 			);
