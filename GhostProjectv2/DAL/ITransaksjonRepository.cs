@@ -11,5 +11,6 @@ namespace GhostProjectv2.DAL
         Task<List<Transaksjon>> HentBrukerTransaksjoner(int brukerId);
         Task<List<Transaksjon>> HentInnskuddUttak(int brukerId);
         Task<List<Transaksjon>> HentAksjeTransaksjoner(string ticker);
+        Task<bool> EndreSaldo(Transaksjon innTransaksjon);
     }
 }

@@ -165,5 +165,59 @@ namespace GhostProjectv2.DAL
                 return null;
             }
         }
+
+
+        public async Task<bool> EndreSaldo(Transaksjon innTransaksjon)
+        {
+            try
+            {
+                var endreObjekt = await _db.Brukere.FindAsync(innTransaksjon.BrukereId);
+                var nyTransaksjonRad = new Transaksjoner();
+                Console.Write("111");
+                Console.Write(innTransaksjon.Volum);
+
+                if (innTransaksjon.Volum > 0) //Hvis saldoen som kommer inn er større enn 0 betyr det at bruker gjør innskudd
+                {
+                    Console.Write("222");
+                    Console.Write(innTransaksjon.Volum);
+                    endreObjekt.Saldo += innTransaksjon.Volum;
+                    nyTransaksjonRad.Volum = innTransaksjon.Volum;
+                    nyTransaksjonRad.Pris = 1;
+                    nyTransaksjonRad.BrukereId = innTransaksjon.BrukereId;
+                    nyTransaksjonRad.Ticker = "NOK";
+                    nyTransaksjonRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
+
+
+                }
+                else if (innTransaksjon.Volum < 0) //Hvis saldoen er negativ betyr det at bruker gjør et uttak
+                {
+                    if (innTransaksjon.Volum <= endreObjekt.Saldo) //Hvis bruker har nok på konto til å gjøre ønsket uttak
+                    {
+                        endreObjekt.Saldo += innTransaksjon.Volum;
+                        nyTransaksjonRad.Volum = innTransaksjon.Volum;
+                        nyTransaksjonRad.Pris = 1;
+                        nyTransaksjonRad.BrukereId = innTransaksjon.BrukereId;
+                        nyTransaksjonRad.Ticker = "NOK";
+                        nyTransaksjonRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
+                        
+                    }
+                    else
+                    {
+                        _log.LogInformation("Ikke nok penger til uttak!");
+                        return false;
+                    }
+                }
+
+                _db.Transaksjoner.Add(nyTransaksjonRad);
+                await _db.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return false;
+            }
+            return true;
+        }
+
     }
 }

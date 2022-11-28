@@ -88,5 +88,25 @@ namespace GhostProjectv2.Controllers
             List<Transaksjon> alleTransaksjoner = await _db.HentAksjeTransaksjoner(ticker);
             return Ok(alleTransaksjoner);
         }
+
+        public async Task<ActionResult> EndreSaldo(Transaksjon innTransaksjon)
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(BrukerController._loggetInn)))
+            {
+                return Unauthorized();
+            }
+            if (ModelState.IsValid)
+            {
+                bool returOK = await _db.EndreSaldo(innTransaksjon);
+                if (!returOK)
+                {
+                    _log.LogInformation("Saldoen ble ikke endret!");
+                    return BadRequest("Saldoen ble ikke endret!");
+                }
+                return Ok("Saldoen endret");
+            }
+            _log.LogInformation("Feil i inputvalidering!");
+            return BadRequest("Feil i inputvalidering!");
+        }
     }
 }

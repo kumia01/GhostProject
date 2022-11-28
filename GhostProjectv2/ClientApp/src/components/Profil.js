@@ -29,6 +29,8 @@ export class Profil extends Component {
         this.hentBruker = this.hentBruker.bind(this)
         this.slettBruker = this.slettBruker.bind(this)
         this.endreBruker = this.endreBruker.bind(this)
+        this.settInnPenger = this.settInnPenger.bind(this)
+        this.taUtPenger = this.taUtPenger.bind(this)
         this.hentBruker()
     }
 
@@ -41,6 +43,41 @@ export class Profil extends Component {
         }
     }
 
+
+    settInnPenger() {
+        const transaksjon = {
+            brukereId: sessionStorage.getItem('kundeId'),
+            volum: $("#sum").val(),
+            flereAksjerId: 811
+        }
+        $.post('../Transaksjon/EndreSaldo', transaksjon, function () {
+            console.log("Penger satt inn!!");
+        })
+            .fail(function (feil) {
+                console.log("kunne ikke sette inn penger!  " + feil);
+            });
+        setTimeout(this.hentBruker, 1000);
+    }
+
+
+    taUtPenger() {
+        const transaksjon = {
+            brukereId: sessionStorage.getItem('kundeId'),
+            volum: $("#sum").val() * (-1),
+            flereAksjerId: 811
+        }
+        $.post('../Transaksjon/EndreSaldo', transaksjon, function () {
+            console.log("Penger tatt ut!");
+        })
+            .fail(function (feil) {
+                console.log("kunne ikke ta ut penger!  " + feil);
+            });
+        setTimeout(this.hentBruker, 1000);
+    }
+
+
+
+
     hentBruker(){
         const kundeid = "id=" + sessionStorage.getItem('kundeId');
         $.get("../Bruker/HentEn?" + kundeid, bruker => {
@@ -50,6 +87,7 @@ export class Profil extends Component {
                 fornavn: bruker.fornavn,
                 etternavn: bruker.etternavn,
                 adresse: bruker.adresse,
+                saldo: Math.round(bruker.saldo * 100) / 100,
                 postnr: bruker.postnr,
                 poststed: bruker.poststed 
             }})
@@ -135,6 +173,36 @@ export class Profil extends Component {
 
     // Funksjon som kontrollerer noden du står i
     render() {
+        //let data;
+        /*if (this.state.innskudd) {
+            //data = () => {
+                return 
+                    <Row>
+                        <Input
+                            id="innskudd"
+                            name="innskudd"
+                            type="text"
+                        />
+                        <Button onClick={this.bankInnskudd}></Button>
+                    </Row >
+                
+            
+        }
+        if (this.state.uttak) {
+            //data = () => {
+                return 
+                    <Row>
+                        <Input
+                            id="innskudd"
+                            name="innskudd"
+                            type="text"
+                        />
+                        <Button onClick={this.bankUttak}></Button>
+                    </Row >
+                
+            
+            
+        }*/
        
         // Returnerer html elementene slik at de skrives ut
         return (
@@ -145,8 +213,8 @@ export class Profil extends Component {
                 {/* Rad som skalerer på enhet */}
                 <Row fluid="true">
                     <Col sm="12" md="6" lg="6" xl="6">
-                         {/* Undertittel */}
-                         <h4 className="text-center text-md-center"><strong>Hei, Bruker</strong></h4>
+                        {/* Undertittel */}
+                        <h4 className="text-center text-md-center"><strong>Hei, {this.state.bruker.fornavn}</strong></h4>
 
                         {/* Tekst elementer */}
                         <p>Din profil er ikke synlig for andre brukere. Hvis du ønsker å oppdatere din profil kan du kontakte kundeservice.</p>
@@ -158,7 +226,7 @@ export class Profil extends Component {
                     <Col sm="12" md="6" lg="6" xl="6">
                         <h4 className="text-center text-md-center"><strong>Saldo</strong></h4>
 
-                        <p className="text-center text-md-center">Din bokførte saldo er: 3, 000 NOK</p>
+                        <p className="text-center text-md-center">Din bokførte saldo er: {this.state.bruker.saldo} NOK</p>
                     </Col>
                 </Row>
 
@@ -240,7 +308,7 @@ export class Profil extends Component {
                         </FormGroup>
                         <FormGroup row>
                             <Col>
-                                <Button color="danger" onClick={this.slettBruker}>slettBruker</Button>
+                                <Button color="danger" onClick={this.slettBruker}>Slett Bruker</Button>
                             </Col>
                             <Col>
                                 <Button color="success" onClick={this.endreBruker}>Endre bruker</Button>
@@ -258,10 +326,17 @@ export class Profil extends Component {
                         <Row>
                             <Col></Col>
                             <Col fluid="true" className="btn-group-vertical mt-3" sm="6" md="6" lg="6" xl="6">
-                                <Button className="btn btn-md mb-2" color="primary">Innskudd</Button>{' '}
-                                <Button className="btn btn-md mb-2" color="primary">Uttak</Button>{' '}
+                                <Button className="btn btn-md mb-2" color="primary" onClick={this.settInnPenger}>Utfør Innskudd</Button>{' '}
+                                <Button className="btn btn-md mb-2" color="primary" onClick={this.taUtPenger}>Utfør Uttak</Button>{' '}
+                                <Input
+                                    placeholder="Skriv inn ønsket sum her!"
+                                    type="number"
+                                    min="0"
+                                    id="sum"
+                                />
                             </Col>
-                            <Col></Col>
+                            <Col>
+                            </Col>
                         </Row>
                         
                     </Col>
