@@ -13,7 +13,7 @@ namespace GhostProjectv2.Models
         public string Fornavn { get; set; }
         public string Etternavn { get; set; }
         public string Adresse { get; set; }
-        public int Saldo { get; set; }
+        public double Saldo { get; set; }
         virtual public Poststeder Poststed { get; set; }
         virtual public List<Transaksjoner> Transaksjoner { get; set; }
     }
@@ -54,8 +54,9 @@ namespace GhostProjectv2.Models
     {
         public int Id { get; set; }
         public int Volum { get; set; }
-        public int Pris { get; set; }
+        public double Pris { get; set; }
         public int BrukereId { get; set; }
+        public int FlereAksjerId { get; set; }
         public string Ticker { get; set; }
         virtual public Brukere Brukere { get; set; }
         virtual public FlereAksjer FlereAksjer { get; set; }

@@ -1,5 +1,6 @@
 ﻿{/* Imports */ }
 import React, { Component } from 'react';
+import axios from "axios";
 
 {/* Henter nødvendig funksjonalitet fra reactstrap */ }
 import { Container, Button, ButtonGroup, ButtonToolbar, Row, Col, Table} from 'reactstrap';
@@ -14,15 +15,33 @@ export class Historikk extends Component {
         super(props)
 
         this.state = {
+            skjulAksjer: true,
+            skjulInnskudd: false,
             aksjeList: [],
             innskuddUttakList: [],
-            aksje: {
+            aksjeKjøpt: {
                 Ticker: "",
-                Volum: "",
-                Pris: ""
+                Volum: 0,
+                Pris: 0
             }
         }
+        this.callAksjeKjøpListe = this.callAksjeKjøpListe.bind(this);
+        this.callAksjeKjøpListe();
 
+    }
+
+    callAksjeKjøpListe() {
+        const id = "brukerId=" + sessionStorage.getItem('kundeId');
+        axios.get('../Transaksjon/HentBrukerTransaksjoner?' + id)
+            .then((response) => {
+                console.log(response.data)
+                this.setState({
+                    aksjeList: response.data
+                })
+            })
+            .catch(function (feil) {
+                console.log(feil + " oioioi");
+            })
     }
 
 
@@ -33,6 +52,17 @@ export class Historikk extends Component {
 
     // Funksjon som kontrollerer container noden du står i
     render() {
+        let data = this.state.aksjeList.map((i, key) => {
+            return (
+                <tr key={key}>
+                    <th>{key + 1}</th>
+                    <td>{i.Ticker}</td>
+                    <td>{i.Pris}</td>
+                    <td>{i.Volum}</td>
+                </tr>
+                );
+        });
+
 
         // Returnerer html elementene slik at de skrives ut
         return (
@@ -108,6 +138,12 @@ export class Historikk extends Component {
                                     <tr>
                                         <td><i className="bi bi-arrow-right"> Mottok aksjer fra bruker @</i></td>
                                     </tr>
+                                </tbody>
+                            </Table>
+                            <Table responsive borderless>
+                                <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th></tr></thead>
+                                <tbody>
+                                    {data}
                                 </tbody>
                             </Table>
                         </Col>

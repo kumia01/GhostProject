@@ -1,6 +1,6 @@
 import { uniqueSort } from 'jquery';
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { Component, useState } from 'react';
+import {  Redirect } from 'react-router-dom';
 import {Container, Row, Col, Form, FormGroup, Input, Label, Button, InputGroup} from 'reactstrap';
 import $ from 'jquery';
 
@@ -16,18 +16,20 @@ export class TickerBuy extends Component {
         this.state = {
             data: sessionStorage.getItem('ticker'),
             ticker: {},
-            value: 0
+            value: '',
+            transaksjon: {}
         }
         this.hentEn = this.hentEn.bind(this)
         this.renderRedirect = this.renderRedirect.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.kjøpAksje = this.kjøpAksje.bind(this)
         this.hentEn()
+        this.renderRedirect()
     }
 
     renderRedirect(){
         if(!sessionStorage.getItem('ticker')){
-            return <Redirect to='/handel' />
+            return <Redirect to='/tickerBuy' />
         }
     }
     hentEn(){
@@ -36,15 +38,31 @@ export class TickerBuy extends Component {
                 ticker: response.ticker,
                 selskap: response.selskap,
                 pris: response.pris,
-                gammelPris: response.gammelPris
+                gammelPris: response.gammelPris,
+                id: response.id
 
             }})
 
         })
     }
 
-    kjøpAksje(){
+    kjøpAksje() {
 
+        const transaksjon = {
+            ticker: this.state.ticker.ticker,
+            volum: this.state.value,
+            pris: this.state.ticker.pris,
+            brukereId: sessionStorage.getItem('kundeId'),
+            flereAksjerId: this.state.ticker.id
+        }
+
+        $.post('../Transaksjon/Lagre', transaksjon, function () {
+            console.log("TransaksjonLagret");
+        })
+            .fail(function (feil) {
+                console.log(feil);
+            });
+        
     }
 
     handleChange(event){
@@ -57,7 +75,6 @@ export class TickerBuy extends Component {
         return (
             
             <Container>
-                {this.renderRedirect}
                 <Row fluid="true" className="justify-content-md-center">
                     <Col md='6'>
                         <Form>
@@ -70,8 +87,8 @@ export class TickerBuy extends Component {
                                 </Label>
                                 <Col>
                                 <InputGroup>
-                                    <Input htmlFor='Volum' value={this.state.value} onChange={this.handleChange} type="number" min="0" />
-                                    <Button color="success">kjøp</Button>
+                                    <Input htmlFor='Volum' value={this.state.value} onChange={this.handleChange}/>
+                                        <Button color="success" onClick={this.kjøpAksje}>kjøp</Button>
                                 </InputGroup>
                                 </Col>
                             </FormGroup>
