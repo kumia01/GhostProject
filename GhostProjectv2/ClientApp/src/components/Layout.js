@@ -18,7 +18,7 @@ export class Layout extends Component {
             </div>
         <Footer />
             </div>
-            
+         
       </div>
     );
   }
