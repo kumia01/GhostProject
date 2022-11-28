@@ -58,7 +58,7 @@ namespace GhostProjectv2.DAL
                     nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
                     nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
                     nyTransaksjonsRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
-                    bruker.Saldo += -1 * totalPris; //Setter ny brukersaldo til bruker saldo + salgspris
+                    bruker.Saldo += totalPris; //Setter ny brukersaldo til bruker saldo + salgspris
                 }
 
 
@@ -124,7 +124,10 @@ namespace GhostProjectv2.DAL
                         sum += volum.Volum;
                     }
                     nyTransaksjon.Volum = sum;
-                    nyliste.Add(nyTransaksjon);
+                    if(sum > 0)
+                    {
+                        nyliste.Add(nyTransaksjon);
+                    }
                 }
                 return nyliste;
 
