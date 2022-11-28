@@ -99,10 +99,6 @@ export class NavMenu extends Component {
                                 <DropdownMenu>
                                     <DropdownItem tag={Link} to="/profil">Profil</DropdownItem>
                                     <DropdownItem divider />
-                                    <DropdownItem tag={Link} to="/balanse">Balanse</DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem tag={Link} to="/uttak">Innskudd & Uttak</DropdownItem>
-                                    <DropdownItem divider />
                                     <DropdownItem tag={Link} to="/historikk">Historikk</DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>

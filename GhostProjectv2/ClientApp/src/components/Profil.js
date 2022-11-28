@@ -259,7 +259,7 @@ export class Profil extends Component {
                             <Col></Col>
                             <Col fluid="true" className="btn-group-vertical mt-3" sm="6">
                                 <Button className="btn btn-md mb-2" color="primary">Innskudd</Button>{' '}
-                                <Button className="btn btn-md mb-2" color="primary">Uttakk</Button>{' '}
+                                <Button className="btn btn-md mb-2" color="primary">Uttak</Button>{' '}
                             </Col>
                             <Col></Col>
                         </Row>

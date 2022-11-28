@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
-import { FetchData } from './components/FetchData';
-import { Balanse } from './components/Balanse';
 import { Login } from './components/Login';
 import { Registrer } from './components/Registrer';
-import { Uttak } from './components/Uttak';
 import './custom.css'
 import { TickerBuy } from './components/TickerBuy';
 import { Home } from './components/Home';
@@ -24,12 +21,9 @@ export default class App extends Component {
     return (
         <Layout>
             <Route exact path='/' component={Home} />
-            <Route path='/balanse' component={Balanse} />
-            <Route path='/fetch-data' component={FetchData} />
             <Route path='/login' component={Login} />
             <Route path='/tickerBuy' component={TickerBuy} />
             <Route path='/registrer' component={Registrer} />
-            <Route path='/uttak' component={Uttak} />
             <Route path='/historikk' component={Historikk} />
             <Route path='/profil' component={Profil} />
             <Route path='/om' component={Om} />
