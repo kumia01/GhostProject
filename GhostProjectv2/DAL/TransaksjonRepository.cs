@@ -111,7 +111,22 @@ namespace GhostProjectv2.DAL
                     Ticker = t.Ticker,
                     FlereAksjerId = t.FlereAksjerId
                 }).Where(t => t.BrukereId == brukerId && t.Ticker != "NOK").ToListAsync();
-                return alleTransaksjoner;
+                var transaksjoner = alleTransaksjoner.GroupBy(t => t.Ticker);
+                List<Transaksjon> nyliste = new List<Transaksjon>();
+                foreach(var ticker in transaksjoner)
+                {
+                    var sum = 0;
+                    Transaksjon nyTransaksjon = new Transaksjon();
+                    foreach(var volum in ticker)
+                    {
+                        nyTransaksjon.Ticker = volum.Ticker;
+                        nyTransaksjon.Pris = volum.Pris;
+                        sum += volum.Volum;
+                    }
+                    nyTransaksjon.Volum = sum;
+                    nyliste.Add(nyTransaksjon);
+                }
+                return nyliste;
 
             }
             catch(Exception e)

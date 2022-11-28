@@ -20,10 +20,7 @@ export class Historikk extends Component {
             aksjeList: [],
             innskuddUttakList: [],
             aksjeKjøpt: {
-                Ticker: "",
-                Volum: 0,
-                Pris: 0
-            }
+               }
         }
         this.velgVisningAksjer = this.velgVisningAksjer.bind(this);
         this.velgVisningOverføring = this.velgVisningOverføring.bind(this);
