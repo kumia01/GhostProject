@@ -144,7 +144,7 @@ export class Profil extends Component {
 
                 {/* Rad som skalerer på enhet */}
                 <Row fluid="true">
-                    <Col md="6">
+                    <Col sm="12" md="6" lg="6" xl="6">
                          {/* Undertittel */}
                          <h4 className="text-center text-md-center"><strong>Hei, Bruker</strong></h4>
 
@@ -155,7 +155,7 @@ export class Profil extends Component {
                         
                     </Col>
 
-                    <Col md="6">
+                    <Col sm="12" md="6" lg="6" xl="6">
                         <h4 className="text-center text-md-center"><strong>Saldo</strong></h4>
 
                         <p className="text-center text-md-center">Din bokførte saldo er: 3, 000 NOK</p>
@@ -163,7 +163,7 @@ export class Profil extends Component {
                 </Row>
 
                 <Row fluid="true">
-                    <Col md="6">
+                    <Col sm="12" md="6" lg="6" xl="6">
                         <h4 className="text-center text-md-center" >Innlogget bruker</h4>
                         <Form>
                         <FormGroup row>
@@ -252,12 +252,12 @@ export class Profil extends Component {
                         <span id="feil" style={{ color: "red" }}></span>
                     </Col>
 
-                    <Col md="6">
+                    <Col sm="12" md="6" lg="6" xl="6">
                         <h4 className="text-center text-md-center">Innskudd og uttak</h4>
 
                         <Row>
                             <Col></Col>
-                            <Col fluid="true" className="btn-group-vertical mt-3" sm="6">
+                            <Col fluid="true" className="btn-group-vertical mt-3" sm="6" md="6" lg="6" xl="6">
                                 <Button className="btn btn-md mb-2" color="primary">Innskudd</Button>{' '}
                                 <Button className="btn btn-md mb-2" color="primary">Uttak</Button>{' '}
                             </Col>

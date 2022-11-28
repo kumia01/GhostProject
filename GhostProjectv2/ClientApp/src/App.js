@@ -11,7 +11,6 @@ import { Historikk } from './components/Historikk';
 import { Profil } from './components/Profil';
 import { Om } from './components/Om';
 import { Kundeservice } from './components/Kundeservice';
-import { LiveNyheter } from './components/LiveNyheter';
 
 
 export default class App extends Component {
@@ -29,7 +28,6 @@ export default class App extends Component {
             <Route path='/om' component={Om} />
             <Route path='/kundeservice' component={Kundeservice} />
             <Route path='/handel' component={Handel} />
-            <Route path='/liveNyheter' component={LiveNyheter} />
       </Layout>
     );
   }

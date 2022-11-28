@@ -79,7 +79,7 @@ export class NavMenu extends Component {
                         </UncontrolledDropdown>
                             
                         <NavItem>
-                            <Button color="primary" onClick={this.loggUt}>Logg ut</Button>
+                        <Button color="primary" onClick={this.loggUt}>Logg ut</Button>
                         </NavItem>
                                
                     </ul>
