@@ -17,7 +17,7 @@ namespace GhostProjectv2.Models
         [RegularExpression(@"[a-zA-ZæøåÆØÅ. \-]{1,20}$")]
         public string Poststed { get; set; }
         [RegularExpression(@"^\d{1,10}$")]
-        public int Saldo { get; set; }
+        public double Saldo { get; set; }
         [RegularExpression(@"[0-9a-zA-ZæøåÆØÅ. \-]{2,20}$")]
         public string Brukernavn { get; set; }
         [RegularExpression(@"(?=.*[0-9A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$")]

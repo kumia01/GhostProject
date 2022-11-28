@@ -27,7 +27,7 @@ namespace GhostProjectv2.DAL
             try
             {
                 var bruker = await _db.Brukere.FindAsync(innTransaksjon.BrukereId);
-                var totalPris = innTransaksjon.Volum * innTransaksjon.Pris;
+                double totalPris = innTransaksjon.Volum * innTransaksjon.Pris;
                 var nyTransaksjonsRad = new Transaksjoner();
 
                 if (innTransaksjon.Volum > 0) //Hvis volum er positivt altså bruker kjøper en aksje
@@ -38,6 +38,7 @@ namespace GhostProjectv2.DAL
                         nyTransaksjonsRad.Pris = innTransaksjon.Pris;
                         nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
                         nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
+                        nyTransaksjonsRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
                         bruker.Saldo = bruker.Saldo - totalPris; //Setter ny brukersaldo til saldo - kjøpspris
 
                     }
@@ -53,6 +54,7 @@ namespace GhostProjectv2.DAL
                     nyTransaksjonsRad.Pris = innTransaksjon.Pris;
                     nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
                     nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
+                    nyTransaksjonsRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
                     bruker.Saldo = bruker.Saldo + (-1 * totalPris); //Setter ny brukersaldo til bruker saldo + salgspris
                 }
 

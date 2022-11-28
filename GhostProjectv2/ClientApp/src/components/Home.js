@@ -29,7 +29,7 @@ export class Home extends Component {
                 <Row fluid="true" className="align-items-center justify-content-center" id="home-row">
 
                     {/* Kolonne som skalerer på enhet, skal inneholde tekst på hjemmesiden */}
-                    <Col fluid="true">
+                    <Col fluid="true" sm="12" md="6" lg="6" xl="6">
 
                         {/* Undertittel, bruker elementet strong for å legge vekt på teksten */}
                         <h3><strong>Hjelper unge voksne vinne økonomisk.</strong></h3>
@@ -42,7 +42,7 @@ export class Home extends Component {
                     </Col>
 
                     {/* Bildekolonne */}
-                    <Col fluid="true">
+                    <Col fluid="true" sm="12" md="6" lg="6" xl="6">
                         <img src={blåstolpe} width="450" />
                     </Col>
 
@@ -63,7 +63,7 @@ export class Home extends Component {
                 {/* Rad for nyhets api */}
                 <Row>
                     <Col></Col>
-                    <Col md="10">
+                    <Col sm="12" md="10" lg="10" xl="10">
                         <StockTabell />
                     </Col>
                     <Col></Col>

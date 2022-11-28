@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import { Container, Col, Row } from 'reactstrap';
 import './Footer.css'
 
+import { Link, Redirect } from 'react-router-dom';
+
 // Js klassen Footer arver fra superklassen Component
 export class Footer extends Component {
 
@@ -35,19 +37,19 @@ export class Footer extends Component {
                     <Col fluid="true">
                     <h5><strong>Utforsk</strong></h5>
                             <ul className="list-unstyled">
-                        <li>Hjem</li>
-                        <li>Om oss</li>
-                        <li>Utlyst stilling</li>
+                        <li><Link tag={Link} id="footerLink" to="/home">Hjem</Link></li>
+                        <li><Link tag={Link} id="footerLink" to="/om">Om oss</Link></li>
+                        <li><Link tag={Link} id="footerLink" to="/kundeservice">Kundeservice</Link></li>
                     </ul>
                         </Col>    
                         { /*Kolonne3*/}
                             <Col fluid="true">
                                 
                             <h5><strong>Ressurser & Lenker</strong></h5>
-                            <ul className="list-unstyled">
-                                <li>ReactStrap</li>
-                                <li>Kilde </li>
-                                    <li>Kilde</li>
+                                <ul className="list-unstyled">
+                                    <li><a href="https://reactstrap.github.io/?path=/story/home-installation--page" id="footerLink">ReactStrap</a></li>
+                                    <li><a href="https://rapidapi.com/" id="footerLink">Rapid API</a></li>
+                                    <li><Link tag={Link} id="footerLink" to="/images">Bilder</Link></li>
                                 </ul>
                                 </Col>
                     </Row>

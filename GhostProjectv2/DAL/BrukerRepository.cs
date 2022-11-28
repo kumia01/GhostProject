@@ -252,7 +252,7 @@ namespace GhostProjectv2.DAL
                 if (innBruker.Saldo > 0) //Hvis saldoen som kommer inn er større enn 0 betyr det at bruker gjør inntak
                 {
                     endreObjekt.Saldo = endreObjekt.Saldo + innBruker.Saldo;
-                    nyTransaksjonRad.Volum = innBruker.Saldo;
+                    nyTransaksjonRad.Volum = Convert.ToInt32(innBruker.Saldo);
                     nyTransaksjonRad.Pris = 1;
                     nyTransaksjonRad.BrukereId = innBruker.Id;
                     nyTransaksjonRad.Ticker = "NOK";
@@ -263,7 +263,7 @@ namespace GhostProjectv2.DAL
                     if (innBruker.Saldo - totalPris >= 0) //Hvis bruker har nok på konto til å gjøre ønsket uttak
                     {
                         endreObjekt.Saldo = endreObjekt.Saldo + innBruker.Saldo;
-                        nyTransaksjonRad.Volum = innBruker.Saldo;
+                        nyTransaksjonRad.Volum = Convert.ToInt32(innBruker.Saldo);
                         nyTransaksjonRad.Pris = 1;
                         nyTransaksjonRad.BrukereId = innBruker.Id;
                         nyTransaksjonRad.Ticker = "NOK";
