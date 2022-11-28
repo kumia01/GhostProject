@@ -8,7 +8,7 @@ import blåstolpe from '../img/blåstolper.png';
 import { Button, Form, Container, Col, Row, Card, CardHeader, CardTitle, CardBody, CardText, CardFooter } from 'reactstrap';
 
 {/* Importerer klassen LiveNyheter, som er en api for å kunne vise ferske nyheter */}
-import { LiveNyheter } from './LiveNyheter';
+import { StockTabell } from './StockTabell';
 
 {/* Js klassen Home arver fra superklassen Component */ }
 export class Home extends Component {
@@ -56,13 +56,17 @@ export class Home extends Component {
                 {/* Ny rad som skal vise nyheter */}
                 <Row>
                     <Col></Col>
-                    <Col fluid ="true"><h3 className="text-center"><strong>Nyheter</strong></h3></Col>
+                    <Col fluid ="true"><h3 className="text-center"><strong>Aktuelle Aksjer nå</strong></h3></Col>
                     <Col></Col>
                 </Row>
 
                 {/* Rad for nyhets api */}
                 <Row>
-                    <LiveNyheter/>
+                    <Col></Col>
+                    <Col md="10">
+                        <StockTabell />
+                    </Col>
+                    <Col></Col>
                 </Row>
             </Container>
         );
