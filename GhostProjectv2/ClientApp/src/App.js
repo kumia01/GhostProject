@@ -16,12 +16,24 @@ import { Images } from './components/Images';
 
 export default class App extends Component {
   static displayName = App.name;
+  constructor(props){
+    super(props)
+    this.state = {
+      user: false
+    }
+    this.userAuthenication = this.userAuthenication.bind(this)
+  }
+
+  userAuthenication(item){
+    console.log("koden blir kjørt")
+    this.setState({user: !this.state.user})
+  }
 
   render () {
     return (
-        <Layout>
+        <Layout data={{ user: this.state.user, userAuthenication: this.userAuthenication.bind(this)}} >
             <Route exact path='/' component={Home} />
-            <Route path='/login' component={Login} />
+            <Route path='/login' component={() => <Login data={{userAuthenication: this.userAuthenication.bind(this)}} />}/>
             <Route path='/tickerBuy' component={TickerBuy} />
             <Route path='/registrer' component={Registrer} />
             <Route path='/historikk' component={Historikk} />
