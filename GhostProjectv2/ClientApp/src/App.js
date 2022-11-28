@@ -14,12 +14,19 @@ import { Kundeservice } from './components/Kundeservice';
 import { Images } from './components/Images';
 
 
+
+
 export default class App extends Component {
   static displayName = App.name;
   constructor(props){
     super(props)
     this.state = {
-      user: false
+      user:  () => {
+        if(sessionStorage.getItem('kundeId') != null){
+          return true
+        }
+        return false
+      }
     }
     this.userAuthenication = this.userAuthenication.bind(this)
   }
