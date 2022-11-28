@@ -97,7 +97,7 @@ namespace GhostProjectv2.DAL
 
         }
 
-        //Henter alle transaksjoner til en bruker ved hjelp av brukerId
+        //Henter alle unike transaksjoner med smalet volum til en bruker ved hjelp av brukerId
         public async Task<List<Transaksjon>> HentBrukerTransaksjoner(int brukerId)
         {
             try
@@ -136,7 +136,31 @@ namespace GhostProjectv2.DAL
             }
 
         }
+        //Henter alle transaksjoner til en bruker ved hjelp av brukerId
+        public async Task<List<Transaksjon>> HentBrukerTransaksjonHistorikk(int brukerId)
+        {
+            try
+            {
+                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon()
+                {
+                    Id = t.Id,
+                    Volum = t.Volum,
+                    Pris = t.Pris,
+                    BrukereId = t.BrukereId,
+                    Ticker = t.Ticker,
+                    FlereAksjerId = t.FlereAksjerId
+                }).Where(t => t.BrukereId == brukerId && t.Ticker != "NOK").ToListAsync();
+              
+                return alleTransaksjoner;
 
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return null;
+            }
+
+        }
 
         public async Task<List<Transaksjon>> HentInnskuddUttak(int brukerId)
         {

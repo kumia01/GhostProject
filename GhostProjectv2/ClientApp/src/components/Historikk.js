@@ -17,6 +17,7 @@ export class Historikk extends Component {
         this.state = {
             visAksjer: false,
             visInnskudd: false,
+            visHistorikk: false,
             aksjeList: [],
             innskuddUttakList: [],
             aksjeKjøpt: {
@@ -24,9 +25,27 @@ export class Historikk extends Component {
         }
         this.velgVisningAksjer = this.velgVisningAksjer.bind(this);
         this.velgVisningOverføring = this.velgVisningOverføring.bind(this);
+        this.velgHistorikk = this.velgHistorikk.bind(this);
         this.callAksjeKjøpListe = this.callAksjeKjøpListe.bind(this);
+        this.callAksjeHistorikk = this.callAksjeHistorikk.bind(this);
+        this.callAksjeHistorikk();
         this.callAksjeKjøpListe();
         this.callUttakInntakListe();
+
+    }
+
+    callAksjeHistorikk(){
+        const id = "brukerId=" + sessionStorage.getItem('kundeId');
+        axios.get('../Transaksjon/HentBrukerTransaksjonHistorikk?' + id)
+            .then((response) => {
+                console.log(response.data)
+                this.setState({
+                    AksjeHistorikk: response.data
+                })
+            })
+            .catch(function (feil) {
+                console.log(feil + " oioioi");
+            })
 
     }
 
@@ -61,20 +80,26 @@ export class Historikk extends Component {
     velgVisningAksjer() {
         this.setState({
             visAksjer: true,
-            visInnskudd: false
+            visInnskudd: false,
+            visHistorikk: false
         });
     }
 
     velgVisningOverføring() {
         this.setState({
             visAksjer: false,
-            visInnskudd: true
+            visInnskudd: true,
+            visHistorikk: false
         });
     }
 
-
-
-
+    velgHistorikk(){
+        this.setState({
+            visAksjer: false,
+            visInnskudd: false,
+            visHistorikk: true
+        });
+    }
 
 
 
@@ -83,41 +108,41 @@ export class Historikk extends Component {
         let data;
         if (this.state.visAksjer) {
             data = this.state.aksjeList.map((i, key) => {
-                return (
-                    <Table responsive borderless>
-                      <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th><th>TotalPris</th></tr></thead>
-                         <tbody>
-                           <tr key={key}>
-                           <th>{key + 1}</th>
-                           <td>{i.ticker}</td>
-                           <td>{i.pris}</td>
-                           <td>{i.volum}</td>
-                           <td>{i.volum * i.pris}</td>
-                         </tr>
-                         </tbody>
-                    </Table>
-                    
+                return ( 
+                    <tr key={key}>
+                       <th>{key + 1}</th>
+                       <td>{i.ticker}</td>
+                       <td>{i.pris}</td>
+                       <td>{i.volum}</td>
+                     </tr>
                 );
             });
         }
         if (this.state.visInnskudd) {
             data = this.state.innskuddUttakList.map((i, key) => {
                 return (
-                    <Table responsive borderless>
-                        <thead><tr><th>#</th><th>Ticker</th><th>Antall NOK</th></tr></thead>
-                        <tbody>
-                            <tr key={key}>
-                                <th>{key + 1}</th>
-                                <td>{i.ticker}</td>
-                                <td>{i.volum}</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-
-                );
+                
+                    <tr key={key}>
+                        <th>{key + 1}</th>
+                        <td>{i.ticker}</td>
+                        <td>{i.volum}</td>
+                    </tr>
+                    );
             });
         }
-        
+        if (this.state.visHistorikk) {
+            data = this.state.AksjeHistorikk.map((i, key) => {
+                return (
+                
+                    <tr key={key}>
+                        <th>{key + 1}</th>
+                        <td>{i.ticker}</td>
+                        <td>{i.volum}</td>
+                        <td>{i.volum * i.pris}</td>
+                    </tr>
+                    );
+            });
+        }
         
 
 
@@ -145,6 +170,7 @@ export class Historikk extends Component {
                                 {/* Knapper, en av de bruker outline og den andre tar primary som farge */}
                                 <Button color="primary" sm="1" onClick={this.velgVisningOverføring}>Innskudd/Uttak</Button>
                                 <Button color="primary" sm="1" onClick={this.velgVisningAksjer}>Transaksjoner</Button>
+                                <Button color="primary" sm="1" onClick={this.velgHistorikk}>Historikk</Button>
                             </ButtonGroup>
                         </ButtonToolbar>  
                     </Row>
@@ -157,7 +183,14 @@ export class Historikk extends Component {
 
                             <h5>Velg Innskudd/Uttak for å se dine innskudd og uttak!</h5>
                             <h5>Velg Transaksjoner for å se dine aksjekjøp og salg!</h5>
-                            {data}
+                            <Table responsive borderless>
+                                {this.state.visInnskudd && <thead><tr><th>#</th><th>Valuta</th><th>Sum</th></tr></thead>}
+                                {this.state.visAksjer && <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th><th>TotalPris</th></tr></thead>}
+                                {this.state.visHistorikk && <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th></tr></thead>}
+                                <tbody>
+                                    {data}
+                                </tbody>
+                            </Table>
                         </Col>
                     </Row>
                 </Container>

@@ -66,6 +66,15 @@ namespace GhostProjectv2.Controllers
             List<Transaksjon> alleTransaksjoner = await _db.HentBrukerTransaksjoner(brukerId);
             return Ok(alleTransaksjoner);
         }
+        public async Task<ActionResult> HentBrukerTransaksjonHistorikk(int brukerId)
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(BrukerController._loggetInn)))
+            {
+                return Unauthorized();
+            }
+            List<Transaksjon> alleUnikTransaksjoner = await _db.HentBrukerTransaksjonHistorikk(brukerId);
+            return Ok(alleUnikTransaksjoner);
+        }
 
 
         public async Task<ActionResult> HentInnskuddUttak(int brukerId)
