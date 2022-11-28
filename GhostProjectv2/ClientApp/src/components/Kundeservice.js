@@ -90,13 +90,13 @@ export class Kundeservice extends Component {
                     <Col sm="12" md="6" lg="6" xl="6">
 
                         {/* Undertittel som markerer hvilken side bruker er på */}
-                        <h2 className="text-center"><strong>Kundeservice</strong></h2>
+                        <h2 className="p-3"><strong>Kundeservice</strong></h2>
 
                         {/* Bruker Form fra reactstrap for å strukturere input-feltene */}
                         <Form>
 
                             {/* Label fungerer som en indikasjon på hva som skal stå i input-felt */}
-                            <Label>Name</Label>
+                            <Label>Fullt navn</Label>
 
                             {/* Input-felt for å ta inn en verdi som inputvalideres */}
                             <Input type="text" id="inpName" />
@@ -104,11 +104,11 @@ export class Kundeservice extends Component {
                             {/* Span brukes for å sende ut en eventuell feilmelding hvis inputvalidering feiler */}
                             <span style={{ color: "Red" }} id="feilNavn"></span>
 
-                            <Label>Email</Label>
+                            <Label>E-post</Label>
                             <Input type="email" id="inpEmail" />
                             <span style={{ color: "Red" }} id="feilMail"></span>
 
-                            <Label>Message</Label>
+                            <Label>Hva kan vi hjelpe deg med?</Label>
                             <Input id="message" type="textarea" name="message" />
                             <span style={{ color: "Red" }} id="feilMelding"></span>
 
