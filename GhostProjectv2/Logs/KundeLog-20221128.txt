@@ -1,0 +1,30 @@
+2022-11-28T11:56:38.0062568+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-28T11:56:38.0258194+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-28T11:56:38.0327146+01:00  [INF] Content root path: "C:\Users\Storm\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
+2022-11-28T11:56:47.0728042+01:00  [ERR] Browserslist: caniuse-lite is outdated. Please run:
+ (02daff8f)
+2022-11-28T11:56:47.7949008+01:00  [ERR]   npx browserslist@latest --update-db
+  Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+(node:2808) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (70d707b8)
+2022-11-28T11:56:47.7984855+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:2808) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (78890c59)
+2022-11-28T11:56:52.4772152+01:00  [ERR] Browserslist: caniuse-lite is outdated. Please run:
+ (02daff8f)
+2022-11-28T12:17:56.7083751+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-28T12:17:56.7241358+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-28T12:17:56.7284078+01:00  [INF] Content root path: "C:\Users\Storm\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
+2022-11-28T12:18:04.4357891+01:00  [ERR] (node:12260) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (619516f6)
+2022-11-28T12:18:04.4411668+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:12260) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (9b4a16f4)
+2022-11-28T12:39:40.5810424+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-28T12:39:40.5980441+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-28T12:39:40.6023779+01:00  [INF] Content root path: "C:\Users\Storm\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
+2022-11-28T12:39:48.3451147+01:00  [ERR] (node:17424) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (783d972e)
+2022-11-28T12:39:48.3491245+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:17424) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (02fa3836)

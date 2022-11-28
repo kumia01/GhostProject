@@ -141,109 +141,129 @@ export class Profil extends Component {
             // Container som inneholder html elementene til siden
             <Container>
                 {this.renderRedirect()}
+
                 {/* Rad som skalerer på enhet */}
                 <Row fluid="true">
                     <Col md="6">
                          {/* Undertittel */}
-                         <h2 className="text-center text-md-center"><strong>Hei, Bruker</strong></h2>
+                         <h4 className="text-center text-md-center"><strong>Hei, Bruker</strong></h4>
 
                         {/* Tekst elementer */}
                         <p>Din profil er ikke synlig for andre brukere. Hvis du ønsker å oppdatere din profil kan du kontakte kundeservice.</p>
                         <p>Slett eller endre brukerkonto</p>
                         <p>Du kan slette din konto her, om du ikke lenger vil ha tilgang til tjenesten. Du kan også endre informasjon her.</p>
-                            <h2 className="text-center text-md-center" >Innlogget bruker</h2>
-                            <Form>
-                                <FormGroup row>
-                                    <Label for="brukernavn" sm="2">Brukernavn </Label>
-                                <Col sm="10">
-                                    <Input
-                                        id="brukernavn"
-                                        name="brukernavn"
-                                        placeholder={this.state.bruker.brukernavn}
-                                        type="text"
-                                        disabled
-                                    />
-                                </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label for="fornavn" sm="2">Fornavn </Label>
-                                <Col sm="10">
-                                    <Input
-                                        id="fornavn"
-                                        name="fornavn"
-                                        placeholder={this.state.bruker.fornavn}
-                                        type="text"
-                                    />
-                                    <span id="feilfornavn" style={{ color: "red" }}></span>
-                                </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label for="etternavn" sm="2">Etternavn </Label>
-                                <Col sm="10">
-                                    <Input
-                                        id="etternavn"
-                                        name="etternavn"
-                                        placeholder={this.state.bruker.etternavn}
-                                        type="text"
-                                    />
-                                    <span id="feiletternavn" style={{ color: "red" }}></span>
-                                </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label for="adresse" sm="2">Adresse </Label>
-                                <Col sm="10">
-                                    <Input
-                                        id="adresse"
-                                        name="adresse"
-                                        placeholder={this.state.bruker.adresse}
-                                        type="text"
-                                    />
-                                    <span id="feiladresse" style={{ color: "red" }}></span>
-                                </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label for="postnr" sm="2">Postnr </Label>
-                                <Col sm="10">
-                                    <Input
-                                        id="postnr"
-                                        name="postnr"
-                                        placeholder={this.state.bruker.postnr}
-                                        type="text"
-                                    />
-                                    <span id="feilpostnr" style={{ color: "red" }}></span>
-                                </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Label for="feilpoststed" sm="2">Poststed </Label>
-                                <Col sm="10">
-                                    <Input
-                                        id="poststed"
-                                        name="poststed"
-                                        placeholder={this.state.bruker.poststed}
-                                        type="text"
-                                    />
-                                    <span id="feilpoststed" style={{ color: "red" }}></span>
-                                </Col>
-                                </FormGroup>
-                                <FormGroup row>
-                                    <Col>
-                                        <Button color="danger" onClick={this.slettBruker}>slettBruker</Button>
-                                    </Col>
-                                    <Col>
-                                        <Button color="success" onClick={this.endreBruker}>Endre bruker</Button>
-                                    </Col>
-                                </FormGroup>
-                            </Form>
-                            {/* Span for eventuelle tilbakemeldinger */}
-                            <span id="brukerendret" style={{ color: "green" }}></span>
-                            <span id="feil" style={{ color: "red" }}></span>
+                        
                     </Col>
+
                     <Col md="6">
-                        <Table responsive>
-                            <thead><tr><th>#</th><th>Aksje</th><th>Volum</th><th>sum</th></tr></thead>
-                            <tbody>
-                            </tbody>
-                        </Table>
+                        <h4 className="text-center text-md-center"><strong>Saldo</strong></h4>
+
+                        <p className="text-center text-md-center">Din bokførte saldo er: 3, 000 NOK</p>
+                    </Col>
+                </Row>
+
+                <Row fluid="true">
+                    <Col md="6">
+                        <h4 className="text-center text-md-center" >Innlogget bruker</h4>
+                        <Form>
+                        <FormGroup row>
+                            <Label for="brukernavn" sm="2">Brukernavn </Label>
+                            <Col sm="10">
+                                <Input
+                                    id="brukernavn"
+                                    name="brukernavn"
+                                    placeholder={this.state.bruker.brukernavn}
+                                    type="text"
+                                    disabled
+                                />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="fornavn" sm="2">Fornavn </Label>
+                            <Col sm="10">
+                                <Input
+                                    id="fornavn"
+                                    name="fornavn"
+                                    placeholder={this.state.bruker.fornavn}
+                                    type="text"
+                                />
+                                <span id="feilfornavn" style={{ color: "red" }}></span>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="etternavn" sm="2">Etternavn </Label>
+                            <Col sm="10">
+                                <Input
+                                    id="etternavn"
+                                    name="etternavn"
+                                    placeholder={this.state.bruker.etternavn}
+                                    type="text"
+                                />
+                                <span id="feiletternavn" style={{ color: "red" }}></span>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="adresse" sm="2">Adresse </Label>
+                            <Col sm="10">
+                                <Input
+                                    id="adresse"
+                                    name="adresse"
+                                    placeholder={this.state.bruker.adresse}
+                                    type="text"
+                                />
+                                <span id="feiladresse" style={{ color: "red" }}></span>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="postnr" sm="2">Postnr </Label>
+                            <Col sm="10">
+                                <Input
+                                    id="postnr"
+                                    name="postnr"
+                                    placeholder={this.state.bruker.postnr}
+                                    type="text"
+                                />
+                                <span id="feilpostnr" style={{ color: "red" }}></span>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="feilpoststed" sm="2">Poststed </Label>
+                            <Col sm="10">
+                                <Input
+                                    id="poststed"
+                                    name="poststed"
+                                    placeholder={this.state.bruker.poststed}
+                                    type="text"
+                                />
+                                <span id="feilpoststed" style={{ color: "red" }}></span>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Col>
+                                <Button color="danger" onClick={this.slettBruker}>slettBruker</Button>
+                            </Col>
+                            <Col>
+                                <Button color="success" onClick={this.endreBruker}>Endre bruker</Button>
+                            </Col>
+                        </FormGroup>
+                    </Form>
+                        {/* Span for eventuelle tilbakemeldinger */}
+                        <span id="brukerendret" style={{ color: "green" }}></span>
+                        <span id="feil" style={{ color: "red" }}></span>
+                    </Col>
+
+                    <Col md="6">
+                        <h4 className="text-center text-md-center">Innskudd og uttak</h4>
+
+                        <Row>
+                            <Col></Col>
+                            <Col fluid="true" className="btn-group-vertical mt-3" sm="6">
+                                <Button className="btn btn-md mb-2" color="primary">Innskudd</Button>{' '}
+                                <Button className="btn btn-md mb-2" color="primary">Uttakk</Button>{' '}
+                            </Col>
+                            <Col></Col>
+                        </Row>
+                        
                     </Col>
                 </Row>
             </Container>
