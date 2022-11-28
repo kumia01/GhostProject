@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 {/* Henter nødvendig funksjonalitet fra reactstrap */ }
-import { Button, Form, Container, Col, FormGroup, Label, Input, Row, CardBody, CardTitle, CardSubtitle, CardText, Card } from 'reactstrap';
+import { Button, Form, Container, Col, FormGroup, Label, Input, Row, Table} from 'reactstrap';
 
 {/* Importerer funksjoner fra react-router-dom, disse brukes til å bytte til en annen js komponent */ }
 import { Link, Route, Redirect } from 'react-router-dom';
@@ -13,31 +13,53 @@ import $ from 'jquery';
 {/* Henter funksjoner fra js komponenten Validering */ }
 import { validerFornavn, validerAdresse, validerEtternavn, validerPostnr, validerPoststed } from './Validering';
 
-function formaterBruker(bruker) {
-    document.getElementById("brukernavn").value = bruker.brukernavn;
-    document.getElementById("fornavn").value = bruker.fornavn;
-    document.getElementById("etternavn").value = bruker.etternavn;
-    document.getElementById("adresse").value = bruker.adresse;
-    document.getElementById("postnr").value = bruker.postnr;
-    document.getElementById("poststed").value = bruker.poststed;
-
-}
-
 {/* Js klassen Profil arver fra superklassen Component */ }
 export class Profil extends Component {
 
     // Setter displayName til Profil for eventuelle debugging meldinger
     static displayName = Profil.name;
+    constructor(props){
+        super(props)
 
-    hentBruker() {
+        this.state = {
+            bruker: {},
+            render: false
+        }
+        this.renderRedirect = this.renderRedirect.bind(this)
+        this.hentBruker = this.hentBruker.bind(this)
+        this.slettBruker = this.slettBruker.bind(this)
+        this.endreBruker = this.endreBruker.bind(this)
+        this.hentBruker()
+    }
+
+    renderRedirect(){
+        if(sessionStorage.getItem('kundeId') == null){
+            return <Redirect to='/Login' />
+        }
+        else if(this.state.render){
+            return <Redirect to='/Login' />
+        }
+    }
+
+    hentBruker(){
         const kundeid = "id=" + sessionStorage.getItem('kundeId');
-        $.get("../Bruker/HentEn?" + kundeid, function (bruker) {
-            formaterBruker(bruker);
-
+        $.get("../Bruker/HentEn?" + kundeid, bruker => {
+            this.setState({bruker: {
+                id: sessionStorage.getItem('kundeId'),
+                brukernavn: bruker.brukernavn,
+                fornavn: bruker.fornavn,
+                etternavn: bruker.etternavn,
+                adresse: bruker.adresse,
+                postnr: bruker.postnr,
+                poststed: bruker.poststed 
+            }})
+            console.log(this.state.bruker)
         })
-            .fail(function (feil) {
+            .fail(feil =>{
                 if (feil.status == 401) {
                     console.log("Ikke logget inn!");
+                    sessionStorage.removeItem('kundeId')
+                    this.setState({render: true})
                     return false;
                 }
                 else {
@@ -47,7 +69,6 @@ export class Profil extends Component {
                 }
             });
     }
-
     slettBruker() {
         const kundeid = "id=" + sessionStorage.getItem('kundeId');
         $.get("../Bruker/Slett?" + kundeid, function () {
@@ -69,6 +90,7 @@ export class Profil extends Component {
             });
     }
 
+
     endreBruker() {
         const bruker = {
             id: sessionStorage.getItem('kundeId'),
@@ -87,7 +109,7 @@ export class Profil extends Component {
 
         if (fornavnOK && etternavnOK && adresseOK && postnrOK && poststedOK) {
 
-            $.post("../Bruker/Endre", bruker, function () {
+            $.post("../Bruker/Endre", this.state.bruker, function () {
                 console.log("Bruker endret!");
                 document.getElementById("brukerendret").textContent = "Brukeren ble endret!";
             })
@@ -95,6 +117,7 @@ export class Profil extends Component {
                     if (feil.status == 401) {
                         //relocate bruker til logginn
                         console.log("Ikke logget inn!");
+                        sessionStorage.removeItem('kundeId')
                         return false;
                     }
                     else {
@@ -107,129 +130,120 @@ export class Profil extends Component {
         
     }
 
+
     //Kode for Cards og Kode for dropdown og Labels er hentet fra https://reactstrap.github.io/
 
     // Funksjon som kontrollerer noden du står i
     render() {
-
-        // Sjekker om en bruker er logget inn, hvis ikke blir bruker sendt til /login
-        if (!sessionStorage.getItem('kundeId')) {
-            return <Redirect to="/login"/>
-        }
-
+       
         // Returnerer html elementene slik at de skrives ut
         return (
-
             // Container som inneholder html elementene til siden
             <Container>
-
+                {this.renderRedirect()}
                 {/* Rad som skalerer på enhet */}
-                <Row fluid="true" className="justify-content-md-center">
-
-                    {/* Kolonne som tar hensyn til oppløsning */}
-                    <Col md="6" sm="12" lg="6">
-
-                        {/* Undertittel */}
-                        <h2 className="text-center text-md-center"><strong>Hei, Bruker</strong></h2>
+                <Row fluid="true">
+                    <Col md="6">
+                         {/* Undertittel */}
+                         <h2 className="text-center text-md-center"><strong>Hei, Bruker</strong></h2>
 
                         {/* Tekst elementer */}
                         <p>Din profil er ikke synlig for andre brukere. Hvis du ønsker å oppdatere din profil kan du kontakte kundeservice.</p>
                         <p>Slett eller endre brukerkonto</p>
                         <p>Du kan slette din konto her, om du ikke lenger vil ha tilgang til tjenesten. Du kan også endre informasjon her.</p>
-
-                        {/* Rad for brukernavn */}
-                        <Row>
-
-                            {/* Label for å markere hva som skal stå i input-felt */}
-                            <Label for="brukernavn">Innlogget bruker: </Label>
-
-                            {/* Input-felt for brukernavn */}
-                            <input
-                                ref="brukernavn"
-                                type="text"
-                                className="form-control"
-                                id="brukernavn"
-                                readOnly
-                            />
-
-                        </Row>
-
-                        {/* Rad for fornavn */}
-                        <Row>
-                            <Label for="fornavn">Fornavn: </Label>
-                            <input
-                                ref="fornavn"
-                                type="text"
-                                className="form-control"
-                                id="fornavn"
-                            />
-                            <span id="feilfornavn" style={{ color: "red" }}></span>
-                        </Row>
-
-                        {/* Rad for etternavn */}
-                        <Row>
-                            <Label for="etternavn">Etternavn: </Label>
-                            <input
-                                ref="etternavn"
-                                type="text"
-                                className="form-control"
-                                id="etternavn"
-                            />
-                            <span id="feiletternavn" style={{ color: "red" }}></span>
-                        </Row>
-
-                        {/* Rad for adresse */}
-                        <Row>
-                            <Label for="adresse">Adresse: </Label>
-                            <input
-                                ref="adresse"
-                                type="text"
-                                className="form-control"
-                                id="adresse"
-                            />
-                            <span id="feiladresse" style={{ color: "red" }}></span>
-                        </Row>
-
-                        {/* Rad for postnr */}
-                        <Row>
-                            <Label for="postnr">Postnr: </Label>
-                            <input
-                                ref="postnr"
-                                type="text"
-                                className="form-control"
-                                id="postnr"
-                            />
-                            <span id="feilpostnr" style={{ color: "red" }}></span>
-                        </Row>
-
-                        {/* Rad for poststed */}
-                        <Row>
-                            <Label for="poststed">Poststed: </Label>
-                            <input
-                                ref="poststed"
-                                type="text"
-                                className="form-control"
-                                id="poststed"
-                            />
-                            <span id="feilpoststed" style={{ color: "red" }}></span>
-                        </Row>
-
-                        {/* Starter funksjonen hentBruker() */}
-                        {this.hentBruker()}
-
-                        {/* Rad for knapper */}
-                        <Row>
-
-                            {/* Knapp for å slette bruker */}
-                            <Button className="btn btn-md mb-2" color="danger" onClick={this.slettBruker}>Slett Bruker</Button>{' '}
-
-                            {/* Knapp for å bekrefte endringer */}
-                            <Button className="btn btn-md mb-2" color="success" onClick={this.endreBruker}>Bekreft endinger</Button>{' '}
-
+                            <h2 className="text-center text-md-center" >Innlogget bruker</h2>
+                            <Form>
+                                <FormGroup row>
+                                    <Label for="brukernavn" sm="2">Brukernavn </Label>
+                                <Col sm="10">
+                                    <Input
+                                        id="brukernavn"
+                                        name="brukernavn"
+                                        placeholder={this.state.bruker.brukernavn}
+                                        type="text"
+                                        disabled
+                                    />
+                                </Col>
+                                </FormGroup>
+                                <FormGroup row>
+                                    <Label for="fornavn" sm="2">Fornavn </Label>
+                                <Col sm="10">
+                                    <Input
+                                        id="fornavn"
+                                        name="fornavn"
+                                        placeholder={this.state.bruker.fornavn}
+                                        type="text"
+                                    />
+                                    <span id="feilfornavn" style={{ color: "red" }}></span>
+                                </Col>
+                                </FormGroup>
+                                <FormGroup row>
+                                    <Label for="etternavn" sm="2">Etternavn </Label>
+                                <Col sm="10">
+                                    <Input
+                                        id="etternavn"
+                                        name="etternavn"
+                                        placeholder={this.state.bruker.etternavn}
+                                        type="text"
+                                    />
+                                    <span id="feiletternavn" style={{ color: "red" }}></span>
+                                </Col>
+                                </FormGroup>
+                                <FormGroup row>
+                                    <Label for="adresse" sm="2">Adresse </Label>
+                                <Col sm="10">
+                                    <Input
+                                        id="adresse"
+                                        name="adresse"
+                                        placeholder={this.state.bruker.adresse}
+                                        type="text"
+                                    />
+                                    <span id="feiladresse" style={{ color: "red" }}></span>
+                                </Col>
+                                </FormGroup>
+                                <FormGroup row>
+                                    <Label for="postnr" sm="2">Postnr </Label>
+                                <Col sm="10">
+                                    <Input
+                                        id="postnr"
+                                        name="postnr"
+                                        placeholder={this.state.bruker.postnr}
+                                        type="text"
+                                    />
+                                    <span id="feilpostnr" style={{ color: "red" }}></span>
+                                </Col>
+                                </FormGroup>
+                                <FormGroup row>
+                                    <Label for="feilpoststed" sm="2">Poststed </Label>
+                                <Col sm="10">
+                                    <Input
+                                        id="poststed"
+                                        name="poststed"
+                                        placeholder={this.state.bruker.poststed}
+                                        type="text"
+                                    />
+                                    <span id="feilpoststed" style={{ color: "red" }}></span>
+                                </Col>
+                                </FormGroup>
+                                <FormGroup row>
+                                    <Col>
+                                        <Button color="danger" onClick={this.slettBruker}>slettBruker</Button>
+                                    </Col>
+                                    <Col>
+                                        <Button color="success" onClick={this.endreBruker}>Endre bruker</Button>
+                                    </Col>
+                                </FormGroup>
+                            </Form>
                             {/* Span for eventuelle tilbakemeldinger */}
-                            <span id="brukerendret" style={{ color: "black" }}></span>
+                            <span id="brukerendret" style={{ color: "green" }}></span>
                             <span id="feil" style={{ color: "red" }}></span>
-                        </Row>
+                    </Col>
+                    <Col md="6">
+                        <Table responsive>
+                            <thead><tr><th>#</th><th>Aksje</th><th>Volum</th><th>sum</th></tr></thead>
+                            <tbody>
+                            </tbody>
+                        </Table>
                     </Col>
                 </Row>
             </Container>

@@ -79,8 +79,8 @@ export class StockTabell extends Component {
 					<th>{key+1}</th>
 					<td>{i.ticker}</td>
 					<td>{i.selskap}</td>
-					<td>{i.pris}</td>
-					<td>{i.gammelPris}</td>
+					<td>{i.pris + "$"}</td>
+					<td>{i.gammelPris + "$"}</td>
 					<td><Button color="success" onClick={this.buy.bind(this, i.ticker)} >kjøp</Button></td>
 				</tr>
 			);
@@ -90,7 +90,7 @@ export class StockTabell extends Component {
 			<div>
 				{this.renderRedirect()}
 				<Table responsive>
-					<thead><tr><th>#</th><th>aksje</th><th>ticker</th><th>pris</th><th>endring</th></tr></thead>
+					<thead><tr><th>#</th><th>Ticker</th><th>Aksje</th><th>pris</th><th>gammel pris</th></tr></thead>
 					<tbody>
 						{data}
 					</tbody>
