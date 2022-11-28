@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink, NavbarToggler, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText } from 'reactstrap';
+import {Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink, NavbarToggler, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText, Button } from 'reactstrap';
 import $ from 'jquery';
 
 import { Link, Redirect } from 'react-router-dom';
@@ -43,27 +43,6 @@ export class NavMenu extends Component {
         }
     }
 
-    // Funksjonen under trenger bare å hente session for å fungere?
-
-    /*
-
-    showDropdown() {
-        this.showDropdown = this.showDropdown.bind(this.showDropdown);
-        const loggInn = document.getElementsByClassName("loggInn");
-        const loggInn = document.getElementsByClassName("minSide");
-
-        if () {
-            loggInn.style.display = "none";
-            minSide.style.display = "show";
-        }
-        else {
-            minSide.style.display = "none";
-            loggInn.style.display = "show";
-        }
-    }
-    
-    */
-
     render() {
         if (this.state.redirect) { 
             return <Redirect to="/login"/>
@@ -74,42 +53,38 @@ export class NavMenu extends Component {
             <Navbar className="navbar-expand-sm navbar-toggleable-sm navbar-light bg-* border-bottom box-shadow mb-3" light>
                 <Container>
                     <NavbarBrand tag={Link} href="/" id="logo" to="/"><img src={logo} style={{ widht: "40px", height: "40px" }} /></NavbarBrand>
-                <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-                <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-                <ul className="navbar-nav flex-grow">
-                    <NavItem>
-                        <NavLink tag={Link} id="navText" to="/om">Om Oss</NavLink>
-                    </NavItem>
+                    <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+                    <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+                    <ul className="navbar-nav flex-grow">
 
-                            <UncontrolledDropdown nav>
-                                 <DropdownToggle nav caret id="navText"> Aksjer </DropdownToggle>
-                                        <DropdownMenu>
-                                    <DropdownItem tag={Link} to="/handel">Handel</DropdownItem>
-                                          <DropdownItem divider />
-                                    <DropdownItem tag={Link} to="/">Askjetips</DropdownItem>
-                                         </DropdownMenu>
-                            </UncontrolledDropdown>
+                        <NavItem>
+                            <NavLink tag={Link} id="navText" to="/om">Om Oss</NavLink>
+                        </NavItem>
 
-                            <NavItem>
-                                <NavLink className="loggInn" tag={Link} id="navTextHighlight" to="/login">Log Inn</NavLink>
-                            </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} id="navText" to="/Handel">Handel</NavLink>
+                        </NavItem>
 
-                            <UncontrolledDropdown nav>
-                                <DropdownToggle className="minSide" nav caret id="navTextHighlight">Min Side</DropdownToggle>
+                        <NavItem>
+                            <NavLink className="loggInn" tag={Link} id="navTextHighlight" to="/login">Logg inn</NavLink>
+                        </NavItem>
+
+                        <UncontrolledDropdown nav>
+                            <DropdownToggle className="minSide" nav caret id="navTextHighlight">Min Side</DropdownToggle>
                                 <DropdownMenu>
                                     <DropdownItem tag={Link} to="/profil">Profil</DropdownItem>
                                     <DropdownItem divider />
                                     <DropdownItem tag={Link} to="/historikk">Historikk</DropdownItem>
-                                </DropdownMenu>
-                            </UncontrolledDropdown>
+                            </DropdownMenu>
+                        </UncontrolledDropdown>
                             
-                               <NavItem>
-                                    <button id="navTextHighlight" onClick={this.loggUt}>Logg ut</button>
-                                </NavItem>
+                        <NavItem>
+                            <Button color="primary" onClick={this.loggUt}>Logg ut</Button>
+                        </NavItem>
                                
-                </ul>
-                </Collapse>
-            </Container>
+                    </ul>
+                    </Collapse>
+                </Container>
             </Navbar>
         </header>
         );
