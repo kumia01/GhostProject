@@ -9,6 +9,7 @@ namespace GhostProjectv2.DAL
         Task<bool> Lagre(Transaksjon innTransaksjon);
         Task<List<Transaksjon>> HentAlle();
         Task<List<Transaksjon>> HentBrukerTransaksjoner(int brukerId);
+        Task<List<Transaksjon>> HentInnskuddUttak(int brukerId);
         Task<List<Transaksjon>> HentAksjeTransaksjoner(string ticker);
     }
 }

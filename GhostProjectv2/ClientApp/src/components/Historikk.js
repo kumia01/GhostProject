@@ -10,6 +10,27 @@ export class Historikk extends Component {
     // Setter displayName til Historikk for eventuelle debugging meldinger
     static displayName = Historikk.name;
 
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            aksjeList: [],
+            innskuddUttakList: [],
+            aksje: {
+                Ticker: "",
+                Volum: "",
+                Pris: ""
+            }
+        }
+
+    }
+
+
+
+
+
+
+
     // Funksjon som kontrollerer container noden du står i
     render() {
 
@@ -35,7 +56,7 @@ export class Historikk extends Component {
                             <ButtonGroup className="mr-2">
 
                                 {/* Knapper, en av de bruker outline og den andre tar primary som farge */}
-                                <Button outline>Overfør</Button>
+                                <Button color="primary" sm="1">Innskudd/Uttak</Button>
                                 <Button color="primary" sm="1">Transaksjoner</Button>
                             </ButtonGroup>
                         </ButtonToolbar>  
@@ -48,7 +69,7 @@ export class Historikk extends Component {
                         <Col md="6" pt="3">
 
                             {/* Tabell som skal holde på overføringer */}
-                            <Table borderless>
+                            <Table responsive borderless>
 
                                 {/* Table Head, raden med informasjon om hva som står i kolonnene */}
                                 <thead>

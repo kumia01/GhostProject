@@ -104,7 +104,7 @@ namespace GhostProjectv2.DAL
                     Pris = t.Pris,
                     BrukereId = t.BrukereId,
                     Ticker = t.Ticker
-                }).Where(t => t.BrukereId == brukerId).ToListAsync();
+                }).Where(t => t.BrukereId == brukerId && t.Ticker != "NOK").ToListAsync();
                 return alleTransaksjoner;
 
             }
@@ -115,6 +115,31 @@ namespace GhostProjectv2.DAL
             }
 
         }
+
+
+        public async Task<List<Transaksjon>> HentInnskuddUttak(int brukerId)
+        {
+            try
+            {
+                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon
+                {
+                    Id = t.Id,
+                    Volum = t.Volum,
+                    Pris = t.Pris,
+                    BrukereId = t.BrukereId,
+                    Ticker = t.Ticker
+                }).Where(t => t.BrukereId == brukerId && t.Ticker == "NOK").ToListAsync();
+                return alleTransaksjoner;
+
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return null;
+            }
+
+        }
+
 
         //Henter alle transaksjoner til en aksje ved hjelp av aksjeId
         public async Task<List<Transaksjon>> HentAksjeTransaksjoner(string ticker)
