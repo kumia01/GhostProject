@@ -20,14 +20,14 @@ namespace GhostProjectv2.Models
                 
                 var poststed1 = new Poststeder { Postnr = "0372", Poststed = "Oslo" };
                 //var poststed2 = new Poststeder { Postnr = "1900", Poststed = "Oslo" };
-                var aksje1 = new FlereAksjer { Ticker = "NOK", Selskap = "Norske Kroner", Pris = 20, gammelPris = 1 };
+                //var aksje1 = new FlereAksjer { Ticker = "NOK", Selskap = "Norske Kroner", Pris = 20, gammelPris = 1 };
                 
                 var bruker1 = new Brukere { Fornavn = "Ole", Etternavn = "Hansen", Adresse = "Olsloveien 82", Poststed = poststed1, Saldo = 0 };
                 var bruker2 = new Brukere { Fornavn = "Jens", Etternavn = "Jenseberg", Adresse = "Svingen 2", Poststed = poststed1, Saldo = 0 };
                 var bruker3 = new Brukere { Fornavn = "Per", Etternavn = "Persson", Adresse = "Grensen 22", Poststed = poststed1, Saldo = 0 };
-                var bruker4 = new Brukere { Fornavn = "Rasmus", Etternavn = "Helgen", Adresse = "Kaia 1", Poststed = poststed1, Saldo = 0 };
+                var bruker4 = new Brukere { Fornavn = "Rasmus", Etternavn = "Helgen", Adresse = "Kaia 1", Poststed = poststed1, Saldo = 6000000 };
 
-                var transaksjon1 = new Transaksjoner { Pris = (int)aksje1.Pris, Volum = 200 };
+                /*var transaksjon1 = new Transaksjoner { Pris = (int)aksje1.Pris, Volum = 200 };
                 var transaksjon2 = new Transaksjoner { Pris = (int)aksje1.Pris, Volum = 20052 };
 
 
@@ -36,7 +36,7 @@ namespace GhostProjectv2.Models
                 nyTransaksjon.Add(transaksjon1);
                 nyTransaksjon.Add(transaksjon2);
                 bruker1.Transaksjoner = nyTransaksjon;
-                aksje1.Transaksjoner = nyTransaksjon;
+                aksje1.Transaksjoner = nyTransaksjon;*/
 
                 var kunde1 = new Kunder();
                 kunde1.Brukernavn = "OleErBest";
@@ -78,7 +78,7 @@ namespace GhostProjectv2.Models
                 context.Brukere.Add(bruker2);
                 context.Brukere.Add(bruker3);
                 context.Brukere.Add(bruker4);
-                context.FlereAksjer.Add(aksje1);
+                //context.FlereAksjer.Add(aksje1);
 
                 context.SaveChanges();
             }

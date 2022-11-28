@@ -60,6 +60,7 @@ export class StockTabell extends Component {
 
 	
 	
+	
 	buy(ticker){
 		sessionStorage.setItem('ticker', ticker)
 		this.setState({redirect: true})
