@@ -36,19 +36,30 @@
 2022-11-28T13:12:26.0545222+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
 (node:18592) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
  (550626b6)
-2022-11-28T13:26:52.2765792+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
-2022-11-28T13:26:52.2960924+01:00  [INF] Hosting environment: "Development" (c3307c92)
-2022-11-28T13:26:52.2963617+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
-2022-11-28T13:27:02.4590241+01:00  [ERR] (node:17728) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
- (70104735)
-2022-11-28T13:27:02.4599687+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
-(node:17728) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
- (f511cd48)
-2022-11-28T13:41:54.0620370+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
-2022-11-28T13:41:54.0717894+01:00  [INF] Hosting environment: "Development" (c3307c92)
-2022-11-28T13:41:54.0719341+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
-2022-11-28T13:56:43.2235970+01:00  [ERR] (node:23644) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
- (38a92eb4)
-2022-11-28T13:56:43.2244543+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
-(node:23644) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
- (2297f511)
+2022-11-28T14:08:34.4719200+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-28T14:08:34.4856106+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-28T14:08:34.4886081+01:00  [INF] Content root path: "C:\Users\Storm\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
+2022-11-28T14:08:43.8879597+01:00  [ERR] (node:13428) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (3667f29f)
+2022-11-28T14:08:43.8922900+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:13428) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (1b5b5fa4)
+2022-11-28T14:11:51.2991409+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-28T14:11:51.3106524+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-28T14:11:51.3145510+01:00  [INF] Content root path: "C:\Users\Storm\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
+2022-11-28T14:11:57.4666965+01:00  [ERR] (node:7912) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (9485de96)
+2022-11-28T14:11:57.4769410+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:7912) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (b302f450)
+2022-11-28T14:15:08.6463122+01:00 80000129-0004-fd00-b63f-84710c7967bb [INF] Innlogging feilet for bruker storm! (2be5d64d)
+2022-11-28T14:15:13.6586232+01:00 80000078-0002-fb00-b63f-84710c7967bb [INF] Innlogging feilet for bruker storm! (2be5d64d)
+2022-11-28T14:15:29.0070642+01:00 80000032-0003-fd00-b63f-84710c7967bb [INF] Innlogging feilet for bruker hei! (1518710a)
+2022-11-28T14:17:34.7923945+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-28T14:17:34.8087717+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-28T14:17:34.8114572+01:00  [INF] Content root path: "C:\Users\Storm\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
+2022-11-28T14:17:40.9557313+01:00  [ERR] (node:14912) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (f54f95d2)
+2022-11-28T14:17:40.9605434+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14912) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (28e19695)
