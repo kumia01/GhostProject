@@ -2,7 +2,6 @@
 import{ Redirect } from 'react-router-dom';
 import { Table, Button } from 'reactstrap';
 import axios from "axios";
-import $ from  'jquery';
 const options = {
 	method: 'GET',
 	url: 'https://latest-stock-price.p.rapidapi.com/any',

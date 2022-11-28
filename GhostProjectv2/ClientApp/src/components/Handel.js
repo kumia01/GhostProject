@@ -26,7 +26,7 @@ export class Handel extends Component {
                 <Row>
 
                     {/* Kolonne som strekker seg 100% */}
-                    <Col sm="12" md="12" lg="12">
+                    <Col sm="12" md="12" lg="12" xl="12">
 
                         {/* Overskrift */}
                         <h2 className="text-center"><strong>Handelsfremsiden</strong></h2>
@@ -37,7 +37,7 @@ export class Handel extends Component {
                 <Row>
 
                     {/* Kolonne for å holde knappe i rekke */}
-                    <Col md="12" className="justify-content-center align-items-center text-center">
+                    <Col sm="12" md="12" lg="12" xl="12" className="text-center">
 
                         {/* Bruker ButtonGroup for å holde knappene tett på hverandre */}
                         <ButtonGroup id="btnCol">
@@ -54,7 +54,7 @@ export class Handel extends Component {
                 {/* Rad for tabellen */}
                 <Row>
                     {/* Bruker bare en kolonne siden tabellen skal ta opp hele siden */}
-                    <Col md="12">
+                    <Col sm="12" md="12" lg="12" xl="12">
                         <h5 className="text-center">Værsåsnill kjøp</h5>
 
                         {/* Printer ut innholdet fra klassen StockTabell.js */}

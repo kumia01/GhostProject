@@ -96,7 +96,7 @@ export class Login extends Component {
                     <Row fluid="true" className="justify-content-md-center">
 
                         {/* Kolonne for alle elementene */}
-                        <Col sm="6">
+                        <Col sm="6" md="6" lg="6" xl="6">
 
                             {/* Undertittel */}
                             <h2>Logg inn</h2>
