@@ -15,8 +15,8 @@ export class Historikk extends Component {
         super(props)
 
         this.state = {
-            skjulAksjer: true,
-            skjulInnskudd: false,
+            visAksjer: false,
+            visInnskudd: false,
             aksjeList: [],
             innskuddUttakList: [],
             aksjeKjøpt: {
@@ -25,8 +25,11 @@ export class Historikk extends Component {
                 Pris: 0
             }
         }
+        this.velgVisningAksjer = this.velgVisningAksjer.bind(this);
+        this.velgVisningOverføring = this.velgVisningOverføring.bind(this);
         this.callAksjeKjøpListe = this.callAksjeKjøpListe.bind(this);
         this.callAksjeKjøpListe();
+        this.callUttakInntakListe();
 
     }
 
@@ -44,6 +47,34 @@ export class Historikk extends Component {
             })
     }
 
+    callUttakInntakListe() {
+        const id = "brukerId=" + sessionStorage.getItem('kundeId');
+        axios.get('../Transaksjon/HentInnskuddUttak?' + id)
+            .then((response) => {
+                console.log(response.data);
+                this.setState({
+                    innskuddUttakList: response.data
+                })
+            })
+            .catch(function (feil) {
+                console.log("gikk ikke" + feil);
+            });
+    }
+
+    velgVisningAksjer() {
+        this.setState({
+            visAksjer: true,
+            visInnskudd: false
+        });
+    }
+
+    velgVisningOverføring() {
+        this.setState({
+            visAksjer: false,
+            visInnskudd: true
+        });
+    }
+
 
 
 
@@ -52,16 +83,45 @@ export class Historikk extends Component {
 
     // Funksjon som kontrollerer container noden du står i
     render() {
-        let data = this.state.aksjeList.map((i, key) => {
-            return (
-                <tr key={key}>
-                    <th>{key + 1}</th>
-                    <td>{i.Ticker}</td>
-                    <td>{i.Pris}</td>
-                    <td>{i.Volum}</td>
-                </tr>
+        let data;
+        if (this.state.visAksjer) {
+            data = this.state.aksjeList.map((i, key) => {
+                return (
+                    <Table responsive borderless>
+                      <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th><th>TotalPris</th></tr></thead>
+                         <tbody>
+                           <tr key={key}>
+                           <th>{key + 1}</th>
+                           <td>{i.ticker}</td>
+                           <td>{i.pris}</td>
+                           <td>{i.volum}</td>
+                           <td>{i.volum * i.pris}</td>
+                         </tr>
+                         </tbody>
+                    </Table>
+                    
                 );
-        });
+            });
+        }
+        if (this.state.visInnskudd) {
+            data = this.state.innskuddUttakList.map((i, key) => {
+                return (
+                    <Table responsive borderless>
+                        <thead><tr><th>#</th><th>Ticker</th><th>Antall NOK</th></tr></thead>
+                        <tbody>
+                            <tr key={key}>
+                                <th>{key + 1}</th>
+                                <td>{i.ticker}</td>
+                                <td>{i.volum}</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+
+                );
+            });
+        }
+        
+        
 
 
         // Returnerer html elementene slik at de skrives ut
@@ -86,8 +146,8 @@ export class Historikk extends Component {
                             <ButtonGroup className="mr-2">
 
                                 {/* Knapper, en av de bruker outline og den andre tar primary som farge */}
-                                <Button color="primary" sm="1">Innskudd/Uttak</Button>
-                                <Button color="primary" sm="1">Transaksjoner</Button>
+                                <Button color="primary" sm="1" onClick={this.velgVisningOverføring}>Innskudd/Uttak</Button>
+                                <Button color="primary" sm="1" onClick={this.velgVisningAksjer}>Transaksjoner</Button>
                             </ButtonGroup>
                         </ButtonToolbar>  
                     </Row>
@@ -98,54 +158,9 @@ export class Historikk extends Component {
                         {/* Kolonne som skal ta halve raden */}
                         <Col md="6" pt="3">
 
-                            {/* Tabell som skal holde på overføringer */}
-                            <Table responsive borderless>
-
-                                {/* Table Head, raden med informasjon om hva som står i kolonnene */}
-                                <thead>
-                                    {/* Markerer starten på en rad i tabellen */}
-                                    <tr>
-                                        {/* Table Head element */}
-                                        <th>Dato</th>
-                                    </tr>
-                                </thead>
-
-                                {/* Table Body, radene som skal inne holde informasjon */}
-                                <tbody>
-                                    {/* Table row, markerer start på en rad */}
-                                    <tr>
-                                        {/* Element i raden */}
-                                        <td>11.02.2021</td>
-                                    </tr>
-                                    <tr>
-                                        <td><i className="bi bi-arrow-left"> Overføring til konto: NOK 2, 0000</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>03.01.2021</td>
-                                    </tr>
-                                    <tr>
-                                        <td><i className="bi bi-arrow-right"> Innskudd: NOK 1, 000</i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>05.01.2021</td>
-                                    </tr>
-                                    <tr>
-                                        <td><i className="bi bi-arrow-left"> Overføring av aksjer til bruker @ </i></td>
-                                    </tr>
-                                    <tr>
-                                        <td>15.12.2020</td>
-                                    </tr>
-                                    <tr>
-                                        <td><i className="bi bi-arrow-right"> Mottok aksjer fra bruker @</i></td>
-                                    </tr>
-                                </tbody>
-                            </Table>
-                            <Table responsive borderless>
-                                <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th></tr></thead>
-                                <tbody>
-                                    {data}
-                                </tbody>
-                            </Table>
+                            <h5>Velg Innskudd/Uttak for å se dine innskudd og uttak!</h5>
+                            <h5>Velg Transaksjoner for å se dine aksjekjøp og salg!</h5>
+                            {data}
                         </Col>
                     </Row>
                 </Container>

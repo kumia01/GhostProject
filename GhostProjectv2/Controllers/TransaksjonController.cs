@@ -73,7 +73,7 @@ namespace GhostProjectv2.Controllers
             {
                 return Unauthorized();
             }
-            List<Transaksjon> alleTransaksjoner = await _db.HentBrukerTransaksjoner(brukerId);
+            List<Transaksjon> alleTransaksjoner = await _db.HentInnskuddUttak(brukerId);
             return Ok(alleTransaksjoner);
         }
 
