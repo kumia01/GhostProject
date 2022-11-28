@@ -173,13 +173,9 @@ namespace GhostProjectv2.DAL
             {
                 var endreObjekt = await _db.Brukere.FindAsync(innTransaksjon.BrukereId);
                 var nyTransaksjonRad = new Transaksjoner();
-                Console.Write("111");
-                Console.Write(innTransaksjon.Volum);
 
                 if (innTransaksjon.Volum > 0) //Hvis saldoen som kommer inn er større enn 0 betyr det at bruker gjør innskudd
                 {
-                    Console.Write("222");
-                    Console.Write(innTransaksjon.Volum);
                     endreObjekt.Saldo += innTransaksjon.Volum;
                     nyTransaksjonRad.Volum = innTransaksjon.Volum;
                     nyTransaksjonRad.Pris = 1;
