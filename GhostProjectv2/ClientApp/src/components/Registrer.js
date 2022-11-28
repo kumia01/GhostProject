@@ -92,7 +92,7 @@ export class Registrer extends Component {
                     <Row className="justify-content-md-center">
 
                         {/* Kolonne som tar hensyn til enhet */}
-                        <Col md="6" sm="12" lg="6">
+                        <Col sm="12" md="6" lg="6" xl="6">
 
                             {/* Undertittel */}
                             <h2>Fyll inn informasjon for å lage bruker</h2>

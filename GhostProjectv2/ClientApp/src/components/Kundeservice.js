@@ -87,7 +87,7 @@ export class Kundeservice extends Component {
                 <Row fluid="true" className="align-items-center justify-content-center">
 
                     {/* En av to kolonner i raden, for mobil vil den andre bli til en ny rad */}
-                    <Col sm="12" md="6" lg="6">
+                    <Col sm="12" md="6" lg="6" xl="6">
 
                         {/* Undertittel som markerer hvilken side bruker er på */}
                         <h2 className="text-center"><strong>Kundeservice</strong></h2>
