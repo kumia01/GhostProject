@@ -30,7 +30,7 @@ namespace xUnit_EnhetstestAvAkjseSide
 
 
         [Fact]
-        public async Task LagreLoggetInnOK()
+        public async Task LagreLoggetInnOK() //Tester Lagre() hvor bruker er logget inn og den returnerer true
         {
             //Arrange
             mockRep.Setup(t => t.Lagre(It.IsAny<Transaksjon>())).ReturnsAsync(true);
@@ -50,7 +50,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task LagreLoggetInnIkkeOK()
+        public async Task LagreLoggetInnIkkeOK() //Tester Lagre() hvor bruker er logget inn og den returnerer false
         {
             //Arrange
             mockRep.Setup(t => t.Lagre(It.IsAny<Transaksjon>())).ReturnsAsync(false);
@@ -70,7 +70,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task LagreLoggetInnFeilModel()
+        public async Task LagreLoggetInnFeilModel() //Tester Lagre() hvor bruker er logget inn og model(regex) er feil
         {
             //Arrange
             var transaksjon1 = new Transaksjon {Id=1, Volum=2000, Pris=400, BrukereId=2, Ticker="G", FlereAksjerId=2 };
@@ -94,7 +94,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task LagreIkkeLoggetInn()
+        public async Task LagreIkkeLoggetInn() //Tester Lagre() hvor bruker ikke er logget inn
         {
             //Arrange
             mockRep.Setup(t => t.Lagre(It.IsAny<Transaksjon>())).ReturnsAsync(true);
@@ -115,7 +115,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentAlleLoggetInnOK()
+        public async Task HentAlleLoggetInnOK() //Tester HentAlle() hvor bruker er logget inn og den returnerer ønsket liste
         {
             //Arrange
             var transaksjon1 = new Transaksjon { Id = 1, Volum = 2000, Pris = 400, BrukereId = 2, Ticker = "GUBA", FlereAksjerId = 2 };
@@ -144,7 +144,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentAlleIkkeLoggetInn()
+        public async Task HentAlleIkkeLoggetInn() //Tester HentAlle() hvor bruker ikke er logget inn
         {
             //Arrange
             mockRep.Setup(t => t.HentAlle()).ReturnsAsync(It.IsAny<List<Transaksjon>>);
@@ -164,7 +164,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentBrukerTransaksjonerLoggetInn()
+        public async Task HentBrukerTransaksjonerLoggetInn() //Tester HentBrukerTransaksjoner() hvor bruker er logget inn
         {
             //Arrange
             var transaksjon1 = new Transaksjon { Id = 1, Volum = 2000, Pris = 400, BrukereId = 2, Ticker = "GUBA", FlereAksjerId = 2 };
@@ -193,7 +193,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentBrukerTransaksjonerIkkeLoggetInn()
+        public async Task HentBrukerTransaksjonerIkkeLoggetInn() //Tester HentBrukerTransaksjoner() hvor bruker ikke er logget inn
         {
             //Arrange
             mockRep.Setup(t => t.HentBrukerTransaksjoner(It.IsAny<int>())).ReturnsAsync(It.IsAny<List<Transaksjon>>);
@@ -213,7 +213,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentBrukerTransaksjonHistorikkLoggetInn()
+        public async Task HentBrukerTransaksjonHistorikkLoggetInn() //Tester HentBrukerTransaksjonHistorikk() hvor bruker er logget inn
         {
             //Arrange
             var transaksjon1 = new Transaksjon { Id = 1, Volum = 2000, Pris = 400, BrukereId = 2, Ticker = "GUBA", FlereAksjerId = 2 };
@@ -242,7 +242,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentBrukerTransaksjonHistorikkIkkeLoggetInn()
+        public async Task HentBrukerTransaksjonHistorikkIkkeLoggetInn() //Tester HentBrukerTransaksjonHistorikk() hvor bruker ikke er logget inn
         {
             //Arrange
             mockRep.Setup(t => t.HentBrukerTransaksjonHistorikk(It.IsAny<int>())).ReturnsAsync(It.IsAny<List<Transaksjon>>);
@@ -262,7 +262,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentInnskuddUttakLoggetInn()
+        public async Task HentInnskuddUttakLoggetInn() //Tester HentInnskuddUttak() hvor bruker er logget inn
         {
             //Arrange
             var transaksjon1 = new Transaksjon { Id = 1, Volum = 2000, Pris = 400, BrukereId = 2, Ticker = "GUBA", FlereAksjerId = 2 };
@@ -291,7 +291,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentInnskuddUttakIkkeLoggetInn()
+        public async Task HentInnskuddUttakIkkeLoggetInn() //Tester HentInnskuddUttak() hvor bruker ikke er logget inn
         {
             //Arrange
             mockRep.Setup(t => t.HentInnskuddUttak(It.IsAny<int>())).ReturnsAsync(It.IsAny<List<Transaksjon>>);
@@ -311,56 +311,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentAksjeTransaksjonerLoggetInn()
-        {
-            //Arrange
-            var transaksjon1 = new Transaksjon { Id = 1, Volum = 2000, Pris = 400, BrukereId = 2, Ticker = "GUBA", FlereAksjerId = 2 };
-            var transaksjon2 = new Transaksjon { Id = 2, Volum = 500000, Pris = 89, BrukereId = 2, Ticker = "SIUU", FlereAksjerId = 12 };
-            var transaksjon3 = new Transaksjon { Id = 3, Volum = 20, Pris = 8000, BrukereId = 2, Ticker = "GDOG", FlereAksjerId = 1 };
-
-            var transaksjonList = new List<Transaksjon>();
-            transaksjonList.Add(transaksjon1);
-            transaksjonList.Add(transaksjon2);
-            transaksjonList.Add(transaksjon3);
-
-            mockRep.Setup(t => t.HentAksjeTransaksjoner(It.IsAny<string>())).ReturnsAsync(transaksjonList);
-
-            var transaksjonController = new TransaksjonController(mockRep.Object, mockLog.Object);
-
-            mockSession[_loggetInn] = _loggetInn;
-            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
-            transaksjonController.ControllerContext.HttpContext = mockHttpContext.Object;
-
-            //Act
-            var resultat = await transaksjonController.HentAksjeTransaksjoner(It.IsAny<string>()) as OkObjectResult;
-
-            //Assert
-            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
-            Assert.Equal<List<Transaksjon>>((List<Transaksjon>)resultat.Value, transaksjonList);
-        }
-
-        [Fact]
-        public async Task HentAksjeTransaksjonerIkkeLoggetInn()
-        {
-            //Arrange
-            mockRep.Setup(t => t.HentAksjeTransaksjoner(It.IsAny<string>())).ReturnsAsync(It.IsAny<List<Transaksjon>>);
-
-            var transaksjonController = new TransaksjonController(mockRep.Object, mockLog.Object);
-
-            mockSession[_loggetInn] = _ikkeLoggetInn;
-            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
-            transaksjonController.ControllerContext.HttpContext = mockHttpContext.Object;
-
-            //Act
-            var resultat = await transaksjonController.HentAksjeTransaksjoner(It.IsAny<string>()) as UnauthorizedObjectResult;
-
-            //Assert
-            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
-            Assert.Equal("Ikke logget inn!", resultat.Value);
-        }
-
-        [Fact]
-        public async Task EndreSaldoLoggetInnOK()
+        public async Task EndreSaldoLoggetInnOK() //Tester EndreSaldo() hvor bruker er logget inn og den returnerer true
         {
             //Arrange
             mockRep.Setup(t => t.EndreSaldo(It.IsAny<Transaksjon>())).ReturnsAsync(true);
@@ -380,7 +331,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task EndreSaldoLoggetInnIkkeOK()
+        public async Task EndreSaldoLoggetInnIkkeOK() //Tester EndreSaldo() hvor bruker er logget inn og den returnerer false
         {
             //Arrange
             mockRep.Setup(t => t.EndreSaldo(It.IsAny<Transaksjon>())).ReturnsAsync(false);
@@ -400,7 +351,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task EndreSaldoLoggetInnFeilModel()
+        public async Task EndreSaldoLoggetInnFeilModel() //Tester EndreSaldo() hvor bruker er logget inn og model(regex) er feil
         {
             //Arrange
             var transaksjon1 = new Transaksjon { Id = 1, Volum = 2000, Pris = 400, BrukereId = 2, Ticker = "G", FlereAksjerId = 2 };
@@ -424,7 +375,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task EndreSaldoIkkeLoggetInn()
+        public async Task EndreSaldoIkkeLoggetInn() //Tester EndreSaldo() hvor bruker ikke er logget inn
         {
             //Arrange
             mockRep.Setup(t => t.EndreSaldo(It.IsAny<Transaksjon>())).ReturnsAsync(true);

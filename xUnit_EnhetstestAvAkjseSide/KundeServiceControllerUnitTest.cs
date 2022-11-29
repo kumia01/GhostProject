@@ -25,7 +25,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         private readonly MockHttpSession mockSession = new MockHttpSession();
 
         [Fact]
-        public async Task LagreOK()
+        public async Task LagreOK() //Tester Lagre() hvor den returnerer true
         {
             //Arrange
             mockRep.Setup(t => t.LagreMelding(It.IsAny<Melding>())).ReturnsAsync(true);
@@ -41,7 +41,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task LagreIkkeOK()
+        public async Task LagreIkkeOK() //Tester Lagre() hvor den returnerer false
         {
             //Arrange
             mockRep.Setup(t => t.LagreMelding(It.IsAny<Melding>())).ReturnsAsync(false);
@@ -57,7 +57,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task LagreFeilModel()
+        public async Task LagreFeilModel() //Tester Lagre() hvor model(regex) er feil
         {
             //Arrange
             var melding1 = new Melding { Id = 1, Epost="kåreWillock.gmail.com", Navn="Kåre Willock", Tekst ="Absolutt nydelig aksjehandelplattform!!!" };

@@ -21,7 +21,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         private readonly Mock<ILogger<AksjeController>> mockLog = new Mock<ILogger<AksjeController>>();
 
         [Fact]
-        public async Task HentAlleOK()
+        public async Task HentAlleOK() //Tester HentAlle() hvor alle aksjene blir hentet
         {
             //Arrange
             var aksje1 = new Aksje { Id = 1, Ticker = "TRAB", Selskap = "Trabanzospor", Pris = 10, gammelPris = 20 };
@@ -46,7 +46,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentEnOK()
+        public async Task HentEnOK() //Tester HentEn() hvor aksjen blir funnet
         {
             //Arrange
             var aksje1 = new Aksje() { Id = 2, Ticker = "LSK", Selskap = "Lillestrøm Sportsklubb", Pris = 6900, gammelPris = 68 };
@@ -64,7 +64,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentEnIkkeFunnetAksje()
+        public async Task HentEnIkkeFunnetAksje() //Tester HentEn() hvor aksjen ikke blir funnet
         {
             //Arrange 
             mockRep.Setup(k => k.HentEn(It.IsAny<string>())).ReturnsAsync(()=>null);
@@ -80,7 +80,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task endrePrisOK()
+        public async Task endrePrisOK() //Tester endrePris() hvor den returnerer true
         {
             //Arrange
             mockRep.Setup(k => k.endrePris(It.IsAny<List<Aksje>>())).ReturnsAsync(true);
@@ -96,7 +96,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task endrePrisIkkeOK()
+        public async Task endrePrisIkkeOK() //Tester endrePris() hvor den returnerer false
         {
             //Arrange
             mockRep.Setup(k => k.endrePris(It.IsAny<List<Aksje>>())).ReturnsAsync(false);
@@ -113,7 +113,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task LagreOK()
+        public async Task LagreOK() //Tester Lagre() hvor den returnerer true
         {
             //Arrange
             mockRep.Setup(k => k.Lagre(It.IsAny<List<Aksje>>())).ReturnsAsync(true);
@@ -129,7 +129,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task LagreIkkeOK()
+        public async Task LagreIkkeOK() //Tester Lagre() hvor den returnerer false
         {
             //Arrange
             mockRep.Setup(k => k.Lagre(It.IsAny<List<Aksje>>())).ReturnsAsync(false);

@@ -27,7 +27,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         private readonly MockHttpSession mockSession = new MockHttpSession();
 
         [Fact]
-        public async Task HentAlleLoggetInnOk()
+        public async Task HentAlleLoggetInnOk() //Tester HentAlle() hvor bruker er logget inn og den returner øsnket liste
         {
             var brukerController = new BrukerController(mockRep.Object, mockLog.Object);
 
@@ -86,7 +86,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
         
         [Fact]
-    public async Task HentAlleNårIkkeLoggetInn()
+    public async Task HentAlleNårIkkeLoggetInn() //Tester HentAlle() hvor bruker ikke er logget inn
     {
 
         mockRep.Setup(b => b.HentAlle()).ReturnsAsync(It.IsAny<List<Bruker>>());
@@ -107,7 +107,7 @@ namespace xUnit_EnhetstestAvAkjseSide
 
     }
         [Fact]
-        public async Task LagreNårLoggetInnSvarOK()
+        public async Task LagreNårLoggetInnSvarOK() //Tester Lagre() hvor bruker er logget inn og lagre returner true
         {            
             // Arrange
 
@@ -127,7 +127,7 @@ namespace xUnit_EnhetstestAvAkjseSide
             Assert.Equal("Brukeren ble lagret", resultat.Value);
         }
         [Fact]
-        public async Task LagreLoggetInnIkkeOK()
+        public async Task LagreLoggetInnIkkeOK() //Tester Lagre() hvor bruker er logget inn og lagre returner false
         {
             // Arrange
 
@@ -149,7 +149,7 @@ namespace xUnit_EnhetstestAvAkjseSide
 
 
         [Fact]
-        public async Task LagreLoggetInnFeilModel()
+        public async Task LagreLoggetInnFeilModel() //Tester Lagre() hvor bruker er logget inn og lagre har feil model(regex)
         {
             // Arrange
             var bruker1 = new Bruker
@@ -183,7 +183,7 @@ namespace xUnit_EnhetstestAvAkjseSide
 
 
         [Fact]
-        public async Task LoggInnOK()
+        public async Task LoggInnOK() //Tester LoggInn() hvor den returnerer ønsket bruker objekt
         {
             //Arrange
             var bruker1 = new Bruker
@@ -213,7 +213,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task LoggInnFeilModel()
+        public async Task LoggInnFeilModel() //Tester LoggInn() hvor det er feil med model(regex)
         {
             //Arrange
             var bruker1 = new Bruker
@@ -268,7 +268,7 @@ namespace xUnit_EnhetstestAvAkjseSide
 
 
         [Fact]
-        public async Task LoggInnSlettOK()
+        public async Task LoggInnSlettOK() //Tester Slett() hvor bruker er logget inn og den returner true
         {
             // Arrange
 
@@ -288,7 +288,7 @@ namespace xUnit_EnhetstestAvAkjseSide
             Assert.Equal("Brukeren ble slettet", result.Value);
         }
         [Fact]
-        public async Task LoggetInnSlettIkkeOk()
+        public async Task LoggetInnSlettIkkeOk() //Tester Slett() hvor bruker er logget inn og den returner false
         {
             // Arrange
 
@@ -309,7 +309,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task IkkeLoggetInnSlett()
+        public async Task IkkeLoggetInnSlett() //Tester Slett() hvor bruker ikke er logget inn
         {
             mockRep.Setup(k => k.Slett(It.IsAny<int>())).ReturnsAsync(true);
 
@@ -327,7 +327,7 @@ namespace xUnit_EnhetstestAvAkjseSide
             Assert.Equal("Du er ikke logget inn!", resultat.Value);
         }
         [Fact]
-        public void LoggUt()
+        public void LoggUt() //Tester LoggUt()
         {
             var brukerController = new BrukerController(mockRep.Object, mockLog.Object);
 
@@ -343,7 +343,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentEnNaarLoggetInn()
+        public async Task HentEnNaarLoggetInn() //Tester HentEn() når bruker er logget inn
         {
             // Arrange
             var bruker1 = new Bruker
@@ -374,7 +374,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task EndreLoggetInnOK()
+        public async Task EndreLoggetInnOK() //Tester Endre() hvor bruker er logget inn og den returner true
         {
             //Arrange
             mockRep.Setup(t => t.Endre(It.IsAny<Bruker>())).ReturnsAsync(true);
@@ -394,7 +394,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task EndreLoggetInnIkkeOK()
+        public async Task EndreLoggetInnIkkeOK() //Tester Endre() hvor bruker er logget inn og den returner false
         {
             //Arrange
             mockRep.Setup(t => t.Endre(It.IsAny<Bruker>())).ReturnsAsync(false);
@@ -414,7 +414,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task EndreIkkeLoggetInn()
+        public async Task EndreIkkeLoggetInn() //Tester Endre() hvor bruker ikke er logget inn
         {
             //Arrange
             mockRep.Setup(t => t.Endre(It.IsAny<Bruker>())).ReturnsAsync(true);
@@ -434,7 +434,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task EndreLoggetInnFeilModel()
+        public async Task EndreLoggetInnFeilModel() //Tester Endre() hvor bruker er logget inn men model(regex) er feil
         {
             //Arrange
             var bruker1 = new Bruker
@@ -467,7 +467,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentEnLoggInnIkkeOK()
+        public async Task HentEnLoggInnIkkeOK() //Tester HentEn() hvor bruker er logget inn og den returner null
         {
             // Arrange
 
@@ -488,7 +488,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
         [Fact]
-        public async Task HentEnIkkeLoggetInn()
+        public async Task HentEnIkkeLoggetInn() //Tester HentEn() hvor bruker ikke er logget inn
         {
             mockRep.Setup(b => b.HentEn(It.IsAny<int>())).ReturnsAsync(() => null);
 
