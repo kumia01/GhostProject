@@ -80,6 +80,8 @@ namespace xUnit_EnhetstestAvAkjseSide
             Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
             Assert.Equal<List<Bruker>>((List<Bruker>)resultat.Value, brukerList);
 
+      
+
         }
     }
 }
