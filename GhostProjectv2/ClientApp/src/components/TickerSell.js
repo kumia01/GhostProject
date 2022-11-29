@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {  Redirect } from 'react-router-dom';
 import {Container, Row, Col, Form, FormGroup, Input, Label, Button, InputGroup} from 'reactstrap';
 import $ from 'jquery';
-
+import { validerTickerselg } from './Validering';
 
 
 
@@ -55,13 +55,16 @@ export class TickerSell extends Component {
             brukereId: sessionStorage.getItem('kundeId'),
             flereAksjerId: this.state.ticker.id
         }
+        const selgVal = validerTickerselg(this.state.value, this.state.maxVolum)
 
+       if(selgVal){
         $.post('../Transaksjon/Lagre', transaksjon, function () {
             console.log("TransaksjonLagret");
         })
             .fail(function (feil) {
                 console.log(feil);
             });
+       }
         
     }
 
@@ -92,6 +95,7 @@ export class TickerSell extends Component {
                                 </InputGroup>
                                 </Col>
                             </FormGroup>
+                            <span id="feilTicker" style={{ color: "red" }}></span>
                         </Form>
                     </Col>
                 </Row>

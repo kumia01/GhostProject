@@ -2,7 +2,8 @@ import React, { Component} from 'react';
 import {  Redirect } from 'react-router-dom';
 import {Container, Row, Col, Form, FormGroup, Input, Label, Button, InputGroup} from 'reactstrap';
 import $ from 'jquery';
-
+{/* Henter funksjoner fra js komponenten Validering */ }
+import { validerTickerbuy } from './Validering';
 
 
 
@@ -54,13 +55,16 @@ export class TickerBuy extends Component {
             brukereId: sessionStorage.getItem('kundeId'),
             flereAksjerId: this.state.ticker.id
         }
+        const valTicker = validerTickerbuy(this.state.value)
 
-        $.post('../Transaksjon/Lagre', transaksjon, function () {
-            console.log("TransaksjonLagret");
-        })
+       if(valTicker){
+            $.post('../Transaksjon/Lagre', transaksjon, function () {
+                console.log("TransaksjonLagret");
+            })
             .fail(function (feil) {
                 console.log(feil);
             });
+       }
         
     }
 
@@ -87,10 +91,11 @@ export class TickerBuy extends Component {
                                 <Col>
                                 <InputGroup>
                                     <Input htmlFor='Volum' type='number' value={this.state.value} onChange={this.handleChange} min='0'/>
-                                        <Button color="success" onClick={this.kjøpAksje}>kjøp</Button>
+                                    <Button color="success" onClick={this.kjøpAksje}>kjøp</Button>
                                 </InputGroup>
                                 </Col>
                             </FormGroup>
+                            <span id="feilTicker" style={{ color: "red" }}></span>
                         </Form>
                     </Col>
                 </Row>
