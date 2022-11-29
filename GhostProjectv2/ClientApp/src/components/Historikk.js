@@ -26,6 +26,7 @@ export class Historikk extends Component {
             visInnskudd: false,
             visHistorikk: false,
             redirect: false,
+            redirect2: false,
             aksjeList: [],
             innskuddUttakList: [],
             aksjeKjøpt: {
@@ -38,6 +39,8 @@ export class Historikk extends Component {
         this.velgHistorikk = this.velgHistorikk.bind(this);
         this.callAksjeKjøpListe = this.callAksjeKjøpListe.bind(this);
         this.callAksjeHistorikk = this.callAksjeHistorikk.bind(this);
+        this.renderRedirect2 =this.renderRedirect2.bind(this)
+        this.buy = this.buy.bind(this);
         this.callAksjeHistorikk();
         this.callAksjeKjøpListe();
         this.callUttakInntakListe();
@@ -66,6 +69,10 @@ export class Historikk extends Component {
 
     }
 
+    buy(ticker){
+		sessionStorage.setItem('ticker', ticker)
+		this.setState({redirect2: true})
+	}
     // Funksjon som skal hente volum og salg fra session
     sell(ticker, volum){
         sessionStorage.setItem('maxVolum', volum)
@@ -136,6 +143,12 @@ export class Historikk extends Component {
 			
 		}
 	}
+    renderRedirect2(){
+		if(this.state.redirect2){
+			return <Redirect to='/tickerBuy' />
+			
+		}
+	}
 
 
     // Funksjon som kontrollerer container noden du står i
@@ -153,7 +166,9 @@ export class Historikk extends Component {
                        <td>{i.ticker}</td>
                        <td>{i.pris}</td>
                        <td>{i.volum}</td>
+                       <td>{i.volum + i.pris}</td>
                        <td><Button color='danger' onClick={this.sell.bind(this, i.ticker, i.volum)}>Selg</Button></td>
+                       <td><Button color='success' onClick={this.buy.bind(this, i.ticker)}>Kjøp</Button></td>
                      </tr>
                 );
             });
@@ -194,6 +209,7 @@ export class Historikk extends Component {
             /* Container som inneholder html elementer */
             <Container>
                 {this.renderRedirect()}
+                {this.renderRedirect2()}
 
                 { /* Rad som skalerer på enhet */ }
                 <Row fluid="true">
@@ -239,7 +255,7 @@ export class Historikk extends Component {
                             { /* Henter ønsket tabell */ }
                             {this.state.visInnskudd && <thead><tr><th>#</th><th>Valuta</th><th>Sum</th></tr></thead>}
                             {this.state.visAksjer && <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th><th>TotalPris</th></tr></thead>}
-                            {this.state.visHistorikk && <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th></tr></thead>}
+                            {this.state.visHistorikk && <thead><tr><th>#</th><th>Ticker</th><th>Volum</th><th>Pris</th></tr></thead>}
                             <tbody>
                                 {data}
                             </tbody>

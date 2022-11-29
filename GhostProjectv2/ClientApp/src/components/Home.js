@@ -10,6 +10,10 @@ import { Container, Col, Row} from 'reactstrap';
 {/* Importerer klassen LiveNyheter, som er en api for å kunne vise ferske nyheter */}
 import { StockTabell } from './StockTabell';
 
+export function random(){
+    return (Math.random() * 790);
+}
+
 {/* Js klassen Home arver fra superklassen Component */ }
 export class Home extends Component {
 
@@ -67,7 +71,7 @@ export class Home extends Component {
                 <Row>
                     <Col></Col>
                     <Col sm="12" md="10" lg="10" xl="10">
-                        <StockTabell />
+                        <StockTabell data={{random: random()}} />
                     </Col>
                     <Col></Col>
                 </Row>
