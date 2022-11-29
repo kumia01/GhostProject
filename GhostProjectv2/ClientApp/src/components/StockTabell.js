@@ -1,4 +1,5 @@
-﻿import React, { Component, useState, useEffect } from 'react';
+﻿{/* Imports */}
+import React, { Component, useState, useEffect } from 'react';
 import{ Redirect } from 'react-router-dom';
 import { Table, Button, Input } from 'reactstrap';
 import axios from "axios";
@@ -22,8 +23,10 @@ const options = {
 	});
 */
 
-
+{/* Js klassen StockTabell arver fra superklassen Component */ }
 export class StockTabell extends Component {
+
+	// Setter displayName til StockTabell for eventuelle debugging meldinger
     static displayName = StockTabell.name;
 	constructor(props){
 		super(props)
@@ -113,6 +116,7 @@ export class StockTabell extends Component {
 		}
 	}
 
+	// Funksjon som kontrollerer container noden du står i
     render() {
 		let data = this.state.list.slice(this.props.data.random, this.props.data.random + 10).map((i,key) =>{
 			return(

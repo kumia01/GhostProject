@@ -13,6 +13,7 @@ export class Handel extends Component {
 
     // Setter displayName til Handel for eventuelle debugging meldinger
     static displayName = Handel.name;
+
     constructor(props){
         super(props)
         this.state={
