@@ -37,7 +37,7 @@ export class Footer extends Component {
                     <Col fluid="true">
                     <h5><strong>Utforsk</strong></h5>
                             <ul className="list-unstyled">
-                        <li><Link tag={Link} id="footerLink" to="/home">Hjem</Link></li>
+                        <li><Link tag={Link} id="footerLink" to="/">Hjem</Link></li>
                         <li><Link tag={Link} id="footerLink" to="/om">Om oss</Link></li>
                         <li><Link tag={Link} id="footerLink" to="/kundeservice">Kundeservice</Link></li>
                     </ul>
