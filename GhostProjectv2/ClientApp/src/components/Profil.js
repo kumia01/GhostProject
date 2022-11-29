@@ -206,11 +206,14 @@ export class Profil extends Component {
             <Container>
                 {this.renderRedirect()}
 
+                <br/>
+
                 {/* Rad som skalerer på enhet */}
-                <Row fluid="true">
+                <Row fluid="true" id="profil-wrapper">
                     <Col sm="12" md="6" lg="6" xl="6">
                         {/* Undertittel */}
-                        <h4 className="text-center text-md-center"><strong>Hei, {this.state.bruker.fornavn}</strong></h4>
+                        
+                        <h4 className="text-md"><strong>Hei, {this.state.bruker.fornavn}</strong></h4>
 
                         {/* Tekst elementer */}
                         <p>
@@ -220,15 +223,17 @@ export class Profil extends Component {
                             Hvis du ønsker å slette din profil kan du gjøre det ved å trykke på knappen "Slett Bruker" under.
                         </p>
                     </Col>
-
+                   
                     <Col sm="12" md="6" lg="6" xl="6">
-                        <h4 className="text-center text-md-center"><strong>Saldo</strong></h4>
-                        <p className="text-center text-md-center">Din bokførte saldo er: {this.state.bruker.saldo} NOK</p>  
+                        <h4 className="text-right text-md-right"><strong>Saldo</strong></h4>
+                        <p className="text-right text-md-right">Din bokførte saldo er: <br/> {this.state.bruker.saldo} NOK</p>  
                     </Col>
+                    
                 </Row>
                 { /*className="pt-noe definerer padding-top"*/}
                 <Row fluid="true" className="pt-3">
                     <Col sm="12" md="6" lg="6" xl="6">
+                        
                         <h4 className="text-center text-md-left">Kontoinformasjon</h4>
                         <hr/>
                         <Form>
@@ -318,27 +323,27 @@ export class Profil extends Component {
                         <span id="feil" style={{ color: "red" }}></span>
                     </Col>
 
-                    <Col sm="12" md="6" lg="6" xl="6">
-                        <h4 className="text-center text-md-center">Innskudd og uttak</h4>
 
-                        <Row>
+                    <Col fluid="true" sm="12" md="6" lg="6" xl="6" className="text-right text-md-right">
+                        <h4>Innskudd og uttak</h4>
+                        <Row className="d-grid gap-2 d-md-block">
 
                             { /*Tomme kolonner hjelper sentrere elementer i reactstrap*/}
                             <Col></Col>
-                            <Col fluid="true" className="btn-group-vertical mt-3" sm="6" md="6" lg="6" xl="6">
-                                <Button className="btn btn-md mb-2" color="primary" onClick={this.settInnPenger}>Utfør Innskudd</Button>{' '}
-                                <Button className="btn btn-md mb-2" color="primary" onClick={this.taUtPenger}>Utfør Uttak</Button>{' '}
+                            <Col fluid="true" className="btn-group-vertical" sm="6" md="6" lg="6" xl="6">
+                                <Button className="btn-md mb-2" color="primary" onClick={this.settInnPenger}>Innskudd</Button>{' '}
+                                <Button className="btn-md mb-2" color="primary" onClick={this.taUtPenger}>Uttak</Button>{' '}
                                 <Input
-                                    placeholder="Skriv inn ønsket sum her!"
+                                    placeholder="Skriv inn sum her:"
                                     type="number"
                                     min="0"
                                     id="sum"
-                                />
-                            </Col>
+                                    />
+                                </Col>
+                               
                             <Col></Col>
                         </Row>
-                        
-                    </Col>
+                        </Col>
                 </Row>
             </Container>
         )

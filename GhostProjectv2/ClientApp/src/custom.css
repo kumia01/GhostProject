@@ -76,6 +76,13 @@ html {
     height: auto;
 }
 
+#kundeservice {
+    background-image: url("../src/img/Artboard.png");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+}
+
 @media screen and (max-width: 600px) {
 
     .blåstolper {
@@ -87,4 +94,12 @@ html {
         height: auto;
         width: 100%;
     }
+}
+
+#handel-wrapper {
+    background-color: #CDCDCD;
+}
+
+#profil-wrapper {
+    background-color: #CDCDCD;
 }
