@@ -1,5 +1,4 @@
-﻿import $ from 'jquery';
-
+﻿
 
 //validerer tickerbuy og tickerselg
 export function validerTickerbuy(ticker){

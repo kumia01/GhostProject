@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 {/* Henter nødvendig funksjonalitet fra reactstrap */ }
-import { Button, ButtonGroup, Form, Container, Col, Row } from 'reactstrap';
+import { Button, ButtonGroup, Container, Col, Row } from 'reactstrap';
 
 {/* Henter klassen StockTabell for å printe ut informasjon fra api */}
 import { StockTabell } from "./StockTabell";

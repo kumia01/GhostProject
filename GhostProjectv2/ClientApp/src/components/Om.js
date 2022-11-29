@@ -8,7 +8,7 @@ import oslomet from '../img/oslometp35.jpg';
 import { Link } from 'react-router-dom';
 
 {/* Henter nødvendig funksjonalitet fra reactstrap */ }
-import { Button, Form, FormGroup, Label, Container, Col, Row } from 'reactstrap';
+import { FormGroup, Container, Col } from 'reactstrap';
 
 {/* Js klassen Handel arver fra superklassen Component */ }
 export class Om extends Component {

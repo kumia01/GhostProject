@@ -1,6 +1,6 @@
 {/* Imports */}
 import React, { Component, Fragment } from 'react';
-import {Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink, NavbarToggler, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, NavbarText, Button } from 'reactstrap';
+import {Collapse, Container, Navbar, NavbarBrand, NavItem, NavLink, NavbarToggler, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import $ from 'jquery';
 import { Link, Redirect } from 'react-router-dom';
 import './NavMenu.css';

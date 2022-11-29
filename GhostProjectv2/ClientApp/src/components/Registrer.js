@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Button, Form, Container, Col, FormGroup, Label, Input, Row } from 'reactstrap';
 
 {/* Importerer funksjoner fra react-router-dom, disse brukes til å bytte til en annen js komponent */ }
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 {/* Importerer jquery biblioteket */ }
 import $ from 'jquery';

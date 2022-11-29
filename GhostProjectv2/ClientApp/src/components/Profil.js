@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 
 {/* Henter nødvendig funksjonalitet fra reactstrap */ }
-import { Button, Form, Container, Col, FormGroup, Label, Input, Row, Table} from 'reactstrap';
+import { Button, Form, Container, Col, FormGroup, Label, Input, Row} from 'reactstrap';
 
 {/* Importerer funksjoner fra react-router-dom, disse brukes til å bytte til en annen js komponent */ }
-import { Link, Route, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 {/* Importerer jquery biblioteket */ }
 import $ from 'jquery';
