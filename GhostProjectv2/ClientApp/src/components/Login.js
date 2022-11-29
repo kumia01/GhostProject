@@ -13,16 +13,13 @@ import $ from 'jquery';
 {/* Henter funksjoner fra js komponenten Validering */}
 import { validerBrukernavn, validerPassord } from './Validering';
 
-
-
-
-
 {/* Js klassen Login arver fra superklassen Component */ }
 export class Login extends Component {
 
     // Setter displayName til Login for eventuelle debugging meldinger
     static displayName = Login.name;
 
+    // Konstruktør
     constructor(props) {
         super(props);
 
@@ -30,6 +27,7 @@ export class Login extends Component {
             redirect: false
         }
 
+        // Binder funksjoner til this
         this.onSubmit = this.onSubmit.bind(this);
         this.login = this.login.bind(this);
     }
@@ -46,16 +44,21 @@ export class Login extends Component {
 
     login = () => {
 
+        // Oppretter bruker fra input-felt informasjon
         const bruker = {
             brukernavn: $("#brukernavn").val(),
             passord: $("#passord").val()
         }
+
+        // Sjekker med validering om alt er ok
         const brukernavnOK = validerBrukernavn(bruker.brukernavn);
         const passordOK = validerPassord(bruker.passord);
         
+        // If-test på om både brukernavn og passord er ok
+        if (brukernavnOK && passordOK) {
 
-        if (brukernavnOK && passordOK) { //Sjekker at regex er godkjent
-            $.post("../Bruker/LoggInn", bruker , function (bruker) { //POST kall med kunde object
+            // Post kall med kunde object
+            $.post("../Bruker/LoggInn", bruker , function (bruker) {
                 console.log(bruker);
                 sessionStorage.setItem('kundeId', bruker.id);
                
@@ -76,6 +79,8 @@ export class Login extends Component {
 
     // Funksjon som kontrollerer noden du står i
     render() {
+
+        // Sjekker om en kunde er logget inn, hvis ikke skal kunde sendes til innlogging
         if (sessionStorage.getItem('kundeId') != null) {
             return <Redirect to="/profil"/>
         }
@@ -90,19 +95,19 @@ export class Login extends Component {
             // Container som inneholder html elementene til siden
             <Container>
 
-                {/* Bruker Form for å strukturere input-feltene */}
+                { /* Bruker Form for å strukturere input-feltene */}
                 <Form>
 
-                    {/* Rad som skalerer på enhet */}
+                    { /* Rad som skalerer på enhet */}
                     <Row fluid="true" className="justify-content-md-center">
 
-                        {/* Kolonne for alle elementene */}
+                        { /* Kolonne for alle elementene */}
                         <Col sm="6" md="6" lg="6" xl="6">
 
-                            {/* Undertittel */}
+                            { /* Undertittel */}
                             <h2>Logg inn</h2>
 
-                            {/* Bruker FormGroup for å gruppere input-feltene som ønsket */}
+                            { /* Bruker FormGroup for å gruppere input-feltene som ønsket */}
                             <FormGroup>
 
                                 {/* Label for å markere hva som skal stå i input-felt */}
@@ -122,7 +127,7 @@ export class Login extends Component {
                                 <span style={{ color: "red" }} id="feilbrukernavn"></span>
                             </FormGroup>
 
-                            {/* FormGroup for passord feltet */}
+                            { /* FormGroup for passord feltet */}
                             <FormGroup>
 
                                 {/* Label for input-felt */}
@@ -142,7 +147,7 @@ export class Login extends Component {
                                 <span style={{ color: "red" }} id="feilpassord"></span>
                             </FormGroup>
 
-                            {/* FormGroup for logg inn knapp */}
+                            { /* FormGroup for logg inn knapp */}
                             <FormGroup>
 
                                 {/* Knapp for å sende informasjonen i input-feltene */}
@@ -152,7 +157,7 @@ export class Login extends Component {
                                 <span style={{ color: "red" }} id="feil"></span>
                             </FormGroup>
 
-                            {/* FormGroup for linken til registreringsside */}
+                            { /* FormGroup for linken til registreringsside */}
                             <FormGroup>
                                 {/* Bruker Link fra react-router-dom til å sende bruker til registrering */}
                                 <Link className="link-primary" to="/registrer">Opprett Bruker</Link>

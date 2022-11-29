@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 {/* Henter nødvendig funksjonalitet fra reactstrap */ }
 import { Card, CardBody, Container, CardTitle, CardText, CardImg } from 'reactstrap';
 
+{/* Henter alle bildene brukt i oppgaven */}
 import ghost_graph from '../img/ghost_graph.png';
 import blåstolper from '../img/blåstolper.png';
 import oslomet from '../img/oslomet.jpg';

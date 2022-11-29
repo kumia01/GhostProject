@@ -8,6 +8,7 @@ import { Button, Form, FormGroup, Container, Col, Row, Label, Input, } from 'rea
 import $ from 'jquery';
 
 
+// Funksjon som skal brukes til validering
 function validering(melding) {
     let formOK = true;
     console.log(melding);
@@ -52,13 +53,15 @@ export class Kundeservice extends Component {
     // Setter displayName til Kundeservice for eventuelle debugging meldinger
     static displayName = Kundeservice.name;
 
-
+    // Funksjonen sendMelding() skal sende innholdet etter inputvalidering er godkjent
     sendMelding() {
         const melding = {
             navn: $("#inpName").val(),
             epost: $("#inpEmail").val(),
             tekst: $("#message").val()
         }
+
+        // Sjekker validering
         console.log(melding);
         if (validering(melding) == true) {
             $.post("../Kundeservice/Lagre", melding, function () {
@@ -83,39 +86,41 @@ export class Kundeservice extends Component {
             // Container som inneholder html elementene til siden
             <Container>
 
-                {/* Rad som skalerer på enhet */}
+                { /* Rad som skalerer på enhet */ }
                 <Row fluid="true" className="align-items-center justify-content-center">
 
-                    {/* En av to kolonner i raden, for mobil vil den andre bli til en ny rad */}
+                    { /* En av to kolonner i raden, for mobil vil den andre bli til en ny rad */ }
                     <Col sm="12" md="6" lg="6" xl="6">
 
-                        {/* Undertittel som markerer hvilken side bruker er på */}
+                        { /* Undertittel som markerer hvilken side bruker er på */ }
                         <h2 className="p-3"><strong>Kundeservice</strong></h2>
 
-                        {/* Bruker Form fra reactstrap for å strukturere input-feltene */}
+                        { /* Bruker Form fra reactstrap for å strukturere input-feltene */ }
                         <Form>
 
-                            {/* Label fungerer som en indikasjon på hva som skal stå i input-felt */}
+                            { /* Label fungerer som en indikasjon på hva som skal stå i input-felt */}
                             <Label>Fullt navn</Label>
 
-                            {/* Input-felt for å ta inn en verdi som inputvalideres */}
+                            { /* Input-felt for å ta inn en verdi som inputvalideres */}
                             <Input type="text" id="inpName" />
 
-                            {/* Span brukes for å sende ut en eventuell feilmelding hvis inputvalidering feiler */}
+                            { /* Span brukes for å sende ut en eventuell feilmelding hvis inputvalidering feiler */}
                             <span style={{ color: "Red" }} id="feilNavn"></span>
 
+                            { /* Input-felt for email */ }
                             <Label>E-post</Label>
                             <Input type="email" id="inpEmail" />
                             <span style={{ color: "Red" }} id="feilMail"></span>
 
+                            { /* Input-felt for melding */ }
                             <Label>Hva kan vi hjelpe deg med?</Label>
                             <Input id="message" type="textarea" name="message" />
                             <span style={{ color: "Red" }} id="feilMelding"></span>
 
-                            {/* Knapp for å sende informasjon fra Form, kaller på funksjonen sendMelding */}
+                            { /* Knapp for å sende informasjon fra Form, kaller på funksjonen sendMelding */}
                             <Button className="btn btn-primary" id="btnSend" onClick={this.sendMelding}>Send</Button>
 
-                            {/* Span for eventuelle feilmeldinger */}
+                            { /* Span for eventuelle feilmeldinger */}
                             <span style={{ color: "Black" }} id="meldingSendt"></span>
                             <span style={{ color: "Red" }} id="feil"></span>
                         </Form>
