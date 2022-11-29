@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Security.Policy;
+using System.Text;
 using System.Threading.Tasks;
 using GhostProjectv2.Controllers;
 using GhostProjectv2.DAL;
@@ -83,5 +84,87 @@ namespace xUnit_EnhetstestAvAkjseSide
       
 
         }
+        
+        [Fact]
+    public async Task HentAlleNårIkkeLoggetInn()
+    {
+
+        mockRep.Setup(b => b.HentAlle()).ReturnsAsync(It.IsAny<List<Bruker>>());
+
+        var brukerController = new BrukerController(mockRep.Object, mockLog.Object);
+
+        mockSession[_loggetInn] = _ikkeLoggetInn;
+        mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+        brukerController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+        // Act
+        var resultat = await brukerController.HentAlle() as UnauthorizedObjectResult;
+
+        // Assert 
+        Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+        Assert.Equal("Ikke logget inn", resultat.Value);
+
+
     }
-}
+        [Fact]
+        public async Task LagreNårLoggetInnSvarOK()
+        {            
+            // Arrange
+
+            mockRep.Setup(b => b.Lagre(It.IsAny<Bruker>())).ReturnsAsync(true);
+
+            var brukerController = new BrukerController(mockRep.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            brukerController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            // Act
+            var resultat = await brukerController.Lagre(It.IsAny<Bruker>()) as OkObjectResult;
+
+            // Assert 
+            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
+            Assert.Equal("Kunde lagret", resultat.Value);
+        }
+        [Fact]
+        public async Task LagreLoggetInnIkkeOK()
+        {
+            // Arrange
+
+            mockRep.Setup(b => b.Lagre(It.IsAny<Bruker>())).ReturnsAsync(false);
+
+            var brukerController = new BrukerController(mockRep.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            brukerController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            // Act
+            var resultat = await brukerController.Lagre(It.IsAny<Kunde>()) as BadRequestObjectResult;
+
+            // Assert 
+            Assert.Equal((int)HttpStatusCode.BadRequest, resultat.StatusCode);
+            Assert.Equal("Kunden kunne ikke lagres", resultat.Value);
+        }
+
+
+        public async Task LagreNaarIkkeLoggetInn()
+        {
+            mockRep.Setup(b => b.Lagre(It.IsAny<Bruker>())).ReturnsAsync(true);
+
+            var brukerController = new BrukerController(mockRep.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _ikkeLoggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            brukerController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            // Act
+            var resultat = await brukerController.Lagre(It.IsAny<Bruker>()) as UnauthorizedObjectResult;
+
+            // Assert 
+            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+            Assert.Equal("Ikke logget inn", resultat.Value);
+        }
+
+    }
+    }
