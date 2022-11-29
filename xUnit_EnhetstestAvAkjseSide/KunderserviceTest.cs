@@ -9,7 +9,7 @@ namespace xUnit_EnhetstestAvAkjseSide
 {
     public class KunderserviceTest
     {
-        [Fact]
+        /*[Fact]
         public async Task LagreAsync()
         {
             //Arrange   
@@ -34,6 +34,6 @@ namespace xUnit_EnhetstestAvAkjseSide
             Assert.True(result);
 
 
-        }
+        }*/
     }
 }
