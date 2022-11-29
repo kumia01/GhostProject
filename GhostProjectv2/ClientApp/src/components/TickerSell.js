@@ -15,6 +15,7 @@ export class TickerSell extends Component {
         this.state = {
             maxVolum: sessionStorage.getItem('maxVolum'),
             data: sessionStorage.getItem('tickerSell'),
+            redirect: false,
             ticker: {},
             value: 0,
             transaksjon: {}
@@ -29,6 +30,8 @@ export class TickerSell extends Component {
 
     renderRedirect(){
         if(!sessionStorage.getItem('tickerSell')){
+            return <Redirect to='/Historikk' />
+        }else if(this.state.redirect){
             return <Redirect to='/Historikk' />
         }
     }
@@ -58,8 +61,8 @@ export class TickerSell extends Component {
         const selgVal = validerTickerselg(this.state.value, this.state.maxVolum)
 
        if(selgVal){
-        $.post('../Transaksjon/Lagre', transaksjon, function () {
-            console.log("TransaksjonLagret");
+        $.post('../Transaksjon/Lagre', transaksjon, () => {
+            this.setState({redirect: true})
         })
             .fail(function (feil) {
                 console.log(feil);
