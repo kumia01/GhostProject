@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using System;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using System.Security.Cryptography.X509Certificates;
 
 namespace GhostProjectv2.DAL
 {
@@ -29,20 +32,20 @@ namespace GhostProjectv2.DAL
                 var bruker = await _db.Brukere.FindAsync(innTransaksjon.BrukereId);
                 double totalPris = innTransaksjon.Volum * innTransaksjon.Pris;
                 var nyTransaksjonsRad = new Transaksjoner();
-
+                var sum = bruker.Saldo - totalPris;
                 if (innTransaksjon.Volum > 0) //Hvis volum er positivt altså bruker kjøper en aksje
                 {
-                    if (bruker.Saldo - totalPris >= 0) //Hvis bruker sin saldo - total kostnad er 0 eller større har bruker nok penger til kjøp
+                    if (sum >= 0) //Hvis bruker sin saldo - total kostnad er 0 eller større har bruker nok penger til kjøp
                     {
                         nyTransaksjonsRad.Volum = innTransaksjon.Volum;
                         nyTransaksjonsRad.Pris = innTransaksjon.Pris;
                         nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
                         nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
                         nyTransaksjonsRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
-                        bruker.Saldo = bruker.Saldo - totalPris; //Setter ny brukersaldo til saldo - kjøpspris
+                        bruker.Saldo -= totalPris; //Setter ny brukersaldo til saldo - kjøpspris
 
                     }
-                    else if (bruker.Saldo - totalPris < 0) //Hvis bruker sin saldo ikke har tilstrekkelig beløp
+                    else if (sum < 0) //Hvis bruker sin saldo ikke har tilstrekkelig beløp
                     {
                         _log.LogInformation("Ikke tilstrekkelig beløp på konto!");
                         return false;
@@ -55,7 +58,7 @@ namespace GhostProjectv2.DAL
                     nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
                     nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
                     nyTransaksjonsRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
-                    bruker.Saldo = bruker.Saldo + (-1 * totalPris); //Setter ny brukersaldo til bruker saldo + salgspris
+                    bruker.Saldo += totalPris; //Setter ny brukersaldo til bruker saldo + salgspris
                 }
 
 
@@ -94,20 +97,39 @@ namespace GhostProjectv2.DAL
 
         }
 
-        //Henter alle transaksjoner til en bruker ved hjelp av brukerId
+        //Henter alle unike transaksjoner med smalet volum til en bruker ved hjelp av brukerId
         public async Task<List<Transaksjon>> HentBrukerTransaksjoner(int brukerId)
         {
             try
             {
-                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon
+                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon()
                 {
                     Id = t.Id,
                     Volum = t.Volum,
                     Pris = t.Pris,
                     BrukereId = t.BrukereId,
-                    Ticker = t.Ticker
+                    Ticker = t.Ticker,
+                    FlereAksjerId = t.FlereAksjerId
                 }).Where(t => t.BrukereId == brukerId && t.Ticker != "NOK").ToListAsync();
-                return alleTransaksjoner;
+                var transaksjoner = alleTransaksjoner.GroupBy(t => t.Ticker);
+                List<Transaksjon> nyliste = new List<Transaksjon>();
+                foreach(var ticker in transaksjoner)
+                {
+                    var sum = 0;
+                    Transaksjon nyTransaksjon = new Transaksjon();
+                    foreach(var volum in ticker)
+                    {
+                        nyTransaksjon.Ticker = volum.Ticker;
+                        nyTransaksjon.Pris = volum.Pris;
+                        sum += volum.Volum;
+                    }
+                    nyTransaksjon.Volum = sum;
+                    if(sum > 0)
+                    {
+                        nyliste.Add(nyTransaksjon);
+                    }
+                }
+                return nyliste;
 
             }
             catch(Exception e)
@@ -117,7 +139,31 @@ namespace GhostProjectv2.DAL
             }
 
         }
+        //Henter alle transaksjoner til en bruker ved hjelp av brukerId
+        public async Task<List<Transaksjon>> HentBrukerTransaksjonHistorikk(int brukerId)
+        {
+            try
+            {
+                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon()
+                {
+                    Id = t.Id,
+                    Volum = t.Volum,
+                    Pris = t.Pris,
+                    BrukereId = t.BrukereId,
+                    Ticker = t.Ticker,
+                    FlereAksjerId = t.FlereAksjerId
+                }).Where(t => t.BrukereId == brukerId && t.Ticker != "NOK").ToListAsync();
+              
+                return alleTransaksjoner;
 
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return null;
+            }
+
+        }
 
         public async Task<List<Transaksjon>> HentInnskuddUttak(int brukerId)
         {
@@ -165,5 +211,55 @@ namespace GhostProjectv2.DAL
                 return null;
             }
         }
+
+
+        public async Task<bool> EndreSaldo(Transaksjon innTransaksjon)
+        {
+            try
+            {
+                var endreObjekt = await _db.Brukere.FindAsync(innTransaksjon.BrukereId);
+                var nyTransaksjonRad = new Transaksjoner();
+
+                if (innTransaksjon.Volum > 0) //Hvis saldoen som kommer inn er større enn 0 betyr det at bruker gjør innskudd
+                {
+                    endreObjekt.Saldo += innTransaksjon.Volum;
+                    nyTransaksjonRad.Volum = innTransaksjon.Volum;
+                    nyTransaksjonRad.Pris = 1;
+                    nyTransaksjonRad.BrukereId = innTransaksjon.BrukereId;
+                    nyTransaksjonRad.Ticker = "NOK";
+                    nyTransaksjonRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
+
+
+                }
+                else if (innTransaksjon.Volum < 0) //Hvis saldoen er negativ betyr det at bruker gjør et uttak
+                {
+                    if (innTransaksjon.Volum <= endreObjekt.Saldo) //Hvis bruker har nok på konto til å gjøre ønsket uttak
+                    {
+                        endreObjekt.Saldo += innTransaksjon.Volum;
+                        nyTransaksjonRad.Volum = innTransaksjon.Volum;
+                        nyTransaksjonRad.Pris = 1;
+                        nyTransaksjonRad.BrukereId = innTransaksjon.BrukereId;
+                        nyTransaksjonRad.Ticker = "NOK";
+                        nyTransaksjonRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
+                        
+                    }
+                    else
+                    {
+                        _log.LogInformation("Ikke nok penger til uttak!");
+                        return false;
+                    }
+                }
+
+                _db.Transaksjoner.Add(nyTransaksjonRad);
+                await _db.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                _log.LogInformation(e.Message);
+                return false;
+            }
+            return true;
+        }
+
     }
 }

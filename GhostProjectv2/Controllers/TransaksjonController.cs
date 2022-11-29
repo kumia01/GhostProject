@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using GhostProjectv2.DAL;
 using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace GhostProjectv2.Controllers
 {
@@ -65,6 +66,15 @@ namespace GhostProjectv2.Controllers
             List<Transaksjon> alleTransaksjoner = await _db.HentBrukerTransaksjoner(brukerId);
             return Ok(alleTransaksjoner);
         }
+        public async Task<ActionResult> HentBrukerTransaksjonHistorikk(int brukerId)
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(BrukerController._loggetInn)))
+            {
+                return Unauthorized();
+            }
+            List<Transaksjon> alleUnikTransaksjoner = await _db.HentBrukerTransaksjonHistorikk(brukerId);
+            return Ok(alleUnikTransaksjoner);
+        }
 
 
         public async Task<ActionResult> HentInnskuddUttak(int brukerId)
@@ -73,7 +83,7 @@ namespace GhostProjectv2.Controllers
             {
                 return Unauthorized();
             }
-            List<Transaksjon> alleTransaksjoner = await _db.HentBrukerTransaksjoner(brukerId);
+            List<Transaksjon> alleTransaksjoner = await _db.HentInnskuddUttak(brukerId);
             return Ok(alleTransaksjoner);
         }
 
@@ -87,6 +97,26 @@ namespace GhostProjectv2.Controllers
             }
             List<Transaksjon> alleTransaksjoner = await _db.HentAksjeTransaksjoner(ticker);
             return Ok(alleTransaksjoner);
+        }
+
+        public async Task<ActionResult> EndreSaldo(Transaksjon innTransaksjon)
+        {
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(BrukerController._loggetInn)))
+            {
+                return Unauthorized();
+            }
+            if (ModelState.IsValid)
+            {
+                bool returOK = await _db.EndreSaldo(innTransaksjon);
+                if (!returOK)
+                {
+                    _log.LogInformation("Saldoen ble ikke endret!");
+                    return BadRequest("Saldoen ble ikke endret!");
+                }
+                return Ok("Saldoen endret");
+            }
+            _log.LogInformation("Feil i inputvalidering!");
+            return BadRequest("Feil i inputvalidering!");
         }
     }
 }

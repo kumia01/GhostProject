@@ -38,6 +38,7 @@ export class Login extends Component {
     //login kall til serveren for å starte session
     onSubmit = () => {
         if (sessionStorage.getItem('kundeId') != null) {
+            this.props.data.userAuthenication()
             this.setState({ redirect: true });
         }
     }

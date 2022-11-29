@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace TestavAksjeside
+namespace xUnit_EnhetstestAvAkjseSide
 {
     public class BrukerTest
     {

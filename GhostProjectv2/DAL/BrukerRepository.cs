@@ -123,6 +123,7 @@ namespace GhostProjectv2.DAL
                     Adresse = enBruker.Adresse,
                     Postnr = enBruker.Poststed.Postnr,
                     Poststed = enBruker.Poststed.Poststed,
+                    Saldo = enBruker.Saldo,
                     Brukernavn = enKunde.Brukernavn
                 };
                 return hentetBruker;

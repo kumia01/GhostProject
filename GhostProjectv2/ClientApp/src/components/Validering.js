@@ -1,5 +1,39 @@
 ﻿import $ from 'jquery';
 
+
+//validerer tickerbuy og tickerselg
+export function validerTickerbuy(ticker){
+    console.log(ticker);
+    if (!ticker.match(/^\d+$/g)) {
+        document.getElementById("feilTicker").textContent = "Kan ikke være negativ!";
+        return false;
+    }
+    if (!ticker) {
+        document.getElementById("feilTicker").textContent = "Denne kan ikke være tom!";
+        return false;
+    }
+    document.getElementById("feilTicker").textContent = "";
+    return true;
+}
+
+export function validerTickerselg(ticker, maxVolum){
+    console.log(ticker);
+    if (!ticker.match(/^\d+$/g)) {
+        document.getElementById("feilTicker").textContent = "Kan ikke være negativ!";
+        return false;
+    }
+    if(ticker > maxVolum){
+        document.getElementById("feilTicker").textContent = "Din max volum på å selge er: "+ maxVolum ;
+        return false;
+    }
+    if (!ticker) {
+        document.getElementById("feilTicker").textContent = "Denne kan ikke være tom!";
+        return false;
+    }
+    document.getElementById("feilTicker").textContent = "";
+    return true;
+}
+
 export function validerFornavn(fornavn) {
    
     //Validerer fornavn
