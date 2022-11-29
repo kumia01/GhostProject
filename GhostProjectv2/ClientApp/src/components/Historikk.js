@@ -186,6 +186,7 @@ export class Historikk extends Component {
         }
 
         // If-test på hvilken informasjon som er hentet, genererer riktig tabell henholdsvis
+        //formateringen blir lagt i variabel data og senere hentet i return
         if (this.state.visHistorikk) {
             data = this.state.AksjeHistorikk.map((i, key) => {
                 return (
@@ -205,6 +206,7 @@ export class Historikk extends Component {
 
             /* Container som inneholder html elementer */
             <Container>
+                {/*evig starter redirect funksjonene */}
                 {this.renderRedirect()}
                 {this.renderRedirect2()}
 

@@ -13,6 +13,7 @@ import $ from 'jquery';
 {/* Henter funksjoner fra js komponenten Validering */ }
 import { validerFornavn, validerPoststed, validerPostnr, validerPassord, validerAdresse, validerBrukernavn, validerEtternavn } from './Validering';
 
+//funksjon til å registrere en bruker objekt
 function registrer() {
 
     const bruker = {
@@ -24,7 +25,7 @@ function registrer() {
         brukernavn: $("#brukernavn").val(),
         passord: $("#passord").val()
     }
-
+    //validerer registrerings input
     const fornavnOK = validerFornavn(bruker.fornavn);
     const etternavnOK = validerEtternavn(bruker.etternavn);
     const adresseOK = validerAdresse(bruker.adresse);
@@ -34,7 +35,7 @@ function registrer() {
     const passordOK = validerPassord(bruker.passord);
 
     if (fornavnOK && etternavnOK && adresseOK && postnrOK && poststedOK && brukernavnOK && passordOK) {
-
+        //sendter oppretting av bruker objekt
         $.post("../Bruker/Lagre", bruker, function (OK) {
             if (OK) {
                 //Sender kunde til logginn side

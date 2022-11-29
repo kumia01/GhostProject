@@ -42,7 +42,7 @@ export class Home extends Component {
                         { /* Tekst */ }
                         <p>
                             Ghost Finance er en brukervennlig aksjehandel- og investeringsplattform for unge investorer som deg.
-                            <br />Jevnlig investering kan hjelpe deg bygge kapital og oppnå dine økonomiske mål.
+                            <br /><br/>Jevnlig investering kan hjelpe deg bygge kapital og oppnå dine økonomiske mål.
                         </p>
                     </Col>
 
@@ -64,7 +64,7 @@ export class Home extends Component {
                 { /* Ny rad som skal vise aksjer */ }
                 <Row>
                     <Col></Col>
-                    <Col fluid ="true"><h3 className="text-center"><strong>Aktuelle Aksjer nå</strong></h3></Col>
+                    <Col fluid ="true"><h3 className="text-center"><strong>Aktuelle aksjer nå</strong></h3></Col>
                     <Col></Col>
                 </Row>
 

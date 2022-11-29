@@ -41,7 +41,7 @@ export class Login extends Component {
         }
     }
 
-
+    //funksjon som logger deg inn til serveren
     login = () => {
 
         // Oppretter bruker fra input-felt informasjon

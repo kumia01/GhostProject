@@ -13,12 +13,15 @@ export class Handel extends Component {
 
     // Setter displayName til Handel for eventuelle debugging meldinger
     static displayName = Handel.name;
+    
 
     constructor(props){
         super(props)
         this.state={
+            //lager en random verdi
             random: (Math.random()*790)
         }
+        //instansierer funksjonen og binder til this
         this.nyListe = this.nyListe.bind(this)
     }
 
@@ -43,32 +46,34 @@ export class Handel extends Component {
                 { /* Rad for overskrift */ }
                 <Row>
 
-                    { /* Kolonne som strekker seg 100% */ }
-                    <Col sm="12" md="12" lg="12" xl="12">
+                    { /* Kolonne som strekker seg 100% */}
+                    <Col sm="12" md="12" lg="12" xl="12" className="p-3">
 
-                        { /* Overskrift */ }
-                        <h2 className="text-center"><strong>Handelsfremsiden</strong></h2>
+                        { /* Overskrift */}
+                        <div id="handel-wrapper">
+                        <h2><strong>Aksjehandel</strong></h2>
+                            <p>Live marked</p>
+                            <br/>
+                            { /* Rad for knappemenyen */}
+                            <Row>
+                                { /* Kolonne for å holde knappe i rekke */}
+                                <Col sm="12" md="12" lg="12" xl="12">
+                                    { /* Bruker ButtonGroup for å holde knappene tett på hverandre */}
+                                    <ButtonGroup id="btnCol">
+                                        { /* Knappene skal holde samme størrelse så derfor brukes et preset på className */}
+                                        <Button className="btn btn-md mb-2" color="primary" onClick={this.nyListe}>Oppdater liste</Button>
+                                    </ButtonGroup>
+                                </Col>
+                            </Row>
+
+                        </div>
                     </Col>
                 </Row>
 
-                { /* Rad for knappemenyen */ }
+                { /* Rad for tabellen */}
+                <br/>
                 <Row>
-
-                    { /* Kolonne for å holde knappe i rekke */ }
-                    <Col sm="12" md="12" lg="12" xl="12" className="text-center">
-
-                        { /* Bruker ButtonGroup for å holde knappene tett på hverandre */ }
-                        <ButtonGroup id="btnCol">
-
-                            { /* Knappene skal holde samme størrelse så derfor brukes et preset på className */ }
-                            <Button className="btn btn-md mb-2" color="primary" onClick={this.nyListe} >Ny Aksjer liste</Button>
-                        </ButtonGroup>
-                    </Col>
-                </Row>
-
-                { /* Rad for tabellen */ }
-                <Row>
-                    { /* Bruker bare en kolonne siden tabellen skal ta opp hele siden */ }
+                    { /* Bruker bare en kolonne siden tabellen skal ta opp hele siden */}
                     <Col sm="12" md="12" lg="12" xl="12" className="text-center">
 
                         { /* Printer ut innholdet fra klassen StockTabell.js */ }

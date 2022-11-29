@@ -7,6 +7,8 @@ import { Button, Form, FormGroup, Container, Col, Row, Label, Input, } from 'rea
 {/* Importerer jquery biblioteket for inputvalidering */}
 import $ from 'jquery';
 
+import artboard from '../img/Artboard.png';
+
 
 // Funksjon som skal brukes til validering
 function validering(melding) {
@@ -68,7 +70,7 @@ export class Kundeservice extends Component {
             tekst: $("#message").val()
         }
 
-        // Sjekker validering
+        // Sjekker validering og sender kunde melding til server
         console.log(melding);
         if (validering(melding) == true) {
             $.post("../Kundeservice/LagreMelding", melding,() => {
@@ -91,7 +93,7 @@ export class Kundeservice extends Component {
         return (
 
             // Container som inneholder html elementene til siden
-            <Container>
+            <Container id="kundeservice">
 
                 { /* Rad som skalerer på enhet */ }
                 <Row fluid="true" className="align-items-center justify-content-center">
@@ -100,7 +102,7 @@ export class Kundeservice extends Component {
                     <Col sm="12" md="6" lg="6" xl="6">
 
                         { /* Undertittel som markerer hvilken side bruker er på */ }
-                        <h2 className="p-3"><strong>Kundeservice</strong></h2>
+                        <h2 className="pt-3 pb-3"><strong>Kundeservice</strong></h2>
 
                         { /* Bruker Form fra reactstrap for å strukturere input-feltene */ }
                         <Form>

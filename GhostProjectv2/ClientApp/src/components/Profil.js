@@ -25,7 +25,7 @@ export class Profil extends Component {
             bruker: {},
             render: false
         }
-
+        //binder funksjoner til this
         this.renderRedirect = this.renderRedirect.bind(this)
         this.hentBruker = this.hentBruker.bind(this)
         this.slettBruker = this.slettBruker.bind(this)
@@ -34,7 +34,7 @@ export class Profil extends Component {
         this.taUtPenger = this.taUtPenger.bind(this)
         this.hentBruker()
     }
-
+    //sender deg til Login siden hvis du ikke er logget inn eller man har logget ut
     renderRedirect(){
         if(sessionStorage.getItem('kundeId') == null){
             return <Redirect to='/Login' />
@@ -44,7 +44,7 @@ export class Profil extends Component {
         }
     }
 
-
+    //funksjon til å sette oppdatere saldo
     settInnPenger() {
         const transaksjon = {
             brukereId: sessionStorage.getItem('kundeId'),
@@ -52,7 +52,6 @@ export class Profil extends Component {
             flereAksjerId: 811
         }
         $.post('../Transaksjon/EndreSaldo', transaksjon, function () {
-            console.log("Penger satt inn!!");
         })
             .fail(function (feil) {
                 console.log("kunne ikke sette inn penger!  " + feil);
@@ -60,7 +59,7 @@ export class Profil extends Component {
         setTimeout(this.hentBruker, 1000);
     }
 
-
+    //funksjon til å trekke ut penger
     taUtPenger() {
         const transaksjon = {
             brukereId: sessionStorage.getItem('kundeId'),
@@ -76,6 +75,7 @@ export class Profil extends Component {
         setTimeout(this.hentBruker, 1000);
     }
 
+    //funksjon til å hente en bruker og lagre det på siden
     hentBruker(){
         const kundeid = "id=" + sessionStorage.getItem('kundeId');
         $.get("../Bruker/HentEn?" + kundeid, bruker => {
@@ -92,6 +92,7 @@ export class Profil extends Component {
             console.log(this.state.bruker)
         })
             .fail(feil =>{
+                //gir ut en feil hvis det oppstår noe i serveren
                 if (feil.status == 401) {
                     console.log("Ikke logget inn!");
                     sessionStorage.removeItem('kundeId')
@@ -105,6 +106,8 @@ export class Profil extends Component {
                 }
             });
     }
+
+    //funksjon hvor brukeren blir slettet ved hjelp av lokal lagring av brukerId
     slettBruker() {
         const kundeid = "id=" + sessionStorage.getItem('kundeId');
         $.get("../Bruker/Slett?" + kundeid, ()=>{
@@ -126,8 +129,9 @@ export class Profil extends Component {
         
     }
 
-
+    //funksjon hvor brukeren blir endret
     endreBruker() {
+        //instansierer en bruker objekt
         const bruker = {
             id: sessionStorage.getItem('kundeId'),
             fornavn: $("#fornavn").val(),
@@ -136,7 +140,7 @@ export class Profil extends Component {
             postnr: $("#postnr").val(),
             poststed: $("#poststed").val()
         }
-
+        //validerer input
         const fornavnOK = validerFornavn(bruker.fornavn);
         const etternavnOK = validerEtternavn(bruker.etternavn);
         const adresseOK = validerAdresse(bruker.adresse);
@@ -144,7 +148,7 @@ export class Profil extends Component {
         const poststedOK = validerPoststed(bruker.poststed);
 
         if (fornavnOK && etternavnOK && adresseOK && postnrOK && poststedOK) {
-
+            //sender endringene
             $.post("../Bruker/Endre", this.state.bruker, function () {
                 console.log("Bruker endret!");
                 document.getElementById("brukerendret").textContent = "Brukeren ble endret!";
@@ -205,11 +209,14 @@ export class Profil extends Component {
             <Container>
                 {this.renderRedirect()}
 
+                <br/>
+
                 {/* Rad som skalerer på enhet */}
-                <Row fluid="true">
+                <Row fluid="true" id="profil-wrapper">
                     <Col sm="12" md="6" lg="6" xl="6">
                         {/* Undertittel */}
-                        <h4 className="text-center text-md-center"><strong>Hei, {this.state.bruker.fornavn}</strong></h4>
+                        
+                        <h4 className="text-md"><strong>Hei, {this.state.bruker.fornavn}</strong></h4>
 
                         {/* Tekst elementer */}
                         <p>
@@ -219,15 +226,17 @@ export class Profil extends Component {
                             Hvis du ønsker å slette din profil kan du gjøre det ved å trykke på knappen "Slett Bruker" under.
                         </p>
                     </Col>
-
+                   
                     <Col sm="12" md="6" lg="6" xl="6">
-                        <h4 className="text-center text-md-center"><strong>Saldo</strong></h4>
-                        <p className="text-center text-md-center">Din bokførte saldo er: {this.state.bruker.saldo} NOK</p>  
+                        <h4 className="text-right text-md-right"><strong>Saldo</strong></h4>
+                        <p className="text-right text-md-right">Din bokførte saldo er: <br/> {this.state.bruker.saldo} NOK</p>  
                     </Col>
+                    
                 </Row>
                 { /*className="pt-noe definerer padding-top"*/}
                 <Row fluid="true" className="pt-3">
                     <Col sm="12" md="6" lg="6" xl="6">
+                        
                         <h4 className="text-center text-md-left">Kontoinformasjon</h4>
                         <hr/>
                         <Form>
@@ -317,27 +326,27 @@ export class Profil extends Component {
                         <span id="feil" style={{ color: "red" }}></span>
                     </Col>
 
-                    <Col sm="12" md="6" lg="6" xl="6">
-                        <h4 className="text-center text-md-center">Innskudd og uttak</h4>
 
-                        <Row>
+                    <Col fluid="true" sm="12" md="6" lg="6" xl="6" className="text-right text-md-right">
+                        <h4>Innskudd og uttak</h4>
+                        <Row className="d-grid gap-2 d-md-block">
 
                             { /*Tomme kolonner hjelper sentrere elementer i reactstrap*/}
                             <Col></Col>
-                            <Col fluid="true" className="btn-group-vertical mt-3" sm="6" md="6" lg="6" xl="6">
-                                <Button className="btn btn-md mb-2" color="primary" onClick={this.settInnPenger}>Utfør Innskudd</Button>{' '}
-                                <Button className="btn btn-md mb-2" color="primary" onClick={this.taUtPenger}>Utfør Uttak</Button>{' '}
+                            <Col fluid="true" className="btn-group-vertical" sm="6" md="6" lg="6" xl="6">
+                                <Button className="btn-md mb-2" color="primary" onClick={this.settInnPenger}>Innskudd</Button>{' '}
+                                <Button className="btn-md mb-2" color="primary" onClick={this.taUtPenger}>Uttak</Button>{' '}
                                 <Input
-                                    placeholder="Skriv inn ønsket sum her!"
+                                    placeholder="Skriv inn sum her:"
                                     type="number"
                                     min="0"
                                     id="sum"
-                                />
-                            </Col>
+                                    />
+                                </Col>
+                               
                             <Col></Col>
                         </Row>
-                        
-                    </Col>
+                        </Col>
                 </Row>
             </Container>
         )

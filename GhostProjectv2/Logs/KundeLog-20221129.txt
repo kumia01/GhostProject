@@ -96,3 +96,36 @@ Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updatin
 (node:8476) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
  (2ed385d0)
 2022-11-29T16:44:30.6832602+01:00 4000000a-0001-fe00-b63f-84710c7967bb [INF] Innlogging feilet for bruker ivanna123! (b100dfcd)
+2022-11-29T17:53:45.1622439+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-29T17:53:45.1813138+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-29T17:53:45.1814877+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
+2022-11-29T17:53:51.5655616+01:00  [ERR] (node:16404) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (97419a45)
+2022-11-29T17:53:51.5675373+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:16404) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (c17ceed8)
+2022-11-29T17:56:50.7217285+01:00 40000014-0001-f900-b63f-84710c7967bb [INF] Innlogging feilet for bruker ivanna123! (b100dfcd)
+2022-11-29T18:01:23.6244121+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-29T18:01:23.6329248+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-29T18:01:23.6330521+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
+2022-11-29T18:01:28.8387997+01:00  [ERR] (node:26100) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (d130072f)
+2022-11-29T18:01:28.8397155+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:26100) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (778d0485)
+2022-11-29T18:35:37.5859248+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-29T18:35:37.5984545+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-29T18:35:37.5987830+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
+2022-11-29T18:35:44.9131778+01:00  [ERR] (node:16864) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (fb73ad80)
+2022-11-29T18:35:44.9140680+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:16864) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (740d5863)
+2022-11-29T20:35:25.0258551+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-29T20:35:25.0358690+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-29T20:35:25.0360294+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
+2022-11-29T20:35:33.4670966+01:00  [ERR] (node:19796) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (593fb66f)
+2022-11-29T20:35:33.4690980+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:19796) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (c203cac9)
