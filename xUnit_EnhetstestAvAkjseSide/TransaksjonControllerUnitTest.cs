@@ -294,7 +294,7 @@ namespace xUnit_EnhetstestAvAkjseSide
         public async Task HentInnskuddUttakIkkeLoggetInn()
         {
             //Arrange
-            mockRep.Setup(t => t.HentBrukerTransaksjonHistorikk(It.IsAny<int>())).ReturnsAsync(It.IsAny<List<Transaksjon>>);
+            mockRep.Setup(t => t.HentInnskuddUttak(It.IsAny<int>())).ReturnsAsync(It.IsAny<List<Transaksjon>>);
 
             var transaksjonController = new TransaksjonController(mockRep.Object, mockLog.Object);
 
@@ -303,7 +303,7 @@ namespace xUnit_EnhetstestAvAkjseSide
             transaksjonController.ControllerContext.HttpContext = mockHttpContext.Object;
 
             //Act
-            var resultat = await transaksjonController.HentBrukerTransaksjonHistorikk(It.IsAny<int>()) as UnauthorizedObjectResult;
+            var resultat = await transaksjonController.HentInnskuddUttak(It.IsAny<int>()) as UnauthorizedObjectResult;
 
             //Assert
             Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
