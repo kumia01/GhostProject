@@ -34,6 +34,10 @@ namespace GhostProjectv2
             services.AddScoped<IAksjeRepository, AksjeRepository>();
             services.AddScoped<ITransaksjonRepository, TransaksjonRepository>();
             services.AddScoped<IKundeserviceRepository, KundeserviceRepository>();
+            services.AddControllers(options =>
+            {
+                options.MaxModelValidationErrors = 999999;
+            });
 
             services.AddSession(options =>
             {

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 {/* Henter et bilde og gir det en id */}
-import oslomet from '../img/oslomet.jpg';
+import oslomet from '../img/oslometp35.jpg';
 
 {/* Henter funksjonaliteten for link fra react-router-dom */}
 import { Link } from 'react-router-dom';
@@ -23,26 +23,23 @@ export class Om extends Component {
         return (
 
             // Container som inneholder html elementene til siden
-            <Container>
+            <Container fluid="true" className="wrapperAbout">
+                <Col fluid="true" className="align-items-center justify-content-md-center col-md-auto">
+                    
+                    {/* Overskrift, bruker html elementet strong for å få fet skrift */}
+                    <h2 className="text-center pb-3"><strong>Om oss</strong></h2>
 
-                {/* Rad som skalerer på enhet */}
-                <Row fluid="true" className="align-items-center justify-content-center">
+                    {/* Henter bildet fra id gitt i import */}
+                    <img src={oslomet} width="450" className="oslomet" />
 
-                    {/* Kolonne som skal ta 100% av container vidde */}
-                    <Col sm="12" md="6" lg="6">
-                        {/* Overskrift, bruker html elementet strong for å få fet skrift */}
-                        <h2 className="text-center"><strong>Om Oss</strong></h2>
-                    </Col>
-                </Row>
-
-                {/* Rad som skalerer på enhet */}
-                <Row fluid="true" className="align-items-center justify-content-center">
-
-                    {/* Kolonne som bestå av tekst, i denne raden skal det være to kolonner */}
-                    {/* Men, når det er en mobil eller en mindre enhet skal det bare være en kolonne */}
-                    <Col md="6">
+                    {/* Tekst */}
+                    <p>
+                        Adresse: Pilestredet 35, 0166 Oslo <br />
+                        Telefon: +47 46 53 47 44
+                    </p>
+                    
                         {/* Undertittel */}
-                        <h5 className="text-center"><strong>Ghost Finance</strong></h5>
+                        <h5 className="text-center p-2"><strong>Ghost Finance</strong></h5>
 
                         {/* Tekst */}
                         <p className="text-left">
@@ -57,41 +54,23 @@ export class Om extends Component {
                         </p>
                         <p className="text-left">
                             Plattformen vår er utviklet primært på C# og React av våre flinke og pliktoppfyllende utviklere. <br />
+                        <br />
                             Våre utviklere: <br />
-                            Thien Long Tran Nguyen - s351908 <br />
-                            Gjermund Glomnes Hertzberg - s354563 <br />
-                            Ersan Sinani - s333944 <br />
-                            Ivanna Ustymenko -  <br />
-                            Storm Villenfeldt Viken - s351936 <br />
+                            Kandidatnummer - 684 <br />
+                            Kandidatnummer - 665 <br />
+                            Kandidatnummer - 689 <br />
+                            Kandidatnummer - 576 <br />
+                            Kandidatnummer - 635 <br />
                         </p>
-                    </Col>
-
-                    {/* Kolonne som skal bestå av bilde og informasjon om firma. Denne blir som en ny rad på mindre enheter */}
-                    <Col fluid="true" md="6">
-                        {/* Henter bildet fra id gitt i import */}
-                        <img src={oslomet} width="450" />
-
-                        {/* Tekst */}
-                        <p>
-                            Adresse: Pilestredet 35, 0166 Oslo <br />
-                            Telefon: +47 46 53 47 44
-                        </p>
-                    </Col>
-                </Row>
-
-                {/* Rad som skal innehold link til kundeservice */}
-                <Row fluid="true" className="align-items-center justify-content-center">
-                    {/* Kolonne som tar halve siden, link skal stå under tekst elementene fra forrige rad */}
-                    <Col md="6">
+                    
                         {/* Bruker FormGroup for å kunne lage hyperlink til en komponent */}
                         <FormGroup>
                             <Link className="link-primary" to="/kundeservice">Til kundeservice</Link>
                         </FormGroup>
-                    </Col>
 
+                </Col>
                     {/* Tom kolonne siden det er ønskelig at linken ligger under teksten og ikke på midten */}
-                    <Col md="6"></Col>
-                </Row>
+
             </Container>
         );
     }
