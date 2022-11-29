@@ -1,4 +1,5 @@
-﻿import React, { Component, useState, useEffect } from 'react';
+﻿{/* Imports */}
+import React, { Component, useState, useEffect } from 'react';
 import{ Redirect } from 'react-router-dom';
 import { Table, Button, Input } from 'reactstrap';
 import axios from "axios";
@@ -22,8 +23,10 @@ const options = {
 	});
 */
 
-
+{/* Js klassen StockTabell arver fra superklassen Component */ }
 export class StockTabell extends Component {
+
+	// Setter displayName til StockTabell for eventuelle debugging meldinger
     static displayName = StockTabell.name;
 	constructor(props){
 		super(props)
@@ -44,6 +47,7 @@ export class StockTabell extends Component {
 		//this.callAPI();
 	}
 
+	//funksjon hvor den henter alle lister av aksje
 	callAskjeListe(){
 		axios.get('../Aksje/HentAlle')
 		.then((response) => {
@@ -52,7 +56,7 @@ export class StockTabell extends Component {
 			})
 		})
 		.catch(function (error) {
-			console.error(error);
+			console.error("Feil i db - " + error);
 		});
 	}
 
@@ -100,12 +104,12 @@ export class StockTabell extends Component {
 
 	
 	
-	
+	//funksjon hvor lagring av ticker og sendter til kjøpe side
 	buy(ticker){
 		sessionStorage.setItem('ticker', ticker)
 		this.setState({redirect: true})
 	}
-
+	//sender deg til kjøpe side
 	renderRedirect(){
 		if(this.state.redirect){
 			return <Redirect to='/tickerBuy' />
@@ -113,8 +117,10 @@ export class StockTabell extends Component {
 		}
 	}
 
+	// Funksjon som kontrollerer container noden du står i
     render() {
-		let data = this.state.list.slice(this.props.data.random, this.props.data.random + 20).map((i,key) =>{
+		//formaterer Aksje listen og legger det inn i data variablen
+		let data = this.state.list.slice(this.props.data.random, this.props.data.random + this.props.data.max).map((i,key) =>{
 			return(
 				<tr key={key}>
 					<th>{key+1}</th>
@@ -129,10 +135,12 @@ export class StockTabell extends Component {
 	
 		return (
 			<div>
+				{/*kjører funksjonen */}
 				{this.renderRedirect()}
 				<Table responsive className="table table-hover">
 					<thead><tr><th>#</th><th>Ticker</th><th>Aksje</th><th>Pris</th><th>Gammel pris</th></tr></thead>
 					<tbody>
+						{/*returnerer formateringen */}
 						{data}
 					</tbody>
 				</Table>

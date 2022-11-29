@@ -30,10 +30,7 @@ namespace GhostProjectv2.Controllers
         //lager også ny rad i poststeder tabellen om poststed ikke finnes fra før av
         public async Task<ActionResult> Lagre(Bruker innBruker)
         {
-            if (HttpContext.Session.GetString(_loggetInn) == "LoggetInn")
-            {
-                return Unauthorized();
-            }
+            
             if (ModelState.IsValid)
             {
                 bool returOK = await _db.Lagre(innBruker);

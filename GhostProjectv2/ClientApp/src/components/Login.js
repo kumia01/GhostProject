@@ -41,7 +41,7 @@ export class Login extends Component {
         }
     }
 
-
+    //funksjon som logger deg inn til serveren
     login = () => {
 
         // Oppretter bruker fra input-felt informasjon
@@ -59,7 +59,6 @@ export class Login extends Component {
 
             // Post kall med kunde object
             $.post("../Bruker/LoggInn", bruker , function (bruker) {
-                console.log(bruker);
                 sessionStorage.setItem('kundeId', bruker.id);
                
             }).fail(function (feil) {

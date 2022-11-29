@@ -28,6 +28,7 @@ export class TickerSell extends Component {
         this.renderRedirect()
     }
 
+    //if tester på lokal ticker selg og kaster deg til historikk
     renderRedirect(){
         if(sessionStorage.getItem('tickerSell') == null){
             return <Redirect to='/Historikk' />
@@ -36,6 +37,7 @@ export class TickerSell extends Component {
             return <Redirect to='/Historikk' />
         }
     }
+    //henter en ticker og lagrer til siden
     hentEn(){
         $.get('../Aksje/HentEn',{data: this.state.data}, (response) => {
             this.setState({ticker: {
@@ -50,8 +52,9 @@ export class TickerSell extends Component {
         })
     }
 
+    //selger aksjer 
     selgAksje() {
-
+        //instansierer transaksjon objekt
         const transaksjon = {
             ticker: this.state.ticker.ticker,
             volum: -this.state.value,
@@ -59,19 +62,22 @@ export class TickerSell extends Component {
             brukereId: sessionStorage.getItem('kundeId'),
             flereAksjerId: this.state.ticker.id
         }
+
+        //validerer ticker input
         const selgVal = validerTickerselg(this.state.value, this.state.maxVolum)
 
        if(selgVal){
+       //sender lagrer transaksjonen på serveren
         $.post('../Transaksjon/Lagre', transaksjon, () => {
             this.setState({redirect: true})
         })
             .fail(function (feil) {
-                console.log(feil);
+                console.log("feil i db - " + feil);
             });
        }
         
     }
-
+    //oppdaterer verdien når det skjer endring på input
     handleChange(event){
         this.setState({ value: event.target.value })
     }

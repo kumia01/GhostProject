@@ -56,7 +56,6 @@ export class Historikk extends Component {
         // Bruker axios til å hente bruker sin historikk og legger til id
         axios.get('../Transaksjon/HentBrukerTransaksjonHistorikk?' + id)
             .then((response) => {
-                console.log(response.data)
                 this.setState({
                     AksjeHistorikk: response.data
                 })
@@ -64,7 +63,7 @@ export class Historikk extends Component {
 
             // Logger i console hvis noe er feil
             .catch(function (feil) {
-                console.log(feil + " oioioi");
+                console.log(feil);
             })
 
     }
@@ -85,13 +84,12 @@ export class Historikk extends Component {
         const id = "brukerId=" + sessionStorage.getItem('kundeId');
         axios.get('../Transaksjon/HentBrukerTransaksjoner?' + id)
             .then((response) => {
-                console.log(response.data)
                 this.setState({
                     aksjeList: response.data
                 })
             })
             .catch(function (feil) {
-                console.log(feil + " oioioi");
+                console.log(feil);
             })
     }
 
@@ -100,13 +98,12 @@ export class Historikk extends Component {
         const id = "brukerId=" + sessionStorage.getItem('kundeId');
         axios.get('../Transaksjon/HentInnskuddUttak?' + id)
             .then((response) => {
-                console.log(response.data);
                 this.setState({
                     innskuddUttakList: response.data
                 })
             })
             .catch(function (feil) {
-                console.log("gikk ikke" + feil);
+                console.log(feil);
             });
     }
 
@@ -189,6 +186,7 @@ export class Historikk extends Component {
         }
 
         // If-test på hvilken informasjon som er hentet, genererer riktig tabell henholdsvis
+        //formateringen blir lagt i variabel data og senere hentet i return
         if (this.state.visHistorikk) {
             data = this.state.AksjeHistorikk.map((i, key) => {
                 return (
@@ -208,6 +206,7 @@ export class Historikk extends Component {
 
             /* Container som inneholder html elementer */
             <Container>
+                {/*evig starter redirect funksjonene */}
                 {this.renderRedirect()}
                 {this.renderRedirect2()}
 

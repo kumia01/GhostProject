@@ -25,7 +25,7 @@ export class Profil extends Component {
             bruker: {},
             render: false
         }
-
+        //binder funksjoner til this
         this.renderRedirect = this.renderRedirect.bind(this)
         this.hentBruker = this.hentBruker.bind(this)
         this.slettBruker = this.slettBruker.bind(this)
@@ -34,7 +34,7 @@ export class Profil extends Component {
         this.taUtPenger = this.taUtPenger.bind(this)
         this.hentBruker()
     }
-
+    //sender deg til Login siden hvis du ikke er logget inn eller man har logget ut
     renderRedirect(){
         if(sessionStorage.getItem('kundeId') == null){
             return <Redirect to='/Login' />
@@ -44,7 +44,7 @@ export class Profil extends Component {
         }
     }
 
-
+    //funksjon til å sette oppdatere saldo
     settInnPenger() {
         const transaksjon = {
             brukereId: sessionStorage.getItem('kundeId'),
@@ -52,7 +52,6 @@ export class Profil extends Component {
             flereAksjerId: 811
         }
         $.post('../Transaksjon/EndreSaldo', transaksjon, function () {
-            console.log("Penger satt inn!!");
         })
             .fail(function (feil) {
                 console.log("kunne ikke sette inn penger!  " + feil);
@@ -60,7 +59,7 @@ export class Profil extends Component {
         setTimeout(this.hentBruker, 1000);
     }
 
-
+    //funksjon til å trekke ut penger
     taUtPenger() {
         const transaksjon = {
             brukereId: sessionStorage.getItem('kundeId'),
@@ -76,6 +75,7 @@ export class Profil extends Component {
         setTimeout(this.hentBruker, 1000);
     }
 
+    //funksjon til å hente en bruker og lagre det på siden
     hentBruker(){
         const kundeid = "id=" + sessionStorage.getItem('kundeId');
         $.get("../Bruker/HentEn?" + kundeid, bruker => {
@@ -92,6 +92,7 @@ export class Profil extends Component {
             console.log(this.state.bruker)
         })
             .fail(feil =>{
+                //gir ut en feil hvis det oppstår noe i serveren
                 if (feil.status == 401) {
                     console.log("Ikke logget inn!");
                     sessionStorage.removeItem('kundeId')
@@ -105,6 +106,8 @@ export class Profil extends Component {
                 }
             });
     }
+
+    //funksjon hvor brukeren blir slettet ved hjelp av lokal lagring av brukerId
     slettBruker() {
         const kundeid = "id=" + sessionStorage.getItem('kundeId');
         $.get("../Bruker/Slett?" + kundeid, ()=>{
@@ -115,7 +118,6 @@ export class Profil extends Component {
         })
             .fail(function (feil) {
                 if (feil.status == 401) {
-                    console.log("Ikke logget inn!");
                     return false;
                 }
                 else {
@@ -127,8 +129,9 @@ export class Profil extends Component {
         
     }
 
-
+    //funksjon hvor brukeren blir endret
     endreBruker() {
+        //instansierer en bruker objekt
         const bruker = {
             id: sessionStorage.getItem('kundeId'),
             fornavn: $("#fornavn").val(),
@@ -137,7 +140,7 @@ export class Profil extends Component {
             postnr: $("#postnr").val(),
             poststed: $("#poststed").val()
         }
-
+        //validerer input
         const fornavnOK = validerFornavn(bruker.fornavn);
         const etternavnOK = validerEtternavn(bruker.etternavn);
         const adresseOK = validerAdresse(bruker.adresse);
@@ -145,7 +148,7 @@ export class Profil extends Component {
         const poststedOK = validerPoststed(bruker.poststed);
 
         if (fornavnOK && etternavnOK && adresseOK && postnrOK && poststedOK) {
-
+            //sender endringene
             $.post("../Bruker/Endre", this.state.bruker, function () {
                 console.log("Bruker endret!");
                 document.getElementById("brukerendret").textContent = "Brukeren ble endret!";

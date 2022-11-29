@@ -148,23 +148,39 @@ namespace xUnit_EnhetstestAvAkjseSide
         }
 
 
-        public async Task LagreNaarIkkeLoggetInn()
+        [Fact]
+        public async Task LagreLoggetInnFeilModel()
         {
-            mockRep.Setup(b => b.Lagre(It.IsAny<Bruker>())).ReturnsAsync(true);
+            // Arrange
+            var bruker1 = new Bruker
+            {
+                Fornavn = "Arnold",
+                Etternavn = "Braunschweiger",
+                Adresse = "Parkveien 11",
+                Postnr = "24",
+                Poststed = "Oslo",
+                Saldo = 0
+            };
+
+            mockRep.Setup(b => b.Lagre(bruker1)).ReturnsAsync(true);
 
             var brukerController = new BrukerController(mockRep.Object, mockLog.Object);
 
-            mockSession[_loggetInn] = _ikkeLoggetInn;
+            brukerController.ModelState.AddModelError("Ticker", "Feil i inputvalidering!");
+
+            mockSession[_loggetInn] = _loggetInn;
             mockHttpContext.Setup(s => s.Session).Returns(mockSession);
             brukerController.ControllerContext.HttpContext = mockHttpContext.Object;
 
             // Act
-            var resultat = await brukerController.Lagre(It.IsAny<Bruker>()) as UnauthorizedObjectResult;
+            var resultat = await brukerController.Lagre(bruker1) as BadRequestObjectResult;
 
             // Assert 
-            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
-            Assert.Equal("Ikke logget inn", resultat.Value);
+            Assert.Equal((int)HttpStatusCode.BadRequest, resultat.StatusCode);
+            Assert.Equal("Feil i inputvalidering!", resultat.Value);
         }
+
+
 
         [Fact]
         public async Task LoggInnOK()
@@ -196,27 +212,60 @@ namespace xUnit_EnhetstestAvAkjseSide
             Assert.Equal<Bruker>(bruker1 ,(Bruker)resultat.Value);
         }
 
-
-        //Fjernet denne ettersom den ikke ville fungere
-       /* [Fact]
-        public async Task LoggInnFeilPassordEllerBrukernavn()
+        [Fact]
+        public async Task LoggInnFeilModel()
         {
             //Arrange
-            mockRep.Setup(k => k.LoggInn(It.IsAny<Bruker>())).ReturnsAsync(() => null);
+            var bruker1 = new Bruker
+            {
+                Fornavn = "Arnold",
+                Etternavn = "Braunschweiger",
+                Adresse = "Parkveien 11",
+                Postnr = "22",
+                Poststed = "Oslo",
+                Saldo = 0
+            };
+
+            mockRep.Setup(k => k.LoggInn(It.IsAny<Bruker>())).ReturnsAsync(bruker1);
 
             var brukerController = new BrukerController(mockRep.Object, mockLog.Object);
 
-            mockSession[_loggetInn] = _ikkeLoggetInn;
+            brukerController.ModelState.AddModelError("Postnr", "Feil i inputvalidering på server!");
+
+            mockSession[_loggetInn] = _loggetInn;
             mockHttpContext.Setup(s => s.Session).Returns(mockSession);
             brukerController.ControllerContext.HttpContext = mockHttpContext.Object;
 
             // Act
-            var resultat = await brukerController.LoggInn(It.IsAny<Bruker>()) as OkObjectResult;
+            var resultat = await brukerController.LoggInn(It.IsAny<Bruker>()) as BadRequestObjectResult;
 
             // Assert 
-            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
-            Assert.False((bool)resultat.Value);
-        }*/
+            Assert.Equal((int)HttpStatusCode.BadRequest, resultat.StatusCode);
+            Assert.Equal("Feil i inputvalidering på server!", resultat.Value);
+        }
+
+
+        //Fjernet denne ettersom den ikke ville fungere
+        /* [Fact]
+         public async Task LoggInnFeilPassordEllerBrukernavn()
+         {
+             //Arrange
+             mockRep.Setup(k => k.LoggInn(It.IsAny<Bruker>())).ReturnsAsync(() => null);
+
+             var brukerController = new BrukerController(mockRep.Object, mockLog.Object);
+
+             mockSession[_loggetInn] = _ikkeLoggetInn;
+             mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+             brukerController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+             // Act
+             var resultat = await brukerController.LoggInn(It.IsAny<Bruker>()) as OkObjectResult;
+
+             // Assert 
+             Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
+             Assert.False((bool)resultat.Value);
+         }*/
+
 
         [Fact]
         public async Task LoggInnSlettOK()
