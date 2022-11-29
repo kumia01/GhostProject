@@ -65,7 +65,6 @@ export class TickerBuy extends Component {
             this.setState({bruker: {
                 saldo: Math.round(bruker.saldo * 100) / 100,
             }})
-            console.log(this.state.bruker)
         })
     }
     kjøpAksje() {
@@ -84,7 +83,7 @@ export class TickerBuy extends Component {
                 this.setState({render: true})
             })
             .fail(function (feil) {
-                console.log(feil);
+                console.log("feil i db - " + feil);
             });
        }
         

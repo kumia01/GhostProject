@@ -52,7 +52,7 @@ export class StockTabell extends Component {
 			})
 		})
 		.catch(function (error) {
-			console.error(error);
+			console.error("Feil i db - " + error);
 		});
 	}
 

@@ -66,7 +66,7 @@ export class TickerSell extends Component {
             this.setState({redirect: true})
         })
             .fail(function (feil) {
-                console.log(feil);
+                console.log("feil i db - " + feil);
             });
        }
         
