@@ -58,7 +58,7 @@ namespace GhostProjectv2.DAL
                     nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
                     nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
                     nyTransaksjonsRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
-                    bruker.Saldo += totalPris; //Setter ny brukersaldo til bruker saldo + salgspris
+                    bruker.Saldo -= totalPris; //Setter ny brukersaldo til bruker saldo + salgspris
                 }
 
 
