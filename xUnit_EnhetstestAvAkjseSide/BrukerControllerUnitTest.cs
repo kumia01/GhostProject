@@ -140,7 +140,7 @@ namespace xUnit_EnhetstestAvAkjseSide
             brukerController.ControllerContext.HttpContext = mockHttpContext.Object;
 
             // Act
-            var resultat = await brukerController.Lagre(It.IsAny<Kunde>()) as BadRequestObjectResult;
+            var resultat = await brukerController.Lagre(It.IsAny<Bruker>()) as BadRequestObjectResult;
 
             // Assert 
             Assert.Equal((int)HttpStatusCode.BadRequest, resultat.StatusCode);

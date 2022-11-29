@@ -38,14 +38,5 @@ namespace GhostProjectv2.Controllers
             _log.LogInformation("Feil i inputvalidering!");
             return BadRequest("Feil i inputvalidering!");
         }
-        public async Task<ActionResult> HentAlle()
-        {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(BrukerController._loggetInn)))
-            {
-                return Unauthorized();
-            }
-            List<Melding> alleMeldinger = await _dbMelding.HentAlleMeldinger();
-            return Ok(alleMeldinger);
-        }
     }
 }

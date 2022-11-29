@@ -40,24 +40,5 @@ namespace GhostProjectv2.DAL
                 return false;
             }
         }
-        public async Task<List<Melding>> HentAlleMeldinger()
-        {
-            try
-            {
-                List<Melding> alleMeldinger = await _dbMelding.Meldinger.Select(b => new Melding
-                {
-                    Id = b.Id,
-                    Navn = b.Navn,
-                    Epost = b.Epost,
-                    Tekst = b.Melding,
-                }).ToListAsync();
-                return alleMeldinger;
-            }
-            catch (Exception e)
-            {
-                _log.LogInformation(e.Message);
-                return null;
-            }
-        }
     }
 }
