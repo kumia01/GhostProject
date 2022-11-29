@@ -41,10 +41,10 @@ export class Footer extends Component {
                         <li><Link tag={Link} id="footerLink" to="/om">Om oss</Link></li>
                         <li><Link tag={Link} id="footerLink" to="/kundeservice">Kundeservice</Link></li>
                     </ul>
-                        </Col>    
+                            </Col>    
+
                         { /*Kolonne3*/}
                             <Col fluid="true">
-                                
                             <h5><strong>Ressurser & Lenker</strong></h5>
                                 <ul className="list-unstyled">
                                     <li><a href="https://reactstrap.github.io/?path=/story/home-installation--page" id="footerLink">ReactStrap</a></li>

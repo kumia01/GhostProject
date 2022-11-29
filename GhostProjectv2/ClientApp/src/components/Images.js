@@ -77,11 +77,11 @@ export class Images extends Component {
                             <strong>OsloMet</strong>
                         </CardTitle>
                         <CardText>
-                            Et enkelt googlesøk etter "oslomet p35" ga følgende resultat. Bildet er hentet fra følgende <a href="https://journalen.oslomet.no/2020/10/digital-karriereuke-pa-oslomet">artikkel.</a>
+                            Et enkelt googlesøk etter "oslomet p35" ga følgende resultat. Bildet er hentet fra følgende <a href="https://www.oslomet.no/om/nyheter/naa-kan-du-ta-arsstudium-i-informasjonsteknologi">artikkel.</a>
                         </CardText>
                         <CardText>
                             <small className="text-muted">
-                                Dato hentet: 18. november 2022
+                                Dato hentet: 29. november 2022
                             </small>
                         </CardText>
                     </CardBody>
