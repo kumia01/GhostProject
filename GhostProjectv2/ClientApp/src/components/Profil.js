@@ -107,11 +107,11 @@ export class Profil extends Component {
     }
     slettBruker() {
         const kundeid = "id=" + sessionStorage.getItem('kundeId');
-        $.get("../Bruker/Slett?" + kundeid, function () {
-            
+        $.get("../Bruker/Slett?" + kundeid, ()=>{
             console.log("Bruker slettet!")
             sessionStorage.removeItem('kundeId');
-           
+            this.props.data.userAuthenication();
+            this.setState({render: true})
         })
             .fail(function (feil) {
                 if (feil.status == 401) {
@@ -124,6 +124,7 @@ export class Profil extends Component {
                     return false;
                 }
             });
+        
     }
 
 
