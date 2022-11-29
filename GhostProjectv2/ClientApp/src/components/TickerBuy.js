@@ -16,6 +16,7 @@ export class TickerBuy extends Component {
         this.state = {
             data: sessionStorage.getItem('ticker'),
             ticker: {},
+            bruker: {},
             value: 0,
             transaksjon: {}
         }
@@ -23,6 +24,8 @@ export class TickerBuy extends Component {
         this.renderRedirect = this.renderRedirect.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.kjøpAksje = this.kjøpAksje.bind(this)
+        this.hentBruker = this.hentBruker.bind(this)
+        this.hentBruker()
         this.hentEn()
         this.renderRedirect()
     }
@@ -46,6 +49,15 @@ export class TickerBuy extends Component {
         })
     }
 
+    hentBruker(){
+        const kundeid = "id=" + sessionStorage.getItem('kundeId');
+        $.get("../Bruker/HentEn?" + kundeid, bruker => {
+            this.setState({bruker: {
+                saldo: Math.round(bruker.saldo * 100) / 100,
+            }})
+            console.log(this.state.bruker)
+        })
+    }
     kjøpAksje() {
 
         const transaksjon = {
@@ -82,8 +94,10 @@ export class TickerBuy extends Component {
                     <Col md='6'>
                         <Form>
                             <h1>Aksje kjøp av {this.state.ticker.ticker}</h1>
-                            <p>Pris per Aksje: {this.state.ticker.pris + "$"}</p>
-                            <p>Sum: {parseInt(this.state.ticker.pris * this.state.value) + "$"}</p>
+                            <p>Pris per Aksje: {this.state.ticker.pris + " NOK"}</p>
+                            <p>Total Aksje: {parseInt(this.state.ticker.pris * this.state.value) + " NOK"} </p>
+                            <p>hvor mye du har i balansen: {this.state.bruker.saldo}</p>
+                            <p>saldo igjen: {parseInt(this.state.bruker.saldo - this.state.ticker.pris * this.state.value) + " NOK"}</p>
                             <FormGroup row>
                                 <Label htmlFor='Volum'>
                                     Volum
