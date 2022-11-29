@@ -32,7 +32,7 @@ export class TickerSell extends Component {
         if(sessionStorage.getItem('tickerSell') == null){
             return <Redirect to='/Historikk' />
         }else if(this.state.redirect){
-            sessionStorage.removeItem('kundeId')
+            sessionStorage.removeItem('tickerSell')
             return <Redirect to='/Historikk' />
         }
     }

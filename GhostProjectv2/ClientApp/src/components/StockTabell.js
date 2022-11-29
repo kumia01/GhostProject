@@ -114,7 +114,7 @@ export class StockTabell extends Component {
 	}
 
     render() {
-		let data = this.state.list.slice(this.props.data.random, this.props.data.random + 10).map((i,key) =>{
+		let data = this.state.list.slice(this.props.data.random, this.props.data.random + 20).map((i,key) =>{
 			return(
 				<tr key={key}>
 					<th>{key+1}</th>
