@@ -231,7 +231,7 @@ export class Historikk extends Component {
                         <ButtonGroup id="btnCol">
                             { /* Knapper */ }
                             <Button color="primary" className="btn btn-md mb-2" onClick={this.velgVisningOverføring}>Innskudd/Uttak</Button>
-                            <Button color="primary" className="btn btn-md mb-2" onClick={this.velgVisningAksjer}>Transaksjoner</Button>
+                            <Button color="primary" className="btn btn-md mb-2" onClick={this.velgVisningAksjer}>Portfolio</Button>
                             <Button color="primary" className="btn btn-md mb-2" onClick={this.velgHistorikk}>Historikk</Button>
                         </ButtonGroup>
                     </Col>
