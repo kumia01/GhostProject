@@ -25,29 +25,29 @@ namespace GhostProjectv2.DAL
 
 
         //Lagrer en ny rad i databasen med innTransaksjon, ved kjøp og salg
-        public async Task<bool> Lagre(Transaksjon innTransaksjon)
+        public async Task<bool> Lagre(Transaksjon innTransaksjon) //Tar inn et objekt av transaksjon
         {
             try
             {
-                var bruker = await _db.Brukere.FindAsync(innTransaksjon.BrukereId);
-                double totalPris = innTransaksjon.Volum * innTransaksjon.Pris;
-                var nyTransaksjonsRad = new Transaksjoner();
-                var sum = bruker.Saldo - totalPris;
+                var bruker = await _db.Brukere.FindAsync(innTransaksjon.BrukereId); //Finner riktig bruker i brukere tabellen ved hjelp av brukerid
+                double totalPris = innTransaksjon.Volum * innTransaksjon.Pris; //Setter totaprisen for handel til handels volumet * aksje prisen
+                var nyTransaksjonsRad = new Transaksjoner(); //Oppretter nytt objekt av Transaksjoner
+                var sum = bruker.Saldo - totalPris; //Setter sum til bruker sin tilgjengelige saldo - totalprisen
                 if (innTransaksjon.Volum > 0) //Hvis volum er positivt altså bruker kjøper en aksje
                 {
-                    if (sum >= 0) //Hvis bruker sin saldo - total kostnad er 0 eller større har bruker nok penger til kjøp
+                    if (sum >= 0) //Hvis bruker sin saldo - totalpris er 0 eller større har bruker nok penger til kjøp
                     {
                         nyTransaksjonsRad.Volum = innTransaksjon.Volum;
                         nyTransaksjonsRad.Pris = innTransaksjon.Pris;
                         nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
                         nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
                         nyTransaksjonsRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
-                        bruker.Saldo -= totalPris; //Setter ny brukersaldo til saldo - kjøpspris
+                        bruker.Saldo -= totalPris; //Setter ny brukersaldo til saldo - totalpris
 
                     }
                     else if (sum < 0) //Hvis bruker sin saldo ikke har tilstrekkelig beløp
                     {
-                        _log.LogInformation("Ikke tilstrekkelig beløp på konto!");
+                        _log.LogInformation("Ikke tilstrekkelig beløp på konto!"); //Logger feilmelding at brukeren ikke har nok penger på konto
                         return false;
                     }
                 }
@@ -58,17 +58,17 @@ namespace GhostProjectv2.DAL
                     nyTransaksjonsRad.BrukereId = innTransaksjon.BrukereId;
                     nyTransaksjonsRad.Ticker = innTransaksjon.Ticker;
                     nyTransaksjonsRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
-                    bruker.Saldo -= totalPris; //Setter ny brukersaldo til bruker saldo + salgspris
+                    bruker.Saldo -= totalPris; //Setter ny brukersaldo til bruker saldo - totalpris hvor totalpris er negativ og dermed vil saldo stige
                 }
 
 
-                _db.Transaksjoner.Add(nyTransaksjonsRad);
-                await _db.SaveChangesAsync();
+                _db.Transaksjoner.Add(nyTransaksjonsRad); //Lagrer transaksjonen i transaksjoner db tabell
+                await _db.SaveChangesAsync(); //Lagrer endringer
                 return true;
             }
             catch(Exception e)
             {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return false;
             }
         }
@@ -78,7 +78,7 @@ namespace GhostProjectv2.DAL
         {
             try
             {
-                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon
+                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon //Går gjennom alle radene i transaksjoner tabellen og lager en liste med alle transaksjon objektene
                 {
                     Id = t.Id,
                     Volum = t.Volum,
@@ -91,18 +91,18 @@ namespace GhostProjectv2.DAL
             }
             catch(Exception e)
             {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return null;
             }
 
         }
 
-        //Henter alle unike transaksjoner med smalet volum til en bruker ved hjelp av brukerId
+        //Henter alle unike transaksjoner med samlet volum til en bruker ved hjelp av brukerId
         public async Task<List<Transaksjon>> HentBrukerTransaksjoner(int brukerId)
         {
             try
             {
-                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon()
+                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon() //Går gjennom alle radene i transaksjoner tabellen og lager en liste med alle transaksjon objektene utenom den med ticker == NOK som er norske kroner
                 {
                     Id = t.Id,
                     Volum = t.Volum,
@@ -111,40 +111,40 @@ namespace GhostProjectv2.DAL
                     Ticker = t.Ticker,
                     FlereAksjerId = t.FlereAksjerId
                 }).Where(t => t.BrukereId == brukerId && t.Ticker != "NOK").ToListAsync();
-                var transaksjoner = alleTransaksjoner.GroupBy(t => t.Ticker);
-                List<Transaksjon> nyliste = new List<Transaksjon>();
-                foreach(var ticker in transaksjoner)
+                var transaksjoner = alleTransaksjoner.GroupBy(t => t.Ticker); //Lager ny liste hvor alle transaksjonen blir gruppert ved ticker
+                List<Transaksjon> nyliste = new List<Transaksjon>(); //Opretter en ny liste av transaksjon klassen
+                foreach(var ticker in transaksjoner) //Går igjennom listen ved alle tickers
                 {
                     var sum = 0;
-                    Transaksjon nyTransaksjon = new Transaksjon();
-                    foreach(var volum in ticker)
+                    Transaksjon nyTransaksjon = new Transaksjon(); //Oppretter nytt objekt av transaksjon klassen
+                    foreach(var volum in ticker) //Går gjennom alle volum for hver ticker
                     {
-                        nyTransaksjon.Ticker = volum.Ticker;
-                        nyTransaksjon.Pris = volum.Pris;
-                        sum += volum.Volum;
+                        nyTransaksjon.Ticker = volum.Ticker; //Setter ticker til denne tickeren
+                        nyTransaksjon.Pris = volum.Pris; //Setter pris til denne prisen
+                        sum += volum.Volum; //Adderer sammen alt volumet for alle transaksjonene med lik ticker
                     }
-                    nyTransaksjon.Volum = sum;
+                    nyTransaksjon.Volum = sum; //Legger til totale volumet i objektet nyTransaksjon
                     if(sum > 0)
                     {
-                        nyliste.Add(nyTransaksjon);
+                        nyliste.Add(nyTransaksjon); //Hvis volumet er større enn null altså en bruker har aksjer blir transaksjon objektet lagt til i listen
                     }
                 }
-                return nyliste;
+                return nyliste; //Returner ferdig listen
 
             }
             catch(Exception e)
             {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return null;
             }
 
         }
         //Henter alle transaksjoner til en bruker ved hjelp av brukerId
-        public async Task<List<Transaksjon>> HentBrukerTransaksjonHistorikk(int brukerId)
+        public async Task<List<Transaksjon>> HentBrukerTransaksjonHistorikk(int brukerId) //Tar inn brukerid
         {
             try
             {
-                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon()
+                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon() //Går gjennom alle radene i transaksjoner tabellen og lager en liste med alle transaksjon objektene utenom den med ticker == NOK som er norske kroner
                 {
                     Id = t.Id,
                     Volum = t.Volum,
@@ -159,17 +159,17 @@ namespace GhostProjectv2.DAL
             }
             catch (Exception e)
             {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return null;
             }
 
         }
 
-        public async Task<List<Transaksjon>> HentInnskuddUttak(int brukerId)
+        public async Task<List<Transaksjon>> HentInnskuddUttak(int brukerId) //Tar inn brukerid
         {
             try
             {
-                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon
+                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon //Går gjennom alle radene i transaksjoner tabellen og lager en liste med alle transaksjon objektene hvor ticker == NOK, som vil da bli en liste med innskudd og uttak i NOK(KR)
                 {
                     Id = t.Id,
                     Volum = t.Volum,
@@ -182,52 +182,29 @@ namespace GhostProjectv2.DAL
             }
             catch (Exception e)
             {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return null;
             }
 
         }
 
 
-        //Henter alle transaksjoner til en aksje ved hjelp av aksjeId
-        public async Task<List<Transaksjon>> HentAksjeTransaksjoner(string ticker)
+
+        public async Task<bool> EndreSaldo(Transaksjon innTransaksjon) //Tar inn et objekt av klassen transaksjon
         {
             try
             {
-                List<Transaksjon> alleTransaksjoner = await _db.Transaksjoner.Select(t => new Transaksjon
-                {
-                    Id = t.Id,
-                    Volum = t.Volum,
-                    Pris = t.Pris,
-                    BrukereId = t.BrukereId,
-                    Ticker = t.Ticker
-                }).Where(t => t.Ticker == ticker).ToListAsync();
-                return alleTransaksjoner;
-
-            }
-            catch(Exception e)
-            {
-                _log.LogInformation(e.Message);
-                return null;
-            }
-        }
-
-
-        public async Task<bool> EndreSaldo(Transaksjon innTransaksjon)
-        {
-            try
-            {
-                var endreObjekt = await _db.Brukere.FindAsync(innTransaksjon.BrukereId);
+                var endreObjekt = await _db.Brukere.FindAsync(innTransaksjon.BrukereId); //Finner riktig bruker i brukere tabellen ved hjelp av brukerid
                 var nyTransaksjonRad = new Transaksjoner();
 
                 if (innTransaksjon.Volum > 0) //Hvis saldoen som kommer inn er større enn 0 betyr det at bruker gjør innskudd
                 {
                     endreObjekt.Saldo += innTransaksjon.Volum;
                     nyTransaksjonRad.Volum = innTransaksjon.Volum;
-                    nyTransaksjonRad.Pris = 1;
+                    nyTransaksjonRad.Pris = 1; //1kr = 1kr
                     nyTransaksjonRad.BrukereId = innTransaksjon.BrukereId;
-                    nyTransaksjonRad.Ticker = "NOK";
-                    nyTransaksjonRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
+                    nyTransaksjonRad.Ticker = "NOK"; //Setter ticker til NOK for å indikere kjøp av KR ikke en aksje
+                    nyTransaksjonRad.FlereAksjerId = innTransaksjon.FlereAksjerId; //Setter transaksjoner sin flereaksjerid til 811 alltid, som er id'en til norske kroner
 
 
                 }
@@ -237,25 +214,25 @@ namespace GhostProjectv2.DAL
                     {
                         endreObjekt.Saldo += innTransaksjon.Volum;
                         nyTransaksjonRad.Volum = innTransaksjon.Volum;
-                        nyTransaksjonRad.Pris = 1;
+                        nyTransaksjonRad.Pris = 1; //1kr = 1kr
                         nyTransaksjonRad.BrukereId = innTransaksjon.BrukereId;
-                        nyTransaksjonRad.Ticker = "NOK";
-                        nyTransaksjonRad.FlereAksjerId = innTransaksjon.FlereAksjerId;
-                        
+                        nyTransaksjonRad.Ticker = "NOK"; //Setter ticker til NOK for å indikere kjøp av KR ikke en aksje
+                        nyTransaksjonRad.FlereAksjerId = innTransaksjon.FlereAksjerId; //Setter transaksjoner sin flereaksjerid til 811 alltid, som er id'en til norske kroner
+
                     }
                     else
                     {
-                        _log.LogInformation("Ikke nok penger til uttak!");
+                        _log.LogInformation("Ikke nok penger til uttak!"); //Logger feilemelding om bruker ikke har nok penger på konto for uttak
                         return false;
                     }
                 }
 
-                _db.Transaksjoner.Add(nyTransaksjonRad);
-                await _db.SaveChangesAsync();
+                _db.Transaksjoner.Add(nyTransaksjonRad); //Legger til ny transaksjon i transaksjoner tabellen
+                await _db.SaveChangesAsync(); //Lagrer endringen
             }
             catch (Exception e)
             {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return false;
             }
             return true;

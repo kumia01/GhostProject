@@ -22,10 +22,10 @@ namespace GhostProjectv2.Controllers
             _log = log;
         }
 
-        //Henter alle aksjer fra DB og returner liste med Aksje objekter
+        //Lagrer melding fra kundeservice i kundeservice tabellen i DB
         public async Task<ActionResult> LagreMelding(Melding innMelding)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //Sjekker om regex er ok
             {
                 bool returOK = await _dbMelding.LagreMelding(innMelding);
                 if (!returOK)

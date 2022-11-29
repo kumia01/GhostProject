@@ -30,7 +30,7 @@ namespace GhostProjectv2.DAL
         {
             try
             {
-                List<Aksje> alleAksjer = await _dbAksje.FlereAksjer.Select(b => new Aksje
+                List<Aksje> alleAksjer = await _dbAksje.FlereAksjer.Select(b => new Aksje //Går gjennom alle rader i FlereAksjer tabellen og henter alle og sender dem til en liste som blir returnert
                 {
                     Id = b.Id,
                     Ticker = b.Ticker,
@@ -42,19 +42,19 @@ namespace GhostProjectv2.DAL
 
                 return alleAksjer;
             }
-            catch(Exception e)
+            catch(Exception e) //Returnerer null om det skjer en exception
             {
                 _log.LogInformation(e.Message);
                 return null;
             }
         }
 
-        //Henter en aksje fra DB ved hjelp av aksje id
+        //Henter en aksje fra DB ved hjelp av aksje ticker
         public async Task<Aksje> HentEn(string ticker)
         {
             try
             {
-                List<FlereAksjer> AksjeListe = await _dbAksje.FlereAksjer.Where(m => m.Ticker == ticker).ToListAsync();
+                List<FlereAksjer> AksjeListe = await _dbAksje.FlereAksjer.Where(m => m.Ticker == ticker).ToListAsync(); //Finner aksjen med samme ticker som tickeren som kommer inn
                 var enAksje = AksjeListe[0];
                 var hentetAskje = new Aksje()
                 {
@@ -66,7 +66,7 @@ namespace GhostProjectv2.DAL
                 };
                 return hentetAskje;
             }
-            catch(Exception e)
+            catch(Exception e) //Returnerer null om det skjer en exception
             {
                 _log.LogInformation(e.Message);
                 return null;
@@ -106,12 +106,12 @@ namespace GhostProjectv2.DAL
             }
             catch(Exception e)
             {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return false;
             }
         }
         
-        public async Task<bool> Lagre(List<Aksje> innAskje)
+        public async Task<bool> Lagre(List<Aksje> innAskje) //Tar inn en liste med aksjer som skal lagres
         {
             Debug.WriteLine(innAskje);
             
@@ -119,28 +119,29 @@ namespace GhostProjectv2.DAL
             Debug.WriteLine(innAskje);
             try
             {
-                foreach (Aksje i in innAskje)
+                foreach (Aksje i in innAskje) //Går igjennom aksjelisten
                 {
                     
-                    var sjekkAksje = await _dbAksje.FlereAksjer.Where(m => m.Ticker == i.Ticker).ToListAsync();
+                    var sjekkAksje = await _dbAksje.FlereAksjer.Where(m => m.Ticker == i.Ticker).ToListAsync(); //Lager en liste med aksjer som finnes fra før av
                     Debug.WriteLine(sjekkAksje);
-                    if (sjekkAksje.Count == 0)
+                    if (sjekkAksje.Count == 0) //Om aksjen ikke finnes fra før av vil aksjen bli lagt til i databasen
                     {
                         FlereAksjer nyAksje = new FlereAksjer();
                         nyAksje.Ticker = i.Ticker;
                         nyAksje.Selskap= i.Selskap;
                         nyAksje.Pris = i.Pris;
                         nyAksje.gammelPris = i.gammelPris;
-                        _dbAksje.FlereAksjer.Add(nyAksje);
+                        _dbAksje.FlereAksjer.Add(nyAksje); //Legger den nye aksjen inn i DB
                         Debug.WriteLine(nyAksje);
                     }
 
                 }
-                await _dbAksje.SaveChangesAsync();
+                await _dbAksje.SaveChangesAsync(); //Lagrer endringene asynkront i db
                 return true;
             }
-            catch
+            catch(Exception e)
             {
+                _log.LogInformation(e.Message);
                 return false;
             }
     }

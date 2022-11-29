@@ -14,8 +14,8 @@ namespace GhostProjectv2.Models
         public string Etternavn { get; set; }
         public string Adresse { get; set; }
         public double Saldo { get; set; }
-        virtual public Poststeder Poststed { get; set; }
-        virtual public List<Transaksjoner> Transaksjoner { get; set; }
+        virtual public Poststeder Poststed { get; set; } //Oppretter forhold mellom posteder og brukere hvor en bruker kan ha ett poststed
+        virtual public List<Transaksjoner> Transaksjoner { get; set; } //Oppretter forhold mellom transaksjoner og brukere hvor en bruker kan ha flere transaksjoner
     }
 
     //Oppretter tabellen poststeder, med forhold til Brukere
@@ -25,7 +25,7 @@ namespace GhostProjectv2.Models
         [System.ComponentModel.DataAnnotations.Schema.DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Postnr { get; set; }
         public string Poststed { get; set; }
-        virtual public List<Brukere> Brukere { get; set; }
+        virtual public List<Brukere> Brukere { get; set; } //Oppretter forhold mellom brukere og poststeder, hvor et posted kan ha flere brukere
     }
 
     public class Kunder
@@ -45,7 +45,7 @@ namespace GhostProjectv2.Models
         public string Selskap { get; set; }
         public double Pris { get; set; }
         public double gammelPris { get; set; }
-        virtual public List<Transaksjoner> Transaksjoner { get; set; }
+        virtual public List<Transaksjoner> Transaksjoner { get; set; } //Oppretter forhold mellom Transaksjoner og flereAksjer hvor en Aksje kan ha flere transaksjoner
 
     }
 
@@ -58,8 +58,8 @@ namespace GhostProjectv2.Models
         public int BrukereId { get; set; }
         public int FlereAksjerId { get; set; }
         public string Ticker { get; set; }
-        virtual public Brukere Brukere { get; set; }
-        virtual public FlereAksjer FlereAksjer { get; set; }
+        virtual public Brukere Brukere { get; set; } //Oppretter forhold mellom Brukere og transaksjoner hvor en transaksjon kan ha en bruker
+        virtual public FlereAksjer FlereAksjer { get; set; } //Oppretter forhold mellom flereaksjer og transaksjoner hvor en transaksjon kan ha en aksje
     }
 
     public class Meldinger
