@@ -164,52 +164,46 @@ export class Historikk extends Component {
         // Returnerer html elementene slik at de skrives ut
         return (
 
-            // Div som inneholder html elementene til siden
-            <div>
+            /* Container som inneholder html elementer */
+            <Container>
+
                 {this.renderRedirect()}
-                {/* Tekst element */}
-                <p>Overføringer</p>
 
-                {/* Container som inneholder html elementer */}
-                <Container fluid="true">
-
-                    {/* Rad som skalerer på enhet */}
-                    <Row fluid="true">
-
+                <Row fluid="true">
+                    <Col></Col>
+                    <Col sm="12" md="12" lg="12" xl="12" className="text-center">
+                        <h2><strong>Overføringer</strong></h2>
+                        <h5>
+                            Velg hvilken historikk du vil se fra knappene under
+                        </h5>
                         {/* Bruker ButtonToolbar for å holde knappe på rekke */}
-                        <ButtonToolbar>
+                        <ButtonGroup id="btnCol">
+                            {/* Knapper, en av de bruker outline og den andre tar primary som farge */}
+                            <Button color="primary" className="btn btn-md mb-2" onClick={this.velgVisningOverføring}>Innskudd/Uttak</Button>
+                            <Button color="primary" className="btn btn-md mb-2" onClick={this.velgVisningAksjer}>Transaksjoner</Button>
+                            <Button color="primary" className="btn btn-md mb-2" onClick={this.velgHistorikk}>Historikk</Button>
+                        </ButtonGroup>
+                    </Col>
+                    <Col></Col>
+                </Row>
 
-                            {/* ButtonGroup sørger for at knappene er samme størrelse */}
-                            <ButtonGroup className="mr-2">
-
-                                {/* Knapper, en av de bruker outline og den andre tar primary som farge */}
-                                <Button color="primary" sm="1" onClick={this.velgVisningOverføring}>Innskudd/Uttak</Button>
-                                <Button color="primary" sm="1" onClick={this.velgVisningAksjer}>Transaksjoner</Button>
-                                <Button color="primary" sm="1" onClick={this.velgHistorikk}>Historikk</Button>
-                            </ButtonGroup>
-                        </ButtonToolbar>  
-                    </Row>
-
-                    {/* Rad som skalerer på enhet */}
-                    <Row fluid="true">
-
-                        {/* Kolonne som skal ta halve raden */}
-                        <Col md="6" pt="3">
-
-                            <h5>Velg Innskudd/Uttak for å se dine innskudd og uttak!</h5>
-                            <h5>Velg Transaksjoner for å se dine aksjekjøp og salg!</h5>
-                            <Table responsive borderless>
-                                {this.state.visInnskudd && <thead><tr><th>#</th><th>Valuta</th><th>Sum</th></tr></thead>}
-                                {this.state.visAksjer && <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th><th>TotalPris</th></tr></thead>}
-                                {this.state.visHistorikk && <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th></tr></thead>}
-                                <tbody>
-                                    {data}
-                                </tbody>
-                            </Table>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
+               {/* Rad som skalerer på enhet */}
+                <Row fluid="true">
+                    <Col></Col>
+                    {/* Kolonne som skal ta halve raden */}
+                    <Col sm="12" md="12" lg="12" xl="12" className="text-center">
+                        <Table responsive borderless>
+                            {this.state.visInnskudd && <thead><tr><th>#</th><th>Valuta</th><th>Sum</th></tr></thead>}
+                            {this.state.visAksjer && <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th><th>TotalPris</th></tr></thead>}
+                            {this.state.visHistorikk && <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th></tr></thead>}
+                            <tbody>
+                                {data}
+                            </tbody>
+                        </Table>
+                    </Col>
+                    <Col></Col>
+                </Row>
+            </Container>
         );
       }
     }
