@@ -4,6 +4,7 @@ import {Container, Row, Col, Form, FormGroup, Input, Label, Button, InputGroup} 
 import $ from 'jquery';
 {/* Henter funksjoner fra js komponenten Validering */ }
 import { validerTickerbuy } from './Validering';
+import { isThisTypeNode } from 'typescript';
 
 
 
@@ -25,6 +26,7 @@ export class TickerBuy extends Component {
         this.handleChange = this.handleChange.bind(this)
         this.kjøpAksje = this.kjøpAksje.bind(this)
         this.hentBruker = this.hentBruker.bind(this)
+        this.checklogin = this.checklogin.bind(this)
         this.hentBruker()
         this.hentEn()
         this.renderRedirect()
@@ -33,6 +35,11 @@ export class TickerBuy extends Component {
     renderRedirect(){
         if(!sessionStorage.getItem('ticker')){
             return <Redirect to='/tickerBuy' />
+        }
+    }
+    checklogin(){
+        if(sessionStorage.getItem('kundId') == null ){
+            return <Redirect to='/Login' />
         }
     }
     hentEn(){
@@ -90,6 +97,8 @@ export class TickerBuy extends Component {
         return (
             
             <Container>
+                {this.renderRedirect()}
+                {this.checklogin()}
                 <Row fluid="true" className="justify-content-md-center">
                     <Col md='6'>
                         <Form>

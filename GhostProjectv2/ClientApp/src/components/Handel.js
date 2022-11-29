@@ -16,7 +16,7 @@ export class Handel extends Component {
     constructor(props){
         super(props)
         this.state={
-            random: 0
+            random: (Math.random()*790)
         }
         this.nyListe = this.nyListe.bind(this)
     }
