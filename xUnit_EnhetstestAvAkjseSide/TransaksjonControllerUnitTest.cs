@@ -186,6 +186,125 @@ namespace xUnit_EnhetstestAvAkjseSide
 
             //Act
             var resultat = await transaksjonController.HentBrukerTransaksjoner(It.IsAny<int>()) as OkObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
+            Assert.Equal<List<Transaksjon>>((List<Transaksjon>)resultat.Value, transaksjonList);
+        }
+
+        [Fact]
+        public async Task HentBrukerTransaksjonerIkkeLoggetInn()
+        {
+            mockRep.Setup(t => t.HentBrukerTransaksjoner(It.IsAny<int>())).ReturnsAsync(It.IsAny<List<Transaksjon>>);
+
+            var transaksjonController = new TransaksjonController(mockRep.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _ikkeLoggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            transaksjonController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            //Act
+            var resultat = await transaksjonController.HentBrukerTransaksjoner(It.IsAny<int>()) as UnauthorizedObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+            Assert.Equal("Ikke logget inn!" ,resultat.Value);
+        }
+
+        [Fact]
+        public async Task HentBrukerTransaksjonHistorikkLoggetInn()
+        {
+            //Arrange
+            var transaksjon1 = new Transaksjon { Id = 1, Volum = 2000, Pris = 400, BrukereId = 2, Ticker = "GUBA", FlereAksjerId = 2 };
+            var transaksjon2 = new Transaksjon { Id = 2, Volum = 500000, Pris = 89, BrukereId = 2, Ticker = "SIUU", FlereAksjerId = 12 };
+            var transaksjon3 = new Transaksjon { Id = 3, Volum = 20, Pris = 8000, BrukereId = 2, Ticker = "GDOG", FlereAksjerId = 1 };
+
+            var transaksjonList = new List<Transaksjon>();
+            transaksjonList.Add(transaksjon1);
+            transaksjonList.Add(transaksjon2);
+            transaksjonList.Add(transaksjon3);
+
+            mockRep.Setup(t => t.HentBrukerTransaksjonHistorikk(It.IsAny<int>())).ReturnsAsync(transaksjonList);
+
+            var transaksjonController = new TransaksjonController(mockRep.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            transaksjonController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            //Act
+            var resultat = await transaksjonController.HentBrukerTransaksjonHistorikk(It.IsAny<int>()) as OkObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
+            Assert.Equal<List<Transaksjon>>((List<Transaksjon>)resultat.Value, transaksjonList);
+        }
+
+        [Fact]
+        public async Task HentBrukerTransaksjonHistorikkIkkeLoggetInn()
+        {
+            mockRep.Setup(t => t.HentBrukerTransaksjonHistorikk(It.IsAny<int>())).ReturnsAsync(It.IsAny<List<Transaksjon>>);
+
+            var transaksjonController = new TransaksjonController(mockRep.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _ikkeLoggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            transaksjonController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            //Act
+            var resultat = await transaksjonController.HentBrukerTransaksjonHistorikk(It.IsAny<int>()) as UnauthorizedObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+            Assert.Equal("Ikke logget inn!", resultat.Value);
+        }
+
+        [Fact]
+        public async Task HentInnskuddUttakLoggetInn()
+        {
+            //Arrange
+            var transaksjon1 = new Transaksjon { Id = 1, Volum = 2000, Pris = 400, BrukereId = 2, Ticker = "GUBA", FlereAksjerId = 2 };
+            var transaksjon2 = new Transaksjon { Id = 2, Volum = 500000, Pris = 89, BrukereId = 2, Ticker = "SIUU", FlereAksjerId = 12 };
+            var transaksjon3 = new Transaksjon { Id = 3, Volum = 20, Pris = 8000, BrukereId = 2, Ticker = "GDOG", FlereAksjerId = 1 };
+
+            var transaksjonList = new List<Transaksjon>();
+            transaksjonList.Add(transaksjon1);
+            transaksjonList.Add(transaksjon2);
+            transaksjonList.Add(transaksjon3);
+
+            mockRep.Setup(t => t.HentInnskuddUttak(It.IsAny<int>())).ReturnsAsync(transaksjonList);
+
+            var transaksjonController = new TransaksjonController(mockRep.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            transaksjonController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            //Act
+            var resultat = await transaksjonController.HentInnskuddUttak(It.IsAny<int>()) as OkObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
+            Assert.Equal<List<Transaksjon>>((List<Transaksjon>)resultat.Value, transaksjonList);
+        }
+
+        [Fact]
+        public async Task HentInnskuddUttakIkkeLoggetInn()
+        {
+            mockRep.Setup(t => t.HentBrukerTransaksjonHistorikk(It.IsAny<int>())).ReturnsAsync(It.IsAny<List<Transaksjon>>);
+
+            var transaksjonController = new TransaksjonController(mockRep.Object, mockLog.Object);
+
+            mockSession[_loggetInn] = _ikkeLoggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            transaksjonController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            //Act
+            var resultat = await transaksjonController.HentBrukerTransaksjonHistorikk(It.IsAny<int>()) as UnauthorizedObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.Unauthorized, resultat.StatusCode);
+            Assert.Equal("Ikke logget inn!", resultat.Value);
         }
     }
 }

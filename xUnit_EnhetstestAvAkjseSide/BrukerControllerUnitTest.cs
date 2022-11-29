@@ -26,9 +26,11 @@ namespace xUnit_EnhetstestAvAkjseSide
         private readonly MockHttpSession mockSession = new MockHttpSession();
 
         [Fact]
-        public async Task HentAlleOk()
+        public async Task HentAlleLoggetInnOk()
         {
             var brukerController = new BrukerController(mockRep.Object, mockLog.Object);
+
+            
 
             var bruker1 = new Bruker
             {
@@ -66,10 +68,19 @@ namespace xUnit_EnhetstestAvAkjseSide
             brukerList.Add(bruker2);
             brukerList.Add(bruker3);
 
-            var mock = new Mock<IBrukerRepository>();
-            mock.Setup(b => b.HentAlle()).ReturnsAsync(brukerList);
-           
+            mockRep.Setup(b => b.HentAlle()).ReturnsAsync(brukerList);
 
+            mockSession[_loggetInn] = _loggetInn;
+            mockHttpContext.Setup(s => s.Session).Returns(mockSession);
+            brukerController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+
+            var resultat = await brukerController.HentAlle() as OkObjectResult;
+
+            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
+            Assert.Equal<List<Bruker>>((List<Bruker>)resultat.Value, brukerList);
+
+      
 
         }
     }
