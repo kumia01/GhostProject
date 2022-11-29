@@ -126,7 +126,7 @@ namespace GhostProjectv2.DAL
                     Debug.WriteLine(sjekkAksje);
                     if (sjekkAksje.Count == 0)
                     {
-                        var nyAksje = new FlereAksjer();
+                        FlereAksjer nyAksje = new FlereAksjer();
                         nyAksje.Ticker = i.Ticker;
                         nyAksje.Selskap= i.Selskap;
                         nyAksje.Pris = i.Pris;
