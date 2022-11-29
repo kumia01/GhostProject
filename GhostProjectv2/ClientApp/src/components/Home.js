@@ -11,6 +11,7 @@ import { Container, Col, Row} from 'reactstrap';
 import { StockTabell } from './StockTabell';
 
 export function random(){
+
     return (Math.random() * 790);
 }
 
@@ -71,7 +72,7 @@ export class Home extends Component {
                 <Row>
                     <Col></Col>
                     <Col sm="12" md="12" lg="12" xl="12">
-                        <StockTabell data={{random: random()}} />
+                        <StockTabell data={{random: random() , max: 5}} />
                     </Col>
                     <Col></Col>
                 </Row>

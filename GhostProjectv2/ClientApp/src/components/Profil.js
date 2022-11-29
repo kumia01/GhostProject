@@ -115,7 +115,6 @@ export class Profil extends Component {
         })
             .fail(function (feil) {
                 if (feil.status == 401) {
-                    console.log("Ikke logget inn!");
                     return false;
                 }
                 else {

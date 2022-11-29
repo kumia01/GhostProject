@@ -38,13 +38,12 @@ function registrer() {
         $.post("../Bruker/Lagre", bruker, function (OK) {
             if (OK) {
                 //Sender kunde til logginn side
-                console.log("FUCK YEAH!!");
                 return true;
             }
             else {
                 //Fikse error melding
                 document.getElementById("feil").textContent = "Feil i db - prøv igjen senere!";
-                console.log("FEIL!!");
+                console.log("Feil i db");
                 return false;
             }
         });
