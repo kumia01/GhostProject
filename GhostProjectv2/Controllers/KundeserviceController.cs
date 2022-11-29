@@ -23,7 +23,7 @@ namespace GhostProjectv2.Controllers
         }
 
         //Henter alle aksjer fra DB og returner liste med Aksje objekter
-        public async Task<ActionResult> Lagre(Melding innMelding)
+        public async Task<ActionResult> LagreMelding(Melding innMelding)
         {
             if (ModelState.IsValid)
             {
@@ -31,7 +31,7 @@ namespace GhostProjectv2.Controllers
                 if (!returOK)
                 {
                     _log.LogInformation("Meldingen ble ikke lagret!");
-                    return BadRequest("Meldinge ble ikke lagret!");
+                    return BadRequest("Meldingen ble ikke lagret!");
                 }
                 return Ok("Meldingen ble lagret!");
             }
