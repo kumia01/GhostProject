@@ -54,3 +54,37 @@ html {
 #inskudd{
     padding: 10px;
 }
+
+.wrapperAbout {
+    display: flex;
+    justify-content: center;
+}
+
+.bildekolonne {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.stolper {
+    width: 100%;
+    height: auto;
+}
+
+.oslomet {
+    width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width: 600px) {
+
+    .blåstolper {
+        height: auto;
+        width: 100%;
+    }
+
+    .oslomet {
+        height: auto;
+        width: 100%;
+    }
+}

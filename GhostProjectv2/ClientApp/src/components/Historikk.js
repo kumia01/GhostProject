@@ -1,11 +1,14 @@
 ﻿{/* Imports */ }
 import React, { Component } from 'react';
-import{ Redirect } from 'react-router-dom';
+
+{/* Henter Redirect fra react-router-dom */}
+import { Redirect } from 'react-router-dom';
+
+{/* Importerer axios biblioteket */}
 import axios from "axios";
 
 {/* Henter nødvendig funksjonalitet fra reactstrap */ }
-import { Container, Button, ButtonGroup, ButtonToolbar, Row, Col, Table} from 'reactstrap';
-import { isSetAccessorDeclaration } from 'typescript';
+import { Container, Button, ButtonGroup, Row, Col, Table} from 'reactstrap';
 
 {/* Js klassen Handel arver fra superklassen Component */ }
 export class Historikk extends Component {
@@ -13,9 +16,11 @@ export class Historikk extends Component {
     // Setter displayName til Historikk for eventuelle debugging meldinger
     static displayName = Historikk.name;
 
+    // Konstruktør
     constructor(props) {
         super(props)
 
+        // Setter default status for innhold til usynlig
         this.state = {
             visAksjer: false,
             visInnskudd: false,
@@ -26,6 +31,8 @@ export class Historikk extends Component {
             aksjeKjøpt: {
                }
         }
+
+        // Binder alle funksjoner til this
         this.velgVisningAksjer = this.velgVisningAksjer.bind(this);
         this.velgVisningOverføring = this.velgVisningOverføring.bind(this);
         this.velgHistorikk = this.velgHistorikk.bind(this);
@@ -37,8 +44,13 @@ export class Historikk extends Component {
 
     }
 
-    callAksjeHistorikk(){
+    // Funksjon som skal hente aksje historikk
+    callAksjeHistorikk() {
+
+        // Variabel som henter kundeId fra session
         const id = "brukerId=" + sessionStorage.getItem('kundeId');
+
+        // Bruker axios til å hente bruker sin historikk og legger til id
         axios.get('../Transaksjon/HentBrukerTransaksjonHistorikk?' + id)
             .then((response) => {
                 console.log(response.data)
@@ -46,18 +58,22 @@ export class Historikk extends Component {
                     AksjeHistorikk: response.data
                 })
             })
+
+            // Logger i console hvis noe er feil
             .catch(function (feil) {
                 console.log(feil + " oioioi");
             })
 
     }
 
+    // Funksjon som skal hente volum og salg fra session
     sell(ticker, volum){
         sessionStorage.setItem('maxVolum', volum)
 		sessionStorage.setItem('tickerSell', ticker)
 		this.setState({redirect: true})
 	}
 
+    // Funksjon som finner kjøpte aksjer fra database
     callAksjeKjøpListe() {
         const id = "brukerId=" + sessionStorage.getItem('kundeId');
         axios.get('../Transaksjon/HentBrukerTransaksjoner?' + id)
@@ -72,6 +88,7 @@ export class Historikk extends Component {
             })
     }
 
+    // Funksjon som henter informasjon om bruker sine inntak eller uttak
     callUttakInntakListe() {
         const id = "brukerId=" + sessionStorage.getItem('kundeId');
         axios.get('../Transaksjon/HentInnskuddUttak?' + id)
@@ -86,6 +103,7 @@ export class Historikk extends Component {
             });
     }
 
+    // Funksjon som skriver aksjehistorikk ut på siden
     velgVisningAksjer() {
         this.setState({
             visAksjer: true,
@@ -94,6 +112,7 @@ export class Historikk extends Component {
         });
     }
 
+    // Funksjon som skriver overføringer ut på siden
     velgVisningOverføring() {
         this.setState({
             visAksjer: false,
@@ -102,6 +121,7 @@ export class Historikk extends Component {
         });
     }
 
+    // Funksjon som skriver historikk ut på siden
     velgHistorikk(){
         this.setState({
             visAksjer: false,
@@ -109,6 +129,7 @@ export class Historikk extends Component {
             visHistorikk: true
         });
     }
+
     renderRedirect(){
 		if(this.state.redirect){
 			return <Redirect to='/tickerSell' />
@@ -119,7 +140,11 @@ export class Historikk extends Component {
 
     // Funksjon som kontrollerer container noden du står i
     render() {
+
+        // Tom variabel med navn data
         let data;
+
+        // If-test på hvilken informasjon som er hentet, genererer riktig tabell henholdsvis
         if (this.state.visAksjer) {
             data = this.state.aksjeList.map((i, key) => {
                 return ( 
@@ -133,6 +158,8 @@ export class Historikk extends Component {
                 );
             });
         }
+
+        // If-test på hvilken informasjon som er hentet, genererer riktig tabell henholdsvis
         if (this.state.visInnskudd) {
             data = this.state.innskuddUttakList.map((i, key) => {
                 return (
@@ -145,6 +172,8 @@ export class Historikk extends Component {
                     );
             });
         }
+
+        // If-test på hvilken informasjon som er hentet, genererer riktig tabell henholdsvis
         if (this.state.visHistorikk) {
             data = this.state.AksjeHistorikk.map((i, key) => {
                 return (
@@ -158,41 +187,56 @@ export class Historikk extends Component {
                     );
             });
         }
-        
-
 
         // Returnerer html elementene slik at de skrives ut
         return (
 
             /* Container som inneholder html elementer */
             <Container>
-
                 {this.renderRedirect()}
 
+                { /* Rad som skalerer på enhet */ }
                 <Row fluid="true">
+
+                    { /* Tom kolonne for å plasse innhold i midten */ }
                     <Col></Col>
+
+                    { /* Kolonne som skal ta 100% av container */ }
                     <Col sm="12" md="12" lg="12" xl="12" className="text-center">
+
+                        { /* Overskrift */ }
                         <h2><strong>Overføringer</strong></h2>
+
+                        { /* Undertittel brukt for å framheve tekst */ }
                         <h5>
                             Velg hvilken historikk du vil se fra knappene under
                         </h5>
-                        {/* Bruker ButtonToolbar for å holde knappe på rekke */}
+
+                        { /* Bruker ButtonToolbar for å holde knappe på rekke */ }
                         <ButtonGroup id="btnCol">
-                            {/* Knapper, en av de bruker outline og den andre tar primary som farge */}
+                            { /* Knapper */ }
                             <Button color="primary" className="btn btn-md mb-2" onClick={this.velgVisningOverføring}>Innskudd/Uttak</Button>
                             <Button color="primary" className="btn btn-md mb-2" onClick={this.velgVisningAksjer}>Transaksjoner</Button>
                             <Button color="primary" className="btn btn-md mb-2" onClick={this.velgHistorikk}>Historikk</Button>
                         </ButtonGroup>
                     </Col>
+
+                    { /* Tom kolonne for å plasse innhold i midten */}
                     <Col></Col>
                 </Row>
 
-               {/* Rad som skalerer på enhet */}
+               { /* Rad som skalerer på enhet */ }
                 <Row fluid="true">
+
+                    { /* Tom kolonne */ }
                     <Col></Col>
-                    {/* Kolonne som skal ta halve raden */}
+                    { /* Kolonne som skal ta hele raden */ }
                     <Col sm="12" md="12" lg="12" xl="12" className="text-center">
+
+                        { /* Tabell */ }
                         <Table responsive borderless>
+
+                            { /* Henter ønsket tabell */ }
                             {this.state.visInnskudd && <thead><tr><th>#</th><th>Valuta</th><th>Sum</th></tr></thead>}
                             {this.state.visAksjer && <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th><th>TotalPris</th></tr></thead>}
                             {this.state.visHistorikk && <thead><tr><th>#</th><th>Ticker</th><th>Pris</th><th>Volum</th></tr></thead>}
@@ -201,6 +245,8 @@ export class Historikk extends Component {
                             </tbody>
                         </Table>
                     </Col>
+
+                    { /* Tom kolonne */ }
                     <Col></Col>
                 </Row>
             </Container>

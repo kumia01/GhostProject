@@ -3,8 +3,11 @@ import React, { Component } from 'react';
 
 {/* Henter nødvendig funksjonalitet fra reactstrap */ }
 import { Container, Col, Row } from 'reactstrap';
+
+{/* Henter stylesheet */}
 import './Footer.css'
 
+{/* Importerer funksjonalitet fra react-router-dom, gir muligheten til å bytte komponent */}
 import { Link, Redirect } from 'react-router-dom';
 
 // Js klassen Footer arver fra superklassen Component
@@ -19,8 +22,12 @@ export class Footer extends Component {
         // Returnerer html elementene slik at de skrives ut
         return (
 
+            // Bruker elementer footer for å sikre at innholdet ikke går over til andre komponenter
             < footer >
+
+                { /* Container som inneholder html elementene som skal være i footer */ }
                 <Container fluid="true" id="footContainer" className="align-items-md-center">
+
                     <Container>
                     <Row fluid="true" className="d-flex mx-auto">
                         { /*Kolonne1*/}
@@ -41,10 +48,10 @@ export class Footer extends Component {
                         <li><Link tag={Link} id="footerLink" to="/om">Om oss</Link></li>
                         <li><Link tag={Link} id="footerLink" to="/kundeservice">Kundeservice</Link></li>
                     </ul>
-                        </Col>    
+                            </Col>    
+
                         { /*Kolonne3*/}
                             <Col fluid="true">
-                                
                             <h5><strong>Ressurser & Lenker</strong></h5>
                                 <ul className="list-unstyled">
                                     <li><a href="https://reactstrap.github.io/?path=/story/home-installation--page" id="footerLink">ReactStrap</a></li>

@@ -28,7 +28,7 @@ namespace GhostProjectv2.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(BrukerController._loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn");
             }
 
             if (ModelState.IsValid)
@@ -50,7 +50,7 @@ namespace GhostProjectv2.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(BrukerController._loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn!");
             }
             List<Transaksjon> alleTransaksjoner = await _db.HentAlle();
             return Ok(alleTransaksjoner);
@@ -61,7 +61,7 @@ namespace GhostProjectv2.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(BrukerController._loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn!");
             }
             List<Transaksjon> alleTransaksjoner = await _db.HentBrukerTransaksjoner(brukerId);
             return Ok(alleTransaksjoner);
@@ -70,7 +70,7 @@ namespace GhostProjectv2.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(BrukerController._loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn!");
             }
             List<Transaksjon> alleUnikTransaksjoner = await _db.HentBrukerTransaksjonHistorikk(brukerId);
             return Ok(alleUnikTransaksjoner);
@@ -81,7 +81,7 @@ namespace GhostProjectv2.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(BrukerController._loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn!");
             }
             List<Transaksjon> alleTransaksjoner = await _db.HentInnskuddUttak(brukerId);
             return Ok(alleTransaksjoner);
@@ -93,7 +93,7 @@ namespace GhostProjectv2.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(BrukerController._loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn!");
             }
             List<Transaksjon> alleTransaksjoner = await _db.HentAksjeTransaksjoner(ticker);
             return Ok(alleTransaksjoner);
@@ -103,7 +103,7 @@ namespace GhostProjectv2.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(BrukerController._loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn!");
             }
             if (ModelState.IsValid)
             {

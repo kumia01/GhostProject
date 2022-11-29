@@ -42,8 +42,11 @@ export class Home extends Component {
                     </Col>
 
                     {/* Bildekolonne */}
-                    <Col fluid="true" sm="12" md="6" lg="6" xl="6">
-                        <img src={blåstolpe} width="450" />
+                    <Col fluid="true" sm="12" md="6" lg="6" xl="6" className="bildekolonne">
+                        <img
+                            src={blåstolpe}
+                            className="stolper"
+                        />
                     </Col>
 
                 </Row>
