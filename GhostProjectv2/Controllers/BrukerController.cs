@@ -132,18 +132,6 @@ namespace GhostProjectv2.Controllers
             return BadRequest("Feil i inputvalidering på server!");
         }
 
-        //Tar inn et bruker objekt, sender tilbake et brukerobjekt med bruker id
-        public async Task<ActionResult> HentKundeId(Bruker innBruker)
-        {
-            Bruker funnetKunde = await _db.HentKundeId(innBruker);
-            if (funnetKunde == null)
-            {
-                _log.LogInformation("Fant ikke kunden!");
-                return NotFound("Fant ikke kunden!");
-            }
-            return Ok(funnetKunde);
-        }
-
         //Avslutter session og setter session variabelen til ikkeLoggetinn
         public void LoggUt()
         {

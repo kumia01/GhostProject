@@ -215,31 +215,5 @@ namespace GhostProjectv2.DAL
                 return null;
             }
         }
-
-        public async Task<Bruker> HentKundeId(Bruker innBruker)
-        {
-            try
-            {
-                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == innBruker.Brukernavn); //Finner riktig rad i kunder tabellen ved hjelp av brukernavn
-
-                byte[] hash = LagHash(innBruker.Passord, funnetKunde.Salt); //Lager hash ved hjelp av innPassord og salt fra kunder tabellen hvor brukernavn ble funnet
-                bool ok = hash.SequenceEqual(funnetKunde.Passord); //Returnerer true om hashen stemmer overens med den i DB, false om den ikke er riktig
-
-                if (ok) //Hvis hashen stemmer, lager den et bruker objekt med brukerid og returnerer
-                {
-                    var hentetKunde = new Bruker()
-                    {
-                        Id = funnetKunde.Id,
-                    };
-                    return hentetKunde;
-                }
-                return null; //Returner null om hashen ikke stemmer
-            }
-            catch (Exception e)
-            {
-                _log.LogInformation(e.Message); //Logger feilmelding
-                return null;
-            }
-        }
     }
 }
