@@ -28,23 +28,23 @@ namespace GhostProjectv2.DAL
         {
             try
             {
-                var nyBrukerRad = new Brukere();
+                var nyBrukerRad = new Brukere(); //Opretter nytt objekt av Brukere og setter verdiene
                 nyBrukerRad.Fornavn = innBruker.Fornavn;
                 nyBrukerRad.Etternavn = innBruker.Etternavn;
                 nyBrukerRad.Adresse = innBruker.Adresse;
-                nyBrukerRad.Saldo = 0;
+                nyBrukerRad.Saldo = 0; //Ny bruker får 0kr i saldo
 
-                var nyKundeRad = new Kunder();
+                var nyKundeRad = new Kunder(); //Lager et nytt objekt av Kunder og setter verdiene
                 nyKundeRad.Brukernavn = innBruker.Brukernavn;
                 string passord = innBruker.Passord;
-                byte[] salt = LagSalt();
-                byte[] hash = LagHash(passord, salt);
+                byte[] salt = LagSalt(); //Kaller på lagsalt funksjonen som lager et salt
+                byte[] hash = LagHash(passord, salt); //Kaller på laghash funksjonen som tar inn passord og salt og oppretter en hash-verdi
                 nyKundeRad.Passord = hash;
                 nyKundeRad.Salt = salt;
                 passord = "";
 
-                var sjekkPostnr = await _db.Poststeder.FindAsync(innBruker.Postnr);
-                if (sjekkPostnr == null)
+                var sjekkPostnr = await _db.Poststeder.FindAsync(innBruker.Postnr); //Sjekker om postnr eksisterer i poststeder tabellen
+                if (sjekkPostnr == null) //Hvis postnr ikke finnes lager den en ny poststed rad med nytt postnr og poststed
                 {
                     var poststedsRad = new Poststeder();
                     poststedsRad.Postnr = innBruker.Postnr;
@@ -53,7 +53,7 @@ namespace GhostProjectv2.DAL
                 }
                 else
                 {
-                    nyBrukerRad.Poststed = sjekkPostnr;
+                    nyBrukerRad.Poststed = sjekkPostnr; //Setter postnr og poststed til allerede eksisterende postnr og poststed
                 }
                 _db.Brukere.Add(nyBrukerRad);
                 _db.Kunder.Add(nyKundeRad);
@@ -62,7 +62,7 @@ namespace GhostProjectv2.DAL
             }
             catch(Exception e)
             {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return false;
             }
         }
@@ -72,7 +72,7 @@ namespace GhostProjectv2.DAL
         {
             try
             {
-                List<Bruker> alleBrukere = await _db.Brukere.Select(b => new Bruker
+                List<Bruker> alleBrukere = await _db.Brukere.Select(b => new Bruker //Lager en liste som går gjennom alle brukerne i brukere tabellen
                 {
                     Id = b.Id,
                     Fornavn = b.Fornavn,
@@ -85,7 +85,7 @@ namespace GhostProjectv2.DAL
             }
             catch(Exception e)
             {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return null;
             }
         }
@@ -95,16 +95,16 @@ namespace GhostProjectv2.DAL
         {
             try
             {
-                Brukere enDBBruker = await _db.Brukere.FindAsync(id);
-                Kunder enDBKunde = await _db.Kunder.FindAsync(id);
-                _db.Kunder.Remove(enDBKunde);
-                _db.Brukere.Remove(enDBBruker);
-                await _db.SaveChangesAsync();
+                Brukere enDBBruker = await _db.Brukere.FindAsync(id); //Finner riktig rad i Brukerer tabellen ved hjelp av brukerid
+                Kunder enDBKunde = await _db.Kunder.FindAsync(id); //Finner riktig rad i Kunder tabellen ved hjelp av brukerid
+                _db.Kunder.Remove(enDBKunde); //Fjerner kunden fra kunder tabeller
+                _db.Brukere.Remove(enDBBruker); //Fjerner bruker fra brukere tabellen
+                await _db.SaveChangesAsync(); //Lagrer endringer
                 return true;
             }
             catch(Exception e)
             {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return false;
             }
         }
@@ -114,9 +114,9 @@ namespace GhostProjectv2.DAL
         {
             try
             {
-                Brukere enBruker = await _db.Brukere.FindAsync(id);
-                Kunder enKunde = await _db.Kunder.FindAsync(id);
-                var hentetBruker = new Bruker()
+                Brukere enBruker = await _db.Brukere.FindAsync(id); //Finner riktig rad i Kunder tabellen ved hjelp av brukerid
+                Kunder enKunde = await _db.Kunder.FindAsync(id); //Finner riktig rad i Kunder tabellen ved hjelp av brukerid
+                var hentetBruker = new Bruker() //Oppretter nytt bruker objekt setter properties til kunder og brukere sine properties
                 {
                     Fornavn = enBruker.Fornavn,
                     Etternavn = enBruker.Etternavn,
@@ -130,7 +130,7 @@ namespace GhostProjectv2.DAL
             }
             catch(Exception e)
             {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return null;
             }
         }
@@ -140,11 +140,11 @@ namespace GhostProjectv2.DAL
         {
             try
             {
-                var endreObjekt = await _db.Brukere.FindAsync(endreBruker.Id);
-                if (endreObjekt.Poststed.Postnr != endreBruker.Postnr)
+                var endreObjekt = await _db.Brukere.FindAsync(endreBruker.Id); //Finner riktig bruker i brukere tabellen ved hjelp av brukerid
+                if (endreObjekt.Poststed.Postnr != endreBruker.Postnr) //Går bare inn om postnr er endret og ikke det samme som før
                 {
-                    var sjekkPostnr = _db.Poststeder.FindAsync(endreBruker.Postnr);
-                    if (sjekkPostnr == null)
+                    var sjekkPostnr = _db.Poststeder.FindAsync(endreBruker.Postnr); //Sjekker om postnr finnes i posteder tabellen
+                    if (sjekkPostnr == null) //Hvis postnr finnes i poststeder tabellen oppretter den en ny poststed rad i poststeder tabellen
                     {
                         var poststedsRad = new Poststeder();
                         poststedsRad.Postnr = endreBruker.Postnr;
@@ -153,24 +153,24 @@ namespace GhostProjectv2.DAL
                     }
                     else
                     {
-                        endreObjekt.Poststed.Postnr = endreBruker.Postnr;
+                        endreObjekt.Poststed.Postnr = endreBruker.Postnr; //Setter postnr til allerede eksisterende postnr og posted
                     }
                 }
                 endreObjekt.Fornavn = endreBruker.Fornavn;
                 endreObjekt.Etternavn = endreBruker.Etternavn;
                 endreObjekt.Adresse = endreBruker.Adresse;
-                await _db.SaveChangesAsync();
+                await _db.SaveChangesAsync(); //Lagrer endringene
             }
             catch(Exception e)
             {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return false;
             }
             return true;
         }
 
 
-        public static byte[] LagHash(string passord, byte[] salt)
+        public static byte[] LagHash(string passord, byte[] salt) //Tar inn passord og salt og oppretter en hash
         {
             return KeyDerivation.Pbkdf2(
                 password: passord,
@@ -180,7 +180,7 @@ namespace GhostProjectv2.DAL
                 numBytesRequested: 32);
         }
 
-        public static byte[] LagSalt()
+        public static byte[] LagSalt() //Lager et salt
         {
             var csp = new RNGCryptoServiceProvider();
             var salt = new byte[24];
@@ -192,52 +192,26 @@ namespace GhostProjectv2.DAL
         {
             try
             {
-                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == innBruker.Brukernavn);
+                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == innBruker.Brukernavn); //Finner riktig rad i kunder tabellen ved hjelp av brukernavn
 
-                if (funnetKunde == null)
+                if (funnetKunde == null) //Hvis kunden ikke ble funnet returnerer den null
                 {
                     return null;
                 }
-                byte[] hash = LagHash(innBruker.Passord, funnetKunde.Salt);
-                bool ok = hash.SequenceEqual(funnetKunde.Passord);
+                byte[] hash = LagHash(innBruker.Passord, funnetKunde.Salt); //Lager hash ved hjelp av innPassord og salt fra kunder tabellen hvor brukernavn ble funnet
+                bool ok = hash.SequenceEqual(funnetKunde.Passord); //Returnerer true om hashen stemmer overens med den i DB, false om den ikke er riktig
 
-                if (ok)
+                if (ok) //Hvis hashen stemmer, lager den et bruker objekt med brukerid og returnerer
                 {
-                    var returBruker = new Bruker();
+                    var returBruker = new Bruker(); 
                     returBruker.Id = funnetKunde.Id;
                     return returBruker;
                 }
-                return null;
+                return null; //Returner null om hashen ikke stemmer
             }
             catch(Exception e)
             {
-                _log.LogInformation(e.Message);
-                return null;
-            }
-        }
-
-        public async Task<Bruker> HentKundeId(Bruker innBruker)
-        {
-            try
-            {
-                Kunder funnetKunde = await _db.Kunder.FirstOrDefaultAsync(b => b.Brukernavn == innBruker.Brukernavn);
-
-                byte[] hash = LagHash(innBruker.Passord, funnetKunde.Salt);
-                bool ok = hash.SequenceEqual(funnetKunde.Passord);
-
-                if (ok)
-                {
-                    var hentetKunde = new Bruker()
-                    {
-                        Id = funnetKunde.Id,
-                    };
-                    return hentetKunde;
-                }
-                return null;
-            }
-            catch (Exception e)
-            {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return null;
             }
         }

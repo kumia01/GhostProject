@@ -39,7 +39,7 @@ namespace GhostProjectv2.Controllers
         public async Task<ActionResult> HentEn(string data)
         {
             Aksje enAksje = await _dbAksje.HentEn(data);
-            if (enAksje == null)
+            if (enAksje == null) //Hvis aksjen ikke finnes
             {
                 _log.LogInformation("Finner ikke aksjen!");
                 return NotFound("Finner ikke aksjen!");
@@ -51,14 +51,16 @@ namespace GhostProjectv2.Controllers
         public async Task<ActionResult> endrePris(List<Aksje> innAskje)
         {
             bool returOK = await _dbAksje.endrePris(innAskje);
-            if(!returOK)
+            if(!returOK) //Hvis endrepris returnerer false
             {
                 _log.LogInformation("Prisen på aksjene ble ikke endret!");
                 return BadRequest("Prisen på aksjene ble ikke endret!");
             }
             return Ok("Prisen på aksjen ble endret");
         }
-        
+
+
+        //Tar inn en liste med aksjer fra api og lagrer dem i databasen
         public async Task<ActionResult> Lagre([FromBody] List<Aksje> innAksje)
         { 
             bool returOK = await _dbAksje.Lagre(innAksje);

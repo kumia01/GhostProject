@@ -31,7 +31,7 @@ namespace GhostProjectv2.Controllers
         public async Task<ActionResult> Lagre(Bruker innBruker)
         {
             
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //Sjekker regex
             {
                 bool returOK = await _db.Lagre(innBruker);
                 if (!returOK)
@@ -59,12 +59,12 @@ namespace GhostProjectv2.Controllers
         //Sletter en brukerrad ved hjelp av bruker id
         public async Task<ActionResult> Slett(int id)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn))) //Sjekker om bruker er logget inn
             {
                 return Unauthorized("Du er ikke logget inn!");
             }
             bool returOK = await _db.Slett(id);
-            HttpContext.Session.SetString(_loggetInn, "");
+            HttpContext.Session.SetString(_loggetInn, ""); //Setter sessions til logget ut
             if (!returOK)
             {
                 _log.LogInformation("Brukeren ble ikke slettet!");
@@ -76,12 +76,12 @@ namespace GhostProjectv2.Controllers
         //Henter en bruker fra DB ve hjelp av bruker id
         public async Task<ActionResult> HentEn(int id)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn))) //Sjekker at bruker er logget inn
             {
                 return Unauthorized("Ikke logget inn");
             }
             Bruker enBruker = await _db.HentEn(id);
-            if (enBruker == null)
+            if (enBruker == null) //Hvis bruker ikke finnes
             {
                 _log.LogInformation("Fant ikke brukeren!");
                 return NotFound("Fant ikke brukeren!");
@@ -89,14 +89,14 @@ namespace GhostProjectv2.Controllers
             return Ok(enBruker);
         }
 
-        //Endrer en bruker ved hjelp av bruker id og redigerer brukerraden i DB
+        //Tar inn et bruker object og endrer brukeren ved hjelp av bruker id og setter ny bruker informasjon til innbruker sine properties
         public async Task<ActionResult> Endre(Bruker endreBruker)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn))) //Sjekker at bruker er logget inn
             {
                 return Unauthorized("Bruker ikke logget inn!");
             }
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //Sjekker regex
             {
                 bool returOK = await _db.Endre(endreBruker);
                 if (!returOK)
@@ -111,37 +111,28 @@ namespace GhostProjectv2.Controllers
             
         }
 
+        //En bruker logger inn med brukernavn og passord, om det stemmer setter det session til _loggetInn og starter session timeren
         public async Task<ActionResult> LoggInn(Bruker innBruker)
         {
             
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) //Sjekker regex
             {
                 Bruker funnetBruker = await _db.LoggInn(innBruker);
-                if (funnetBruker == null)
+                if (funnetBruker == null) //Hvis brukeren ikke finnes, passord eller brukernavn feil
                 {
                     _log.LogInformation("Innlogging feilet for bruker " + innBruker.Brukernavn + "!");
-                    HttpContext.Session.SetString(_loggetInn, _ikkeLoggetInn);
+                    HttpContext.Session.SetString(_loggetInn, _ikkeLoggetInn); //Setter session til ikke logget inn
                     return Ok(false);
                 }
-                HttpContext.Session.SetString(_loggetInn, _loggetInn);
+                HttpContext.Session.SetString(_loggetInn, _loggetInn); //Starter session
                 return Ok(funnetBruker);
             }
             _log.LogInformation("Feil i inputvalidering!");
             return BadRequest("Feil i inputvalidering på server!");
         }
 
-        public async Task<ActionResult> HentKundeId(Bruker innBruker)
-        {
-            Bruker funnetKunde = await _db.HentKundeId(innBruker);
-            if (funnetKunde == null)
-            {
-                _log.LogInformation("Fant ikke kunden!");
-                return NotFound("Fant ikke kunden!");
-            }
-            return Ok(funnetKunde);
-        }
-
+        //Avslutter session og setter session variabelen til ikkeLoggetinn
         public void LoggUt()
         {
             HttpContext.Session.SetString(_loggetInn, _ikkeLoggetInn);

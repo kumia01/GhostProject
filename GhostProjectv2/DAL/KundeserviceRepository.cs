@@ -21,22 +21,22 @@ namespace GhostProjectv2.DAL
             _log = log;
         }
 
-        public async Task<bool> LagreMelding(Melding innMelding)
+        public async Task<bool> LagreMelding(Melding innMelding) //Tar inn et objekt av melding
         {
             try
             {
-                var nyMeldingRad = new Meldinger();
+                var nyMeldingRad = new Meldinger(); //Opretter nytt objekt av Meldinger og setter innVerdiene
                 nyMeldingRad.Navn = innMelding.Navn;
                 nyMeldingRad.Epost = innMelding.Epost;
                 nyMeldingRad.Melding = innMelding.Tekst;
 
-                _dbMelding.Add(nyMeldingRad);
-                await _dbMelding.SaveChangesAsync();
+                _dbMelding.Add(nyMeldingRad); //Legger til i Db
+                await _dbMelding.SaveChangesAsync(); //Lagrer endringene
                 return true;
             }
             catch(Exception e)
             {
-                _log.LogInformation(e.Message);
+                _log.LogInformation(e.Message); //Logger feilmelding
                 return false;
             }
         }
