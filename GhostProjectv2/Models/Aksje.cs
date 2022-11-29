@@ -12,9 +12,9 @@ namespace GhostProjectv2.Models
         [RegularExpression(@"[a-zA-ZæøåÆØÅ. \-]{2,20}$")]
         public string Selskap { get; set; }
         [RegularExpression(@"[0-9]{1,20}$")]
-        public float Pris { get; set; }
+        public double  Pris { get; set; }
         [RegularExpression(@"[0-9]{1,20}$")]
-        public float gammelPris { get; set; }
+        public double gammelPris { get; set; }
 
     }
 }
