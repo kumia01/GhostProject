@@ -47,7 +47,7 @@ export default class App extends Component {
             <Route path='/tickerBuy' component={TickerBuy} />
             <Route path='/registrer' component={Registrer} />
             <Route path='/historikk' component={Historikk} />
-            <Route path='/profil' component={Profil} />
+            <Route path='/profil' component={() => <Profil data={{userAuthenication: this.userAuthenication.bind(this)}} />} />
             <Route path='/om' component={Om} />
             <Route path='/kundeservice' component={Kundeservice} />
             <Route path='/handel' component={Handel} />

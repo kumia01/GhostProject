@@ -76,9 +76,6 @@ export class Profil extends Component {
         setTimeout(this.hentBruker, 1000);
     }
 
-
-
-
     hentBruker(){
         const kundeid = "id=" + sessionStorage.getItem('kundeId');
         $.get("../Bruker/HentEn?" + kundeid, bruker => {
@@ -110,11 +107,11 @@ export class Profil extends Component {
     }
     slettBruker() {
         const kundeid = "id=" + sessionStorage.getItem('kundeId');
-        $.get("../Bruker/Slett?" + kundeid, function () {
-            
+        $.get("../Bruker/Slett?" + kundeid, ()=>{
             console.log("Bruker slettet!")
             sessionStorage.removeItem('kundeId');
-           
+            this.props.data.userAuthenication();
+            this.setState({render: true})
         })
             .fail(function (feil) {
                 if (feil.status == 401) {
@@ -127,6 +124,7 @@ export class Profil extends Component {
                     return false;
                 }
             });
+        
     }
 
 
@@ -199,10 +197,7 @@ export class Profil extends Component {
                             type="text"
                         />
                         <Button onClick={this.bankUttak}></Button>
-                    </Row >
-                
-            
-            
+                    </Row >   
         }*/
        
         // Returnerer html elementene slik at de skrives ut
@@ -224,19 +219,18 @@ export class Profil extends Component {
                             Etter du har gjort endringene så trykker du på "Endre Bruker".
                             Hvis du ønsker å slette din profil kan du gjøre det ved å trykke på knappen "Slett Bruker" under.
                         </p>
-                        
                     </Col>
 
                     <Col sm="12" md="6" lg="6" xl="6">
                         <h4 className="text-center text-md-center"><strong>Saldo</strong></h4>
-
-                        <p className="text-center text-md-center">Din bokførte saldo er: {this.state.bruker.saldo} NOK</p>
+                        <p className="text-center text-md-center">Din bokførte saldo er: {this.state.bruker.saldo} NOK</p>  
                     </Col>
                 </Row>
-
-                <Row fluid="true">
+                { /*className="pt-noe definerer padding-top"*/}
+                <Row fluid="true" className="pt-3">
                     <Col sm="12" md="6" lg="6" xl="6">
-                        <h4 className="text-center text-md-center" >Innlogget bruker</h4>
+                        <h4 className="text-center text-md-left">Kontoinformasjon</h4>
+                        <hr/>
                         <Form>
                         <FormGroup row>
                             <Label for="brukernavn" sm="2">Brukernavn </Label>
@@ -310,15 +304,15 @@ export class Profil extends Component {
                                 <span id="feilpoststed" style={{ color: "red" }}></span>
                             </Col>
                         </FormGroup>
-                        <FormGroup row>
-                            <Col>
-                                <Button color="danger" onClick={this.slettBruker}>Slett Bruker</Button>
-                            </Col>
-                            <Col>
-                                <Button color="success" onClick={this.endreBruker}>Endre bruker</Button>
-                            </Col>
+                            <FormGroup row>
+                                <Col fluid="true" className="btn-group-vertical pt-3">
+
+                                    <Button color="success" className="btn btn-md mb-2" onClick={this.endreBruker}>Endre bruker</Button>
+                                    <Button color="danger" className="btn btn-md mt-2" onClick={this.slettBruker}>Slett Bruker</Button>
+                                </Col>
                         </FormGroup>
-                    </Form>
+                        </Form>
+
                         {/* Span for eventuelle tilbakemeldinger */}
                         <span id="brukerendret" style={{ color: "green" }}></span>
                         <span id="feil" style={{ color: "red" }}></span>
@@ -328,6 +322,8 @@ export class Profil extends Component {
                         <h4 className="text-center text-md-center">Innskudd og uttak</h4>
 
                         <Row>
+
+                            { /*Tomme kolonner hjelper sentrere elementer i reactstrap*/}
                             <Col></Col>
                             <Col fluid="true" className="btn-group-vertical mt-3" sm="6" md="6" lg="6" xl="6">
                                 <Button className="btn btn-md mb-2" color="primary" onClick={this.settInnPenger}>Utfør Innskudd</Button>{' '}
@@ -339,8 +335,7 @@ export class Profil extends Component {
                                     id="sum"
                                 />
                             </Col>
-                            <Col>
-                            </Col>
+                            <Col></Col>
                         </Row>
                         
                     </Col>

@@ -30,7 +30,7 @@ export class Om extends Component {
                     <h2 className="text-center pb-3"><strong>Om oss</strong></h2>
 
                     {/* Henter bildet fra id gitt i import */}
-                    <img src={oslomet} width="450" className="oslomet" />
+                    <img src={oslomet} className="oslomet" />
 
                     {/* Tekst */}
                     <p>

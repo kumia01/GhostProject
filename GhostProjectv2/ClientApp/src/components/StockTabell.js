@@ -1,6 +1,6 @@
 ﻿import React, { Component, useState, useEffect } from 'react';
 import{ Redirect } from 'react-router-dom';
-import { Table, Button } from 'reactstrap';
+import { Table, Button, Input } from 'reactstrap';
 import axios from "axios";
 import $ from 'jquery';
 const options = {
@@ -11,8 +11,6 @@ const options = {
 	  'X-RapidAPI-Host': 'latest-stock-price.p.rapidapi.com'
 	}
   };
-
-
 
 
 /*axios.request(options)
@@ -116,7 +114,7 @@ export class StockTabell extends Component {
 	}
 
     render() {
-		let data = this.state.list.slice(0,10).map((i,key) =>{
+		let data = this.state.list.slice(this.props.data.random, this.props.data.random + 10).map((i,key) =>{
 			return(
 				<tr key={key}>
 					<th>{key+1}</th>
@@ -124,7 +122,7 @@ export class StockTabell extends Component {
 					<td>{i.selskap}</td>
 					<td>{i.pris + " NOK"}</td>
 					<td>{i.gammelPris + " NOK"}</td>
-					<td><Button color="success" onClick={this.buy.bind(this, i.ticker)} >kjøp</Button></td>
+					<td><Button color="success" onClick={this.buy.bind(this, i.ticker)} >Kjøp</Button></td>
 				</tr>
 			);
 		});
@@ -132,8 +130,8 @@ export class StockTabell extends Component {
 		return (
 			<div>
 				{this.renderRedirect()}
-				<Table responsive>
-					<thead><tr><th>#</th><th>Ticker</th><th>Aksje</th><th>pris</th><th>gammel pris</th></tr></thead>
+				<Table responsive className="table table-hover">
+					<thead><tr><th>#</th><th>Ticker</th><th>Aksje</th><th>Pris</th><th>Gammel pris</th></tr></thead>
 					<tbody>
 						{data}
 					</tbody>
