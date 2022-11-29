@@ -70,3 +70,29 @@ Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updatin
    at GhostProjectv2.DAL.TransaksjonRepository.EndreSaldo(Transaksjon innTransaksjon) in C:\Users\ivann\Source\Repos\kumia01.github.io\GhostProjectv2\DAL\TransaksjonRepository.cs:line 254
 2022-11-29T15:20:41.7791592+01:00 40000006-0002-fe00-b63f-84710c7967bb [INF] An error occurred while updating the entries. See the inner exception for details. (5d65ae99)
 2022-11-29T15:20:41.7792779+01:00 40000006-0002-fe00-b63f-84710c7967bb [INF] Saldoen ble ikke endret! (9686585a)
+2022-11-29T15:44:44.7473525+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-29T15:44:44.7592863+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-29T15:44:44.7594892+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
+2022-11-29T15:44:50.6889122+01:00  [ERR] (node:3920) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (65d3a0c6)
+2022-11-29T15:44:50.6904860+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:3920) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (26377c2f)
+2022-11-29T15:45:07.7971116+01:00 4000000f-0005-ff00-b63f-84710c7967bb [INF] Innlogging feilet for bruker ivanna123! (b100dfcd)
+2022-11-29T15:48:26.5959160+01:00 40000015-0004-ff00-b63f-84710c7967bb [INF] Ikke tilstrekkelig beløp på konto! (b7952b48)
+2022-11-29T15:48:26.5962205+01:00 40000015-0004-ff00-b63f-84710c7967bb [INF] Transaksjonen ble ikke lagret! (63168bfe)
+2022-11-29T15:49:07.9682408+01:00 4000000c-0000-fb00-b63f-84710c7967bb [INF] Ikke tilstrekkelig beløp på konto! (b7952b48)
+2022-11-29T15:49:07.9685004+01:00 4000000c-0000-fb00-b63f-84710c7967bb [INF] Transaksjonen ble ikke lagret! (63168bfe)
+2022-11-29T15:49:09.8385174+01:00 4000001a-0006-fe00-b63f-84710c7967bb [INF] Ikke tilstrekkelig beløp på konto! (b7952b48)
+2022-11-29T15:49:09.8389886+01:00 4000001a-0006-fe00-b63f-84710c7967bb [INF] Transaksjonen ble ikke lagret! (63168bfe)
+2022-11-29T15:49:12.3504726+01:00 40000012-0002-fe00-b63f-84710c7967bb [INF] Ikke tilstrekkelig beløp på konto! (b7952b48)
+2022-11-29T15:49:12.3508217+01:00 40000012-0002-fe00-b63f-84710c7967bb [INF] Transaksjonen ble ikke lagret! (63168bfe)
+2022-11-29T16:37:27.8472764+01:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-11-29T16:37:27.8607640+01:00  [INF] Hosting environment: "Development" (c3307c92)
+2022-11-29T16:37:27.8613329+01:00  [INF] Content root path: "C:\Users\ivann\Source\Repos\kumia01.github.io\GhostProjectv2" (b5d60022)
+2022-11-29T16:37:34.5636876+01:00  [ERR] (node:8476) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (fe5ccf37)
+2022-11-29T16:37:34.5644824+01:00  [ERR] (Use `node --trace-deprecation ...` to show where the warning was created)
+(node:8476) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+ (2ed385d0)
+2022-11-29T16:44:30.6832602+01:00 4000000a-0001-fe00-b63f-84710c7967bb [INF] Innlogging feilet for bruker ivanna123! (b100dfcd)
