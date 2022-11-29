@@ -70,7 +70,7 @@ export class Home extends Component {
                 { /* Rad for aksjetabell */ }
                 <Row>
                     <Col></Col>
-                    <Col sm="12" md="10" lg="10" xl="10">
+                    <Col sm="12" md="12" lg="12" xl="12">
                         <StockTabell data={{random: random()}} />
                     </Col>
                     <Col></Col>

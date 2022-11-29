@@ -130,7 +130,7 @@ export class StockTabell extends Component {
 		return (
 			<div>
 				{this.renderRedirect()}
-				<Table className="table-responsive table table-hover">
+				<Table responsive className="table table-hover">
 					<thead><tr><th>#</th><th>Ticker</th><th>Aksje</th><th>Pris</th><th>Gammel pris</th></tr></thead>
 					<tbody>
 						{data}
