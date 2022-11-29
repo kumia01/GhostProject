@@ -55,7 +55,7 @@ export class StockTabell extends Component {
 			})
 		})
 		.catch(function (error) {
-			console.error(error);
+			console.error("Feil i db - " + error);
 		});
 	}
 
@@ -118,7 +118,7 @@ export class StockTabell extends Component {
 
 	// Funksjon som kontrollerer container noden du står i
     render() {
-		let data = this.state.list.slice(this.props.data.random, this.props.data.random + 10).map((i,key) =>{
+		let data = this.state.list.slice(this.props.data.random, this.props.data.random + this.props.data.max).map((i,key) =>{
 			return(
 				<tr key={key}>
 					<th>{key+1}</th>

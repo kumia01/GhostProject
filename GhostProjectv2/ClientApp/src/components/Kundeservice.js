@@ -52,6 +52,13 @@ export class Kundeservice extends Component {
 
     // Setter displayName til Kundeservice for eventuelle debugging meldinger
     static displayName = Kundeservice.name;
+    constructor(props){
+        super(props)
+
+        this.this={
+            render: true
+        }
+    }
 
     // Funksjonen sendMelding() skal sende innholdet etter inputvalidering er godkjent
     sendMelding() {
@@ -64,8 +71,8 @@ export class Kundeservice extends Component {
         // Sjekker validering
         console.log(melding);
         if (validering(melding) == true) {
-            $.post("../Kundeservice/Lagre", melding, function () {
-                console.log("Melding lagret!");
+            $.post("../Kundeservice/LagreMelding", melding,() => {
+                document.getElementById("meldingSendt").textContent = "Melding sendt";
             })
                 .fail(function (feil) {
                      console.log("Feil på server!");
@@ -97,28 +104,32 @@ export class Kundeservice extends Component {
 
                         { /* Bruker Form fra reactstrap for å strukturere input-feltene */ }
                         <Form>
+                            <FormGroup>
+                                { /* Label fungerer som en indikasjon på hva som skal stå i input-felt */}
+                                <Label>Fullt navn</Label>
 
-                            { /* Label fungerer som en indikasjon på hva som skal stå i input-felt */}
-                            <Label>Fullt navn</Label>
+                                { /* Input-felt for å ta inn en verdi som inputvalideres */}
+                                <Input type="text" id="inpName" />
 
-                            { /* Input-felt for å ta inn en verdi som inputvalideres */}
-                            <Input type="text" id="inpName" />
-
-                            { /* Span brukes for å sende ut en eventuell feilmelding hvis inputvalidering feiler */}
-                            <span style={{ color: "Red" }} id="feilNavn"></span>
-
-                            { /* Input-felt for email */ }
-                            <Label>E-post</Label>
-                            <Input type="email" id="inpEmail" />
-                            <span style={{ color: "Red" }} id="feilMail"></span>
-
-                            { /* Input-felt for melding */ }
-                            <Label>Hva kan vi hjelpe deg med?</Label>
-                            <Input id="message" type="textarea" name="message" />
-                            <span style={{ color: "Red" }} id="feilMelding"></span>
-
-                            { /* Knapp for å sende informasjon fra Form, kaller på funksjonen sendMelding */}
-                            <Button className="btn btn-primary" id="btnSend" onClick={this.sendMelding}>Send</Button>
+                                { /* Span brukes for å sende ut en eventuell feilmelding hvis inputvalidering feiler */}
+                                <span style={{ color: "Red" }} id="feilNavn"></span>
+                            </FormGroup>
+                            <FormGroup>
+                                { /* Input-felt for email */ }
+                                <Label>E-post</Label>
+                                <Input type="email" id="inpEmail" />
+                                <span style={{ color: "Red" }} id="feilMail"></span>
+                            </FormGroup>
+                            <FormGroup>
+                                { /* Input-felt for melding */ }
+                                <Label>Hva kan vi hjelpe deg med?</Label>
+                                <Input id="message" type="textarea" name="message" />
+                                <span style={{ color: "Red" }} id="feilMelding"></span>
+                            </FormGroup>
+                            <FormGroup>
+                                { /* Knapp for å sende informasjon fra Form, kaller på funksjonen sendMelding */}
+                                <Button className="btn btn-primary" id="btnSend" onClick={this.sendMelding}>Send</Button>
+                            </FormGroup>
 
                             { /* Span for eventuelle feilmeldinger */}
                             <span style={{ color: "Black" }} id="meldingSendt"></span>

@@ -18,6 +18,7 @@ namespace GhostProjectv2.Controllers
         private ILogger<BrukerController> _log;
 
         public const string _loggetInn = "loggetInn";
+        public const string _ikkeLoggetInn = "";
 
         public BrukerController(IBrukerRepository db, ILogger<BrukerController> log)
         {
@@ -52,7 +53,7 @@ namespace GhostProjectv2.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn");
             }
             List<Bruker> alleBrukere = await _db.HentAlle();
             return Ok(alleBrukere);
@@ -63,7 +64,7 @@ namespace GhostProjectv2.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Du er ikke logget inn!");
             }
             bool returOK = await _db.Slett(id);
             HttpContext.Session.SetString(_loggetInn, "");
@@ -80,7 +81,7 @@ namespace GhostProjectv2.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Ikke logget inn");
             }
             Bruker enBruker = await _db.HentEn(id);
             if (enBruker == null)
@@ -96,7 +97,7 @@ namespace GhostProjectv2.Controllers
         {
             if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
             {
-                return Unauthorized();
+                return Unauthorized("Bruker ikke logget inn!");
             }
             if (ModelState.IsValid)
             {
@@ -115,10 +116,7 @@ namespace GhostProjectv2.Controllers
 
         public async Task<ActionResult> LoggInn(Bruker innBruker)
         {
-            if (HttpContext.Session.GetString(_loggetInn) == "LoggetInn")
-            {
-                return Unauthorized();
-            }
+            
 
             if (ModelState.IsValid)
             {
@@ -126,10 +124,10 @@ namespace GhostProjectv2.Controllers
                 if (funnetBruker == null)
                 {
                     _log.LogInformation("Innlogging feilet for bruker " + innBruker.Brukernavn + "!");
-                    HttpContext.Session.SetString(_loggetInn, "");
-                    return NotFound();
+                    HttpContext.Session.SetString(_loggetInn, _ikkeLoggetInn);
+                    return Ok(false);
                 }
-                HttpContext.Session.SetString(_loggetInn, "LoggetInn");
+                HttpContext.Session.SetString(_loggetInn, _loggetInn);
                 return Ok(funnetBruker);
             }
             _log.LogInformation("Feil i inputvalidering!");
@@ -149,7 +147,7 @@ namespace GhostProjectv2.Controllers
 
         public void LoggUt()
         {
-            HttpContext.Session.SetString(_loggetInn, "");
+            HttpContext.Session.SetString(_loggetInn, _ikkeLoggetInn);
         }
     }
 }

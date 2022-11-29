@@ -72,7 +72,7 @@ export class Handel extends Component {
                     <Col sm="12" md="12" lg="12" xl="12" className="text-center">
 
                         { /* Printer ut innholdet fra klassen StockTabell.js */ }
-                        <StockTabell data = {{random: this.state.random}}/>
+                        <StockTabell data = {{random: this.state.random, max: 20}}/>
                     </Col>
                 </Row>
             </Container>

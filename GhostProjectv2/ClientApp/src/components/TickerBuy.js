@@ -16,6 +16,7 @@ export class TickerBuy extends Component {
         super(props)
         this.state = {
             data: sessionStorage.getItem('ticker'),
+            render: false,
             ticker: {},
             bruker: {},
             value: 0,
@@ -33,12 +34,14 @@ export class TickerBuy extends Component {
     }
 
     renderRedirect(){
-        if(!sessionStorage.getItem('ticker')){
-            return <Redirect to='/tickerBuy' />
+        if(sessionStorage.getItem('ticker') == null){
+            return <Redirect to='/Handel' />
+        }else if(this.state.render){
+            return <Redirect to='/Handel' />
         }
     }
     checklogin(){
-        if(sessionStorage.getItem('kundId') == null ){
+        if(sessionStorage.getItem('kundeId') == null ){
             return <Redirect to='/Login' />
         }
     }
@@ -62,7 +65,6 @@ export class TickerBuy extends Component {
             this.setState({bruker: {
                 saldo: Math.round(bruker.saldo * 100) / 100,
             }})
-            console.log(this.state.bruker)
         })
     }
     kjøpAksje() {
@@ -77,11 +79,11 @@ export class TickerBuy extends Component {
         const valTicker = validerTickerbuy(this.state.value)
 
        if(valTicker){
-            $.post('../Transaksjon/Lagre', transaksjon, function () {
-                console.log("TransaksjonLagret");
+            $.post('../Transaksjon/Lagre', transaksjon,() => {
+                this.setState({render: true})
             })
             .fail(function (feil) {
-                console.log(feil);
+                console.log("feil i db - " + feil);
             });
        }
         
