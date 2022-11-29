@@ -47,6 +47,7 @@ export class StockTabell extends Component {
 		//this.callAPI();
 	}
 
+	//funksjon hvor den henter alle lister av aksje
 	callAskjeListe(){
 		axios.get('../Aksje/HentAlle')
 		.then((response) => {
@@ -103,12 +104,12 @@ export class StockTabell extends Component {
 
 	
 	
-	
+	//funksjon hvor lagring av ticker og sendter til kjøpe side
 	buy(ticker){
 		sessionStorage.setItem('ticker', ticker)
 		this.setState({redirect: true})
 	}
-
+	//sender deg til kjøpe side
 	renderRedirect(){
 		if(this.state.redirect){
 			return <Redirect to='/tickerBuy' />
@@ -118,6 +119,7 @@ export class StockTabell extends Component {
 
 	// Funksjon som kontrollerer container noden du står i
     render() {
+		//formaterer Aksje listen og legger det inn i data variablen
 		let data = this.state.list.slice(this.props.data.random, this.props.data.random + this.props.data.max).map((i,key) =>{
 			return(
 				<tr key={key}>
@@ -133,10 +135,12 @@ export class StockTabell extends Component {
 	
 		return (
 			<div>
+				{/*kjører funksjonen */}
 				{this.renderRedirect()}
 				<Table responsive className="table table-hover">
 					<thead><tr><th>#</th><th>Ticker</th><th>Aksje</th><th>Pris</th><th>Gammel pris</th></tr></thead>
 					<tbody>
+						{/*returnerer formateringen */}
 						{data}
 					</tbody>
 				</Table>

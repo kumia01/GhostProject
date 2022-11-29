@@ -13,12 +13,15 @@ export class Handel extends Component {
 
     // Setter displayName til Handel for eventuelle debugging meldinger
     static displayName = Handel.name;
+    
 
     constructor(props){
         super(props)
         this.state={
+            //lager en random verdi
             random: (Math.random()*790)
         }
+        //instansierer funksjonen og binder til this
         this.nyListe = this.nyListe.bind(this)
     }
 

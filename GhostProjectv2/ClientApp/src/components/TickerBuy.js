@@ -33,6 +33,7 @@ export class TickerBuy extends Component {
         this.renderRedirect()
     }
 
+    //sender siden til handel av if tester
     renderRedirect(){
         if(sessionStorage.getItem('ticker') == null){
             return <Redirect to='/Handel' />
@@ -40,11 +41,15 @@ export class TickerBuy extends Component {
             return <Redirect to='/Handel' />
         }
     }
+
+    //sjekker om lokalt om du er logget inn
     checklogin(){
         if(sessionStorage.getItem('kundeId') == null ){
             return <Redirect to='/Login' />
         }
     }
+
+    //henter en ticker ut i fra lagrede tickern fra lokal
     hentEn(){
         $.get('../Aksje/HentEn',{data: this.state.data}, (response) => {
             this.setState({ticker: {
@@ -58,7 +63,8 @@ export class TickerBuy extends Component {
 
         })
     }
-
+    
+    //henter bruker og lagrer saldo
     hentBruker(){
         const kundeid = "id=" + sessionStorage.getItem('kundeId');
         $.get("../Bruker/HentEn?" + kundeid, bruker => {
@@ -67,8 +73,11 @@ export class TickerBuy extends Component {
             }})
         })
     }
+
+    //kjøper aksje
     kjøpAksje() {
 
+        //instansierer transaksjon
         const transaksjon = {
             ticker: this.state.ticker.ticker,
             volum: this.state.value,
@@ -76,9 +85,11 @@ export class TickerBuy extends Component {
             brukereId: sessionStorage.getItem('kundeId'),
             flereAksjerId: this.state.ticker.id
         }
+        //validerer input av tickerbuy
         const valTicker = validerTickerbuy(this.state.value)
 
        if(valTicker){
+            //sender transaksjon
             $.post('../Transaksjon/Lagre', transaksjon,() => {
                 this.setState({render: true})
             })
@@ -88,7 +99,7 @@ export class TickerBuy extends Component {
        }
         
     }
-
+    //endrer på verdien hver gang input blir endret
     handleChange(event){
         this.setState({ value: event.target.value })
     }
@@ -99,6 +110,7 @@ export class TickerBuy extends Component {
         return (
             
             <Container>
+                {/*kjører funksjonene */}
                 {this.renderRedirect()}
                 {this.checklogin()}
                 <Row fluid="true" className="justify-content-md-center">

@@ -11,7 +11,7 @@ export class NavMenu extends Component {
     // Setter displayName til NavMenu for eventuelle feilmeldinger
     static displayName = NavMenu.name;
 
-    // Konstrukt�r
+    // Konstruktør
     constructor (props) {
         super(props);
 
@@ -34,7 +34,7 @@ export class NavMenu extends Component {
         });
     }
 
-    // Setter status til true og s� tilbake til false for � kunne laste navbar p� nytt
+    // Setter status til true og så tilbake til false for å kunne laste navbar på nytt
     redirectBruker() {
         this.props.data.userAuthenication();
         this.setState({ redirect: true });
@@ -51,7 +51,7 @@ export class NavMenu extends Component {
         }
     }
 
-    // Funksjon som kontrollerer noden du st�r i
+    // Funksjon som kontrollerer noden du står i
     render() {
 
         // Sjekker om bruker er logget inn, hvis ikke skal den sendes til innlogging
@@ -62,7 +62,7 @@ export class NavMenu extends Component {
         // Returnerer html elementene slik at de skrives ut
         return (
 
-            // Alle elementene skal ligge �verst i siden, derfor brukes elementet header
+            // Alle elementene skal ligge øverst i siden, derfor brukes elementet header
             <header>
 
                 { /* Navbar */ }
@@ -74,7 +74,7 @@ export class NavMenu extends Component {
                         { /* Logo */ }
                         <NavbarBrand tag={Link} href="/" id="logo" to="/"><img src={logo} style={{ widht: "40px", height: "40px" }} /></NavbarBrand>
 
-                        { /* Muligheten til � skru av navbar */ }
+                        { /* Muligheten til å skru av navbar */ }
                         <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
 
                         { /* Collapse */  }
@@ -83,7 +83,7 @@ export class NavMenu extends Component {
                             { /* Uorganisert liste */ }
                             <ul className="navbar-nav flex-grow">
 
-                                { /* Elementer i navbar vil enten v�re NavItem eller Dropdown */ }
+                                { /* Elementer i navbar vil enten være NavItem eller Dropdown */ }
                                 <NavItem>
                                     <NavLink tag={Link} id="navText" to="/om">Om Oss</NavLink>
                                 </NavItem>

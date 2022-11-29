@@ -68,7 +68,7 @@ export class Kundeservice extends Component {
             tekst: $("#message").val()
         }
 
-        // Sjekker validering
+        // Sjekker validering og sender kunde melding til server
         console.log(melding);
         if (validering(melding) == true) {
             $.post("../Kundeservice/LagreMelding", melding,() => {
