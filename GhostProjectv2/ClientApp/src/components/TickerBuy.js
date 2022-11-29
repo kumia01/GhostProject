@@ -51,7 +51,7 @@ export class TickerBuy extends Component {
         const transaksjon = {
             ticker: this.state.ticker.ticker,
             volum: this.state.value,
-            pris: this.state.ticker.pris,
+            pris: parseInt(this.state.ticker.pris),
             brukereId: sessionStorage.getItem('kundeId'),
             flereAksjerId: this.state.ticker.id
         }
