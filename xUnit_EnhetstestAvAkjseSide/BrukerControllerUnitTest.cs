@@ -29,6 +29,48 @@ namespace xUnit_EnhetstestAvAkjseSide
         public async Task HentAlleOk()
         {
             var brukerController = new BrukerController(mockRep.Object, mockLog.Object);
+
+            var bruker1 = new Bruker
+            {
+                Fornavn = "Arnold",
+                Etternavn = "Braunschweiger",
+                Adresse = "Parkveien 11",
+                Postnr = "2234",
+                Poststed = "Oslo",
+                Saldo = 0
+            };
+            var bruker2 = new Bruker
+            {
+                Id = 2,
+                Fornavn = "Storme",
+                Etternavn = "Gresvik",
+                Adresse = "Grenlandsveien 22",
+                Postnr = "2123",
+                Poststed = "Oslo",
+                Saldo = 1000
+
+            };
+            var bruker3 = new Bruker
+            {
+                Id = 3,
+                Fornavn = "Slim",
+                Etternavn = "Jimmy",
+                Adresse = "Slependen 82",
+                Postnr = "2310",
+                Poststed = "Oslo",
+                Saldo = 1792768
+            };
+
+            var brukerList = new List<Bruker>();
+            brukerList.Add(bruker1);
+            brukerList.Add(bruker2);
+            brukerList.Add(bruker3);
+
+            var mock = new Mock<IBrukerRepository>();
+            mock.Setup(b => b.HentAlle()).ReturnsAsync(brukerList);
+           
+
+
         }
     }
 }
