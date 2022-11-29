@@ -1,9 +1,9 @@
 ﻿{/* Imports */}
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component} from 'react';
 import{ Redirect } from 'react-router-dom';
-import { Table, Button, Input } from 'reactstrap';
+import { Table, Button } from 'reactstrap';
 import axios from "axios";
-import $ from 'jquery';
+
 const options = {
 	method: 'GET',
 	url: 'https://latest-stock-price.p.rapidapi.com/any',

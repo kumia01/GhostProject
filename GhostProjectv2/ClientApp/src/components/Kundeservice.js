@@ -7,8 +7,6 @@ import { Button, Form, FormGroup, Container, Col, Row, Label, Input, } from 'rea
 {/* Importerer jquery biblioteket for inputvalidering */}
 import $ from 'jquery';
 
-import artboard from '../img/Artboard.png';
-
 
 // Funksjon som skal brukes til validering
 function validering(melding) {

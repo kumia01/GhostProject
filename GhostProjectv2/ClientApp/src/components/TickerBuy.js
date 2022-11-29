@@ -4,7 +4,6 @@ import {Container, Row, Col, Form, FormGroup, Input, Label, Button, InputGroup} 
 import $ from 'jquery';
 {/* Henter funksjoner fra js komponenten Validering */ }
 import { validerTickerbuy } from './Validering';
-import { isThisTypeNode } from 'typescript';
 
 
 

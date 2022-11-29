@@ -8,7 +8,7 @@ import { Container, Col, Row } from 'reactstrap';
 import './Footer.css'
 
 {/* Importerer funksjonalitet fra react-router-dom, gir muligheten til å bytte komponent */}
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Js klassen Footer arver fra superklassen Component
 export class Footer extends Component {
