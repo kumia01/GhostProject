@@ -12,7 +12,7 @@ namespace xUnit_EnhetstestAvAkjseSide
 {
     public class BrukerTest
     {
-        [Fact]
+        /*[Fact]
         public async Task HentAlle()
         {
             var bruker1 = new Bruker
@@ -133,7 +133,7 @@ namespace xUnit_EnhetstestAvAkjseSide
             var brukerController = new BrukerController(mock.Object);
             bool result = await brukerController.Slett(1);
             Assert.True(result);
-        }
+        }*/
 
     }
 }
