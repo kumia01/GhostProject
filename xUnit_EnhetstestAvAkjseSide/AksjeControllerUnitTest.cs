@@ -17,16 +17,8 @@ namespace xUnit_EnhetstestAvAkjseSide
 {
     public class AksjeControllerUnitTest
     {
-        private const string _loggetInn = "loggetInn";
-        private const string _ikkeLoggetInn = "";
-
         private readonly Mock<IAksjeRepository> mockRep = new Mock<IAksjeRepository>();
         private readonly Mock<ILogger<AksjeController>> mockLog = new Mock<ILogger<AksjeController>>();
-
-        private readonly Mock<HttpContext> mockHttpContext = new Mock<HttpContext>();
-        private readonly MockHttpSession mockSession = new MockHttpSession();
-
-
 
         [Fact]
         public async Task HentAlleOK()
@@ -91,15 +83,6 @@ namespace xUnit_EnhetstestAvAkjseSide
         public async Task endrePrisOK()
         {
             //Arrange
-            var aksje1 = new Aksje { Id = 1, Ticker = "TRAB", Selskap = "Trabanzospor", Pris = 10, gammelPris = 20 };
-            var aksje2 = new Aksje { Id = 2, Ticker = "LSK", Selskap = "Lillestrøm Sportsklubb", Pris = 6900, gammelPris = 68 };
-            var aksje3 = new Aksje { Id = 3, Ticker = "GOBA", Selskap = "GoBastards", Pris = 1, gammelPris = 2 };
-
-            var aksjeList = new List<Aksje>();
-            aksjeList.Add(aksje1);
-            aksjeList.Add(aksje2);
-            aksjeList.Add(aksje3);
-
             mockRep.Setup(k => k.endrePris(It.IsAny<List<Aksje>>())).ReturnsAsync(true);
 
             var aksjeController = new AksjeController(mockRep.Object, mockLog.Object);
@@ -110,6 +93,55 @@ namespace xUnit_EnhetstestAvAkjseSide
             //Assert
             Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
             Assert.Equal("Prisen på aksjen ble endret", resultat.Value);
+        }
+
+        [Fact]
+        public async Task endrePrisIkkeOK()
+        {
+            //Arrange
+            mockRep.Setup(k => k.endrePris(It.IsAny<List<Aksje>>())).ReturnsAsync(false);
+
+            var aksjeController = new AksjeController(mockRep.Object, mockLog.Object);
+
+            //Act
+            var resultat = await aksjeController.endrePris(It.IsAny<List<Aksje>>()) as BadRequestObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.BadRequest, resultat.StatusCode);
+            Assert.Equal("Prisen på aksjene ble ikke endret!", resultat.Value);
+
+        }
+
+        [Fact]
+        public async Task LagreOK()
+        {
+            //Arrange
+            mockRep.Setup(k => k.Lagre(It.IsAny<List<Aksje>>())).ReturnsAsync(true);
+
+            var aksjeController = new AksjeController(mockRep.Object, mockLog.Object);
+
+            //Act
+            var resultat = await aksjeController.Lagre(It.IsAny<List<Aksje>>()) as OkObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.OK, resultat.StatusCode);
+            Assert.Equal("Aksjer lagret inn i databasen", resultat.Value);
+        }
+
+        [Fact]
+        public async Task LagreIkkeOK()
+        {
+            //Arrange
+            mockRep.Setup(k => k.Lagre(It.IsAny<List<Aksje>>())).ReturnsAsync(false);
+
+            var aksjeController = new AksjeController(mockRep.Object, mockLog.Object);
+
+            //Act
+            var resultat = await aksjeController.Lagre(It.IsAny<List<Aksje>>()) as BadRequestObjectResult;
+
+            //Assert
+            Assert.Equal((int)HttpStatusCode.BadRequest, resultat.StatusCode);
+            Assert.Equal("akjser ikke lagret!", resultat.Value);
         }
     }
 }
