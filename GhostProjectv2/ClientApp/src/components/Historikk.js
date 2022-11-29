@@ -1,9 +1,11 @@
 ﻿{/* Imports */ }
 import React, { Component } from 'react';
+import{ Redirect } from 'react-router-dom';
 import axios from "axios";
 
 {/* Henter nødvendig funksjonalitet fra reactstrap */ }
 import { Container, Button, ButtonGroup, ButtonToolbar, Row, Col, Table} from 'reactstrap';
+import { isSetAccessorDeclaration } from 'typescript';
 
 {/* Js klassen Handel arver fra superklassen Component */ }
 export class Historikk extends Component {
@@ -18,6 +20,7 @@ export class Historikk extends Component {
             visAksjer: false,
             visInnskudd: false,
             visHistorikk: false,
+            redirect: false,
             aksjeList: [],
             innskuddUttakList: [],
             aksjeKjøpt: {
@@ -48,6 +51,12 @@ export class Historikk extends Component {
             })
 
     }
+
+    sell(ticker, volum){
+        sessionStorage.setItem('maxVolum', volum)
+		sessionStorage.setItem('tickerSell', ticker)
+		this.setState({redirect: true})
+	}
 
     callAksjeKjøpListe() {
         const id = "brukerId=" + sessionStorage.getItem('kundeId');
@@ -100,7 +109,12 @@ export class Historikk extends Component {
             visHistorikk: true
         });
     }
-
+    renderRedirect(){
+		if(this.state.redirect){
+			return <Redirect to='/tickerSell' />
+			
+		}
+	}
 
 
     // Funksjon som kontrollerer container noden du står i
@@ -114,7 +128,7 @@ export class Historikk extends Component {
                        <td>{i.ticker}</td>
                        <td>{i.pris}</td>
                        <td>{i.volum}</td>
-                       <td><Button color='danger'>Selg</Button></td>
+                       <td><Button color='danger' onClick={this.sell.bind(this, i.ticker, i.volum)}>Selg</Button></td>
                      </tr>
                 );
             });
@@ -152,7 +166,7 @@ export class Historikk extends Component {
 
             // Div som inneholder html elementene til siden
             <div>
-
+                {this.renderRedirect()}
                 {/* Tekst element */}
                 <p>Overføringer</p>
 

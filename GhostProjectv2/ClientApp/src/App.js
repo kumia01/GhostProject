@@ -12,6 +12,7 @@ import { Profil } from './components/Profil';
 import { Om } from './components/Om';
 import { Kundeservice } from './components/Kundeservice';
 import { Images } from './components/Images';
+import { TickerSell } from './components/TickerSell';
 
 
 export function check(){
@@ -33,8 +34,8 @@ export default class App extends Component {
   }
 
   userAuthenication(item){
-    console.log("koden blir kjørt")
-    this.setState({user: !this.state.user})
+    this.setState({user: check()})
+  
   }
 
   render () {
@@ -51,6 +52,7 @@ export default class App extends Component {
             <Route path='/kundeservice' component={Kundeservice} />
             <Route path='/handel' component={Handel} />
             <Route path='/images' component={Images} />
+            <Route path='/tickerSell' component={TickerSell} />
       </Layout>
     );
   }
