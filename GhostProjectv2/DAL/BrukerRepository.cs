@@ -241,51 +241,5 @@ namespace GhostProjectv2.DAL
                 return null;
             }
         }
-
-        public async Task<bool> EndreSaldo(Bruker innBruker)
-        {
-            try
-            {
-                var endreObjekt = await _db.Brukere.FindAsync(innBruker.Id);
-                var totalPris = -1 * innBruker.Saldo;
-                var nyTransaksjonRad = new Transaksjoner();
-
-                if (innBruker.Saldo > 0) //Hvis saldoen som kommer inn er større enn 0 betyr det at bruker gjør inntak
-                {
-                    endreObjekt.Saldo = endreObjekt.Saldo + innBruker.Saldo;
-                    nyTransaksjonRad.Volum = Convert.ToInt32(innBruker.Saldo);
-                    nyTransaksjonRad.Pris = 1;
-                    nyTransaksjonRad.BrukereId = innBruker.Id;
-                    nyTransaksjonRad.Ticker = "NOK";
-
-                }
-                else if (innBruker.Saldo < 0) //Hvis saldoen er negativ betyr det at bruker gjør et uttak
-                {
-                    if (innBruker.Saldo - totalPris >= 0) //Hvis bruker har nok på konto til å gjøre ønsket uttak
-                    {
-                        endreObjekt.Saldo = endreObjekt.Saldo + innBruker.Saldo;
-                        nyTransaksjonRad.Volum = Convert.ToInt32(innBruker.Saldo);
-                        nyTransaksjonRad.Pris = 1;
-                        nyTransaksjonRad.BrukereId = innBruker.Id;
-                        nyTransaksjonRad.Ticker = "NOK";
-                    }
-                    else
-                    {
-                        _log.LogInformation("Ikke nok penger til uttak!");
-                        return false;
-                    }
-                }
-
-                _db.Transaksjoner.Add(nyTransaksjonRad);
-                endreObjekt.Saldo = endreObjekt.Saldo + innBruker.Saldo;
-                await _db.SaveChangesAsync();
-            }
-            catch(Exception e)
-            {
-                _log.LogInformation(e.Message);
-                return false;
-            }
-            return true;
-        }
     }
 }

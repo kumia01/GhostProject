@@ -147,26 +147,6 @@ namespace GhostProjectv2.Controllers
             return Ok(funnetKunde);
         }
 
-        public async Task<ActionResult> EndreSaldo(Bruker innBruker)
-        {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(_loggetInn)))
-            {
-                return Unauthorized();
-            }
-            if (ModelState.IsValid)
-            {
-                bool returOK = await _db.EndreSaldo(innBruker);
-                if (!returOK)
-                {
-                    _log.LogInformation("Saldoen ble ikke endret!");
-                    return BadRequest("Saldoen ble ikke endret!");
-                }
-                return Ok("Saldoen endret");
-            }
-            _log.LogInformation("Feil i inputvalidering!");
-            return BadRequest("Feil i inputvalidering!");
-        }
-
         public void LoggUt()
         {
             HttpContext.Session.SetString(_loggetInn, "");
