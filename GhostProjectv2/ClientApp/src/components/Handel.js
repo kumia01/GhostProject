@@ -54,8 +54,7 @@ export class Handel extends Component {
                 {/* Rad for tabellen */}
                 <Row>
                     {/* Bruker bare en kolonne siden tabellen skal ta opp hele siden */}
-                    <Col sm="12" md="12" lg="12" xl="12">
-                        <h5 className="text-center">Værsåsnill kjøp</h5>
+                    <Col sm="12" md="12" lg="12" xl="12" className="text-center">
 
                         {/* Printer ut innholdet fra klassen StockTabell.js */}
                         <StockTabell />

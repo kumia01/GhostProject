@@ -25,6 +25,7 @@ export class Profil extends Component {
             bruker: {},
             render: false
         }
+
         this.renderRedirect = this.renderRedirect.bind(this)
         this.hentBruker = this.hentBruker.bind(this)
         this.slettBruker = this.slettBruker.bind(this)
@@ -217,9 +218,12 @@ export class Profil extends Component {
                         <h4 className="text-center text-md-center"><strong>Hei, {this.state.bruker.fornavn}</strong></h4>
 
                         {/* Tekst elementer */}
-                        <p>Din profil er ikke synlig for andre brukere. Hvis du ønsker å oppdatere din profil kan du kontakte kundeservice.</p>
-                        <p>Slett eller endre brukerkonto</p>
-                        <p>Du kan slette din konto her, om du ikke lenger vil ha tilgang til tjenesten. Du kan også endre informasjon her.</p>
+                        <p>
+                            Din profil er ikke synlig for andre brukere.
+                            Hvis du ønsker å oppdatere din profil kan du gjøre det ved skrive inn ny informasjon i feltene under.
+                            Etter du har gjort endringene så trykker du på "Endre Bruker".
+                            Hvis du ønsker å slette din profil kan du gjøre det ved å trykke på knappen "Slett Bruker" under.
+                        </p>
                         
                     </Col>
 
