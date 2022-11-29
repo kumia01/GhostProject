@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import blåstolpe from '../img/blåstolper.png';
 
 {/* Henter nødvendig funksjonalitet fra reactstrap */ }
-import { Button, Form, Container, Col, Row, Card, CardHeader, CardTitle, CardBody, CardText, CardFooter } from 'reactstrap';
+import { Container, Col, Row} from 'reactstrap';
 
 {/* Importerer klassen LiveNyheter, som er en api for å kunne vise ferske nyheter */}
 import { StockTabell } from './StockTabell';
@@ -25,23 +25,23 @@ export class Home extends Component {
             // Container som inneholder html elementene til siden
             <Container>
 
-                {/* Rad som skalerer på enhet */}
+                { /* Rad som skalerer på enhet */ }
                 <Row fluid="true" className="align-items-center justify-content-center" id="home-row">
 
-                    {/* Kolonne som skalerer på enhet, skal inneholde tekst på hjemmesiden */}
+                    { /* Kolonne som skalerer på enhet, skal inneholde tekst på hjemmesiden */ }
                     <Col fluid="true" sm="12" md="6" lg="6" xl="6">
 
-                        {/* Undertittel, bruker elementet strong for å legge vekt på teksten */}
+                        { /* Undertittel, bruker elementet strong for å legge vekt på teksten */ }
                         <h3><strong>Hjelper unge voksne vinne økonomisk.</strong></h3>
 
-                        {/* Tekst */}
+                        { /* Tekst */ }
                         <p>
                             Ghost Finance er en brukervennlig aksjehandel- og investeringsplattform for unge investorer som deg.
                             <br />Jevnlig investering kan hjelpe deg bygge kapital og oppnå dine økonomiske mål.
                         </p>
                     </Col>
 
-                    {/* Bildekolonne */}
+                    { /* Bildekolonne */ }
                     <Col fluid="true" sm="12" md="6" lg="6" xl="6" className="bildekolonne">
                         <img
                             src={blåstolpe}
@@ -51,19 +51,19 @@ export class Home extends Component {
 
                 </Row>
 
-                {/* Brudd i koden for å kunne flytte nyhetene et par hakk under første raden */}
+                { /* Brudd i koden for å kunne flytte nyhetene et par hakk under første raden */ }
                 <br />
                 <br />
                 <br />
-
-                {/* Ny rad som skal vise nyheter */}
+                 
+                { /* Ny rad som skal vise aksjer */ }
                 <Row>
                     <Col></Col>
                     <Col fluid ="true"><h3 className="text-center"><strong>Aktuelle Aksjer nå</strong></h3></Col>
                     <Col></Col>
                 </Row>
 
-                {/* Rad for nyhets api */}
+                { /* Rad for aksjetabell */ }
                 <Row>
                     <Col></Col>
                     <Col sm="12" md="10" lg="10" xl="10">
